@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 08, 2015 at 01:26 AM
+-- Generation Time: Feb 08, 2015 at 09:59 AM
 -- Server version: 5.6.21
 -- PHP Version: 5.6.3
 
@@ -48,7 +48,6 @@ CREATE TABLE IF NOT EXISTS `competitions` (
   `name` varchar(150) NOT NULL,
   `description` text NOT NULL,
   `date` date NOT NULL,
-  `venue` varchar(200) NOT NULL,
   `status` tinyint(4) NOT NULL,
   `_date_created` datetime NOT NULL,
   `_date_modified` datetime NOT NULL
@@ -65,6 +64,9 @@ CREATE TABLE IF NOT EXISTS `contestants` (
   `competition_id` int(20) NOT NULL,
   `first_name` varchar(50) NOT NULL,
   `last_name` varchar(50) NOT NULL,
+  `birthdate` date NOT NULL,
+  `occupation` varchar(50) NOT NULL,
+  `detail` varchar(50) NOT NULL,
   `_date_created` datetime NOT NULL,
   `_date_modified` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
