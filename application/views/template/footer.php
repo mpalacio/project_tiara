@@ -13,7 +13,7 @@
         <?php if(is_array($scripts) AND count($scripts))
         {
             foreach($scripts AS $script)
-                echo "<script type='text/javascript' src='js/" . base_url($script); . ".js'></script>" . PHP_EOL;
+                echo "<script type='text/javascript' src='js/" . base_url($script) . ".js'></script>" . PHP_EOL;
         } ?>
     </body>
 </html>
