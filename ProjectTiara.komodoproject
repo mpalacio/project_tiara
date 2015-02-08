@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Komodo Project File - DO NOT EDIT -->
+<project id="6c280df6-b9c6-4d8e-a002-f852db022a0c" kpf_version="5" name="ProjectTiara.komodoproject">
+<preference-set idref="6c280df6-b9c6-4d8e-a002-f852db022a0c" id="project" preftype="project">
+  <string relative="path" id="import_dirname"></string>
+  <string id="jshint_linter_chooser">default</string>
+  <string id="jslint_linter_chooser">default</string>
+</preference-set>
+</project>
