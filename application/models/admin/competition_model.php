@@ -18,6 +18,9 @@ class Competition_model extends PT_Model {
         parent::__construct();
     }
     
+    /**
+     * 
+     */
     public function get($id = 0)
     {
         $competitions = array();
@@ -56,5 +59,26 @@ class Competition_model extends PT_Model {
         }
         
         return $segments;
+    }
+    /**
+     * Create Competition
+     *
+     * Description
+     *
+     * @author Gertrude R
+     * @since 1.0.0
+     * @version 1.0.0
+     */
+    public function create($data = array())
+    {
+        $competition = $this->instantiate($data);
+        
+        $competition->date = date("Y-m-d", strtotime($competition->date));
+        
+        $this->db->insert(self::$table, $competition);
+        
+        $competition->id = $this->db->insert_id();
+        
+        return $competition;
     }
 }

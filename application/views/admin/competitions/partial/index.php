@@ -16,17 +16,32 @@
                 </tr>
             </thead>
             <tbody>
+        <?php
+            if(is_array($competitions) AND count($competitions))
+            {
+                foreach($competitions AS $competition)
+                { ?>
                 <tr>
-                    <td>1</td>
-                    <td>Mutya ng Dabaw 2015</td>
-                    <td>78th Araw ng Davao Beauty Pageant</td>
-                    <td>February 28, 2015</td>
-                    <td>On-going</td>
+                    <td><?php echo $competition->id; ?></td>
+                    <td><?php echo $competition->name; ?></td>
+                    <td><?php echo $competition->description; ?></td>
+                    <td><?php echo $competition->date; ?></td>
+                    <td><?php echo $competition->status; ?></td>
                     <td class="hidden-print">
-                        <?php echo anchor("admin/competitions/edit/1", "Edit", "class='edit-competitions btn btn-default btn-sm'"); ?>
-                        <?php echo anchor("admin/competitions/delete/1", "Delete", "class='btn btn-default btn-sm'"); ?>
+                        <?php echo anchor("admin/competitions/edit/" . $competition->id, "Edit", "class='edit-competitions btn btn-default btn-sm'"); ?>
+                        <?php echo anchor("admin/competitions/delete/" . $competition->id, "Delete", "class='btn btn-default btn-sm'"); ?>
                     </td>
                 </tr>
+        <?php
+                }
+            } 
+            else
+            { ?>
+                <tr>
+                    <td colspan="6"></td>
+                </tr>
+        <?php
+            } ?>
             </tbody>
             <tfoot>
                 <tr>

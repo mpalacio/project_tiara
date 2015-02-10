@@ -11,7 +11,10 @@
         </footer>
         
         <script type="text/javascript" src="<?php echo base_url("js/jquery/jquery-1.11.2.js"); ?>"></script>
+        <script type="text/javascript" src="<?php echo base_url("js/jquery/jquery.cookie-1.4.1.js"); ?>"></script>
         <script type="text/javascript" src="<?php echo base_url("js/bootstrap/3.3.2/bootstrap.min.js"); ?>"></script>
+        <script type="text/javascript" src="<?php echo base_url("js/moment/2.9.0/moment.min.js"); ?>"></script>
+        <script type="text/javascript" src="<?php echo base_url("js/bootstrap/datetimepicker/4.0.0/bootstrap-datetimepicker.min.js"); ?>"></script>
         
         <?php if(is_array($scripts) AND count($scripts))
         {
