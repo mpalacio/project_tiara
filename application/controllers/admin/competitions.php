@@ -36,6 +36,7 @@ class Competitions extends PT_Controller {
         );
     }
     
+    
     public function create()
     {
         // AJAX Request

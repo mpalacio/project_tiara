@@ -19,7 +19,13 @@ class Competition_model extends PT_Model {
     }
     
     /**
-     * 
+     * Get Competition(s)
+     *
+     * Description
+     *
+     * @author Gertrude R
+     * @since 1.0.0
+     * @version 1.0.0
      */
     public function get($id = 0)
     {
@@ -53,12 +59,28 @@ class Competition_model extends PT_Model {
         
         if($this->id)
         {
-            $this->load->model("system/Segment_model", "segment_model");
+            $this->load->model("admin/Segment_model", "segment_model");
             
             $segments = $this->segment_model->by_competition($this->id);
         }
         
         return $segments;
+    }
+    /**
+     * @todo
+     */
+    public function segment($segment_id = 0)
+    {
+        $segments = NULL;
+        
+        if($this->id)
+        {
+            $this->load->model("admin/Segment_model", "segment_model");
+            
+            $segment = $this->segment_model->get($this->segment_id, $this->id);
+        }
+        
+        return $segment;
     }
     /**
      * Create Competition

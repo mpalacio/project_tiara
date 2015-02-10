@@ -1,5 +1,5 @@
 <div class="page-header">
-    <h1 class="clearfix">Competitions <?php echo anchor("admin/competitions/create", "Create", "id='competitions-create' class='btn btn-default pull-right hidden-print'"); ?>
+    <h1 class="clearfix">Competitions<?php echo anchor("admin/competitions/create", "Create", "id='competitions-create' class='btn btn-default pull-right hidden-print'"); ?>
 </div>
 
 <div class="row">
@@ -23,7 +23,7 @@
                 { ?>
                 <tr>
                     <td><?php echo $competition->id; ?></td>
-                    <td><?php echo $competition->name; ?></td>
+                    <td><?php echo anchor("admin/competitions/" . $competition->id . "/segments", $competition->name); ?></td>
                     <td><?php echo $competition->description; ?></td>
                     <td><?php echo $competition->date; ?></td>
                     <td><?php echo $competition->status; ?></td>
