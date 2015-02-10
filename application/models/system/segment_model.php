@@ -18,7 +18,6 @@ class Segment_model extends PT_Model {
     public function __construct()
     {
         parent::__construct();
-        
     }
     
     public function get($id = 0)

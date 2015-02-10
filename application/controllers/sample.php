@@ -16,6 +16,8 @@ class Sample extends CI_Controller {
             )
         );
         
+        
+        
         $this->load->view("template/footer", array(
                 "scripts" => array()
             )

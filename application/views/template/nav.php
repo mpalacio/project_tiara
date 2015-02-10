@@ -12,9 +12,7 @@
         
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-6">
             <ul class="nav navbar-nav">
-                <li class="active"><a href="#">Home</a></li>
-                <li><a href="#">Link</a></li>
-                <li><a href="#">Link</a></li>
+                <li class="active"><?php echo anchor("admin/competitions", "Competitions", "id='competition'"); ?></li>
             </ul>
         </div>
     </div>

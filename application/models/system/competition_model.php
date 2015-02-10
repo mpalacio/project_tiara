@@ -11,7 +11,7 @@ class Competition_model extends PT_Model {
     
     public $date = NULL;
     
-    public $status = NULL;
+    public $status = 1;
     
     public function __construct()
     {

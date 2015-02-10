@@ -1,4 +1,7 @@
-        </div> <!--/.container-->
+            <div class="modal">
+                <?php if($modal) echo $modal; ?>
+            </div>
+        </div> <!--/.container -->
         <footer>
             <nav class="navbar navbar-default navbar-fixed-bottom">
                 <div class="container">
@@ -13,7 +16,7 @@
         <?php if(is_array($scripts) AND count($scripts))
         {
             foreach($scripts AS $script)
-                echo "<script type='text/javascript' src='js/" . base_url($script) . ".js'></script>" . PHP_EOL;
+                echo "<script type='text/javascript' src='" . base_url("js/" . $script. ".js") . "'></script>" . PHP_EOL;
         } ?>
     </body>
 </html>
