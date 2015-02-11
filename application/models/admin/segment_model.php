@@ -19,12 +19,25 @@ class Segment_model extends PT_Model {
     {
         parent::__construct();
     }
-    
-    public function get($id = 0)
+    /**
+     * Get Segment(s)
+     *
+     * Description
+     *
+     * @author Gertrude R
+     * @since 1.0.0
+     * @version 1.0.0
+     */
+    public function get($id = 0, $competition_id = 0)
     {
         $segment = NULL;
         
-        $this->db->where(array("id" => $id));
+        $where = array("id" => $id);
+        
+        if($competition_id)
+            $where["competition_id"] = $competition_id;
+        
+        $this->db->where($where);
         
         $query = $this->db->get(self::$table);
         
@@ -34,6 +47,15 @@ class Segment_model extends PT_Model {
         return $segment;
     }
     
+    /**
+     * Get Segments By Competition
+     *
+     * Description
+     *
+     * @author Gertrude R
+     * @since 1.0.0
+     * @version 1.0.0
+     */
     public function by_competition($competition_id = 0)
     {
         $segments = array();
@@ -52,5 +74,24 @@ class Segment_model extends PT_Model {
         }
         
         return $segments;
+    }
+    
+    /**
+     * 
+     */
+    public function segment_contestants()
+    {
+        $segment_contestants = array();
+        
+        if($this->id)
+        {
+            $this->load->model("admin/Segment_contestant_model", "segment_contestant_model");
+            
+            $segment_contestants = $this->segment_contestant_model->by_segment($this->id);
+        
+            print_r($contestants);
+        }
+        
+        return $segment_contestants;
     }
 }

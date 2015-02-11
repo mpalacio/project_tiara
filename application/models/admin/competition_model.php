@@ -67,7 +67,13 @@ class Competition_model extends PT_Model {
         return $segments;
     }
     /**
-     * @todo
+     * Get Single Competition Segment
+     *
+     * Description
+     *
+     * @author Gertrude R
+     * @since 1.0.0
+     * @version 1.0.0
      */
     public function segment($segment_id = 0)
     {
@@ -77,7 +83,7 @@ class Competition_model extends PT_Model {
         {
             $this->load->model("admin/Segment_model", "segment_model");
             
-            $segment = $this->segment_model->get($this->segment_id, $this->id);
+            $segment = $this->segment_model->get($segment_id, $this->id);
         }
         
         return $segment;
