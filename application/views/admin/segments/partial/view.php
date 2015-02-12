@@ -15,13 +15,15 @@
             <!-- Tab panes -->
             <div class="tab-content">
                 <div role="tabpanel" class="tab-pane active" id="contestants">
-                <?php $this->load->view("admin/contestants/partial/index", array("segment_contestants" => $segment->segment_contestants())); ?>
+                <?php $this->load->view("admin/contestants/partial/index", array("segment" => $segment)); ?>
                 </div>
+                
                 <div role="tabpanel" class="tab-pane" id="criterias">
                     
                 </div>
+                
                 <div role="tabpanel" class="tab-pane" id="judges">
-                    
+                <?php $this->load->view("admin/judges/partial/index", array("segment" => $segment)); ?>
                 </div>
             </div>
         </div>

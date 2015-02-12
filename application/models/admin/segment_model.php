@@ -77,7 +77,13 @@ class Segment_model extends PT_Model {
     }
     
     /**
-     * 
+     * Get Segment Contestants
+     *
+     * Description
+     *
+     * @author Gertrude R
+     * @since 1.0.0
+     * @version 1.0.0
      */
     public function segment_contestants()
     {
@@ -93,5 +99,28 @@ class Segment_model extends PT_Model {
         }
         
         return $segment_contestants;
+    }
+    
+    /**
+     * Get Segment Judges
+     *
+     * Description
+     *
+     * @author Gertrude R
+     * @since 1.0.0
+     * @version 1.0.0
+     */
+    public function segment_judges()
+    {
+        $segment_judges = array();
+        
+        if($this->id)
+        {
+            $this->load->model("admin/Segment_judge_model", "segment_judge_model");
+            
+            $segment_judges = $this->segment_judge_model->by_segment($this->id);
+        }
+        
+        return $segment_judges;
     }
 }

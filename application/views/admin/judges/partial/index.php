@@ -1,6 +1,6 @@
 <p class="text-right">
+<?php echo anchor("admin/competitions/" . $segment->competition_id . "/segments/" . $segment->id . "/judges/create", "Create", "id='create-judges' class='btn btn-default'"); ?>
     <button class="btn btn-default">Fetch from Segment</button>
-    <button class="btn btn-default">Create</button>
 </p>
 
 <div class="row">
@@ -9,28 +9,24 @@
             <thead>
                 <tr>
                     <th>ID</th>
-                    <th>Number</th>
                     <th>Name</th>
-                    <th>Description</th>
-                    <th>Date</th>
-                    <th >Status</th>
+                    <th>Username</th>
+                    <th>Status</th>
                     <th class="hidden-print">&nbsp;</th>
                 </tr>
             </thead>
             <tbody>
         <?php
-            if(is_array($segment_contestants) AND count($segment_contestants))
+            if(is_array($segment_judges) AND count($segment_judges))
             {
-                foreach($segment_contestants AS $segment_contestant)
+		foreach($segment_judges AS $segment_judge)
                 {
-                    $contestant = $segment_contestant->contestant(); ?>
+                    $judge = $segment_judge->judge(); ?>
                 <tr>
-                    <td><?php echo $contestant->id; ?></td>
-                    <td><?php echo $segment_contestant->number; ?></td>
-                    <td><?php echo $contestant->first_name . " " . $contestant->last_name; ?></td>
-                    <td><?php echo ""; ?></td>
-                    <td><?php echo ""; ?></td>
-                    <td><?php echo ""; ?></td>
+                    <td><?php echo $judge->id; ?></td>
+                    <td><?php echo $judge->first_name . " " . $judge->last_name; ?></td>
+                    <td><?php echo $judge->username; ?></td>
+                    <td><?php echo $judge->status; ?></td>
                     <td class="hidden-print">
                         <?php echo anchor("admin/segment/edit/" . $segment->id, "Edit", "class='edit-competitions btn btn-default btn-sm'"); ?>
                         <?php echo anchor("admin/segment/delete/" . $segment->id, "Delete", "class='btn btn-default btn-sm'"); ?>
