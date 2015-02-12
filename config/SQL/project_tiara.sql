@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 12, 2015 at 05:54 AM
+-- Generation Time: Feb 12, 2015 at 10:23 AM
 -- Server version: 5.6.21
 -- PHP Version: 5.6.3
 
@@ -139,15 +139,17 @@ CREATE TABLE IF NOT EXISTS `segments` (
   `status` tinyint(1) NOT NULL,
   `_date_created` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `_date_modified` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `segments`
 --
 
 INSERT INTO `segments` (`id`, `competition_id`, `name`, `description`, `date`, `venue`, `status`, `_date_created`, `_date_modified`) VALUES
-(1, 1, 'Screening', '', '2015-02-21 00:00:00', 'Gaisano Grand', 1, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
-(2, 1, 'Top 15', '', '2015-03-07 00:00:00', 'Gaisano Mall', 1, '0000-00-00 00:00:00', '0000-00-00 00:00:00');
+(1, 1, 'Selection of Top 15', '', '2015-02-28 00:00:00', 'Gaisano Grand', 1, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(2, 1, 'Talent Competition', '', '2015-03-06 00:00:00', 'Gaisano Mall', 1, '2015-02-12 00:06:35', '2015-02-12 00:06:35'),
+(3, 1, 'Top 5', '', '2015-03-11 00:00:00', 'SM Lanang', 1, '2015-02-12 00:09:06', '2015-02-12 00:09:06'),
+(4, 1, 'Selection of Winners', '', '2015-03-11 00:00:00', 'SM Lanang', 1, '2015-02-12 00:10:32', '2015-02-12 00:10:32');
 
 -- --------------------------------------------------------
 
@@ -159,8 +161,16 @@ CREATE TABLE IF NOT EXISTS `segments_as_criteria` (
 `id` int(20) NOT NULL,
   `segment_id` int(20) NOT NULL,
   `node_segment_id` int(20) NOT NULL,
-  `percentage` decimal(3,2) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `percentage` decimal(3,0) NOT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `segments_as_criteria`
+--
+
+INSERT INTO `segments_as_criteria` (`id`, `segment_id`, `node_segment_id`, `percentage`) VALUES
+(1, 4, 3, '50'),
+(2, 3, 2, '15');
 
 -- --------------------------------------------------------
 
@@ -194,10 +204,32 @@ INSERT INTO `segment_contestants` (`id`, `segment_id`, `contestant_id`, `number`
 CREATE TABLE IF NOT EXISTS `segment_criterias` (
 `id` int(20) NOT NULL,
   `segment_id` int(20) NOT NULL,
-  `percentage` decimal(3,2) NOT NULL,
+  `name` varchar(50) NOT NULL,
+  `percentage` decimal(3,0) NOT NULL,
   `_date_created` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `_date_modified` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `segment_criterias`
+--
+
+INSERT INTO `segment_criterias` (`id`, `segment_id`, `name`, `percentage`, `_date_created`, `_date_modified`) VALUES
+(1, 1, 'Intelligence', '25', '2015-02-12 00:11:52', '2015-02-12 00:11:52'),
+(2, 1, 'Personality', '25', '2015-02-12 00:11:52', '2015-02-12 00:11:52'),
+(3, 1, 'Casual Competition', '20', '2015-02-12 00:12:28', '2015-02-12 00:12:28'),
+(4, 1, 'Long Gown Competition', '20', '2015-02-12 00:12:28', '2015-02-12 00:12:28'),
+(5, 1, 'Deportment', '10', '2015-02-12 00:13:36', '2015-02-12 00:13:36'),
+(6, 2, 'Special skills, abilities and uniqueness of talent', '30', '2015-02-12 00:13:36', '2015-02-12 00:13:36'),
+(7, 2, 'Performance and execution', '30', '2015-02-12 00:14:03', '2015-02-12 00:14:03'),
+(8, 2, 'Showmanship', '15', '2015-02-12 00:14:03', '2015-02-12 00:14:03'),
+(9, 2, 'Over-all impact', '15', '2015-02-12 00:14:29', '2015-02-12 00:14:29'),
+(10, 2, 'Deportment', '10', '2015-02-12 00:14:29', '2015-02-12 00:14:29'),
+(11, 3, 'Intelligence', '25', '2015-02-12 00:15:08', '2015-02-12 00:15:08'),
+(12, 3, 'Personality', '30', '2015-02-12 00:15:08', '2015-02-12 00:15:08'),
+(13, 3, 'Casual Competition', '15', '2015-02-12 00:15:37', '2015-02-12 00:15:37'),
+(14, 3, 'Long Gown Competition', '15', '2015-02-12 00:15:37', '2015-02-12 00:15:37'),
+(16, 4, 'Question and answer', '50', '2015-02-12 00:16:34', '2015-02-12 00:16:34');
 
 -- --------------------------------------------------------
 
@@ -227,14 +259,17 @@ CREATE TABLE IF NOT EXISTS `segment_judges` (
   `judge_id` int(20) NOT NULL,
   `_date_created` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `_date_modified` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `segment_judges`
 --
 
 INSERT INTO `segment_judges` (`id`, `segment_id`, `judge_id`, `_date_created`, `_date_modified`) VALUES
-(1, 1, 1, '0000-00-00 00:00:00', '0000-00-00 00:00:00');
+(1, 1, 1, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(2, 2, 1, '2015-02-11 23:14:37', '2015-02-11 23:14:37'),
+(3, 3, 1, '2015-02-12 00:41:29', '2015-02-12 00:41:29'),
+(4, 4, 1, '2015-02-12 00:41:29', '2015-02-12 00:41:29');
 
 --
 -- Indexes for dumped tables
@@ -339,12 +374,12 @@ MODIFY `id` int(20) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
 -- AUTO_INCREMENT for table `segments`
 --
 ALTER TABLE `segments`
-MODIFY `id` int(20) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
+MODIFY `id` int(20) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=5;
 --
 -- AUTO_INCREMENT for table `segments_as_criteria`
 --
 ALTER TABLE `segments_as_criteria`
-MODIFY `id` int(20) NOT NULL AUTO_INCREMENT;
+MODIFY `id` int(20) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT for table `segment_contestants`
 --
@@ -354,7 +389,7 @@ MODIFY `id` int(20) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=4;
 -- AUTO_INCREMENT for table `segment_criterias`
 --
 ALTER TABLE `segment_criterias`
-MODIFY `id` int(20) NOT NULL AUTO_INCREMENT;
+MODIFY `id` int(20) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=17;
 --
 -- AUTO_INCREMENT for table `segment_criteria_scores`
 --
@@ -364,7 +399,7 @@ MODIFY `id` int(20) NOT NULL AUTO_INCREMENT;
 -- AUTO_INCREMENT for table `segment_judges`
 --
 ALTER TABLE `segment_judges`
-MODIFY `id` int(20) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
+MODIFY `id` int(20) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=5;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
