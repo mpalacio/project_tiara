@@ -13,11 +13,13 @@ class Judge_model extends PT_Model {
     
     public $password = NULL;
     
-    public $status = NULL;
+    public $status = 1;
     
     public function __construct()
     {
 	parent::__construct();
+	
+	$this->load->library("encrypt");
     }
     
     public function get($id = 0)
@@ -36,5 +38,18 @@ class Judge_model extends PT_Model {
         }
         
         return ($id) ? array_shift($judges) : $judges;
+    }
+    
+    public function create($data = array())
+    {
+	$judge = $this->instantiate($data);
+        
+	$judge->password = $this->encrypt->sha1($judge->password);
+	
+        $this->db->insert(self::$table, $judge);
+        
+        $judge->id = $this->db->insert_id();
+        
+        return $judge;
     }
 }

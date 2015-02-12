@@ -85,7 +85,7 @@ class Segment_model extends PT_Model {
      * @since 1.0.0
      * @version 1.0.0
      */
-    public function segment_contestants()
+    public function contestants()
     {
         $segment_contestants = array();
         
@@ -94,8 +94,6 @@ class Segment_model extends PT_Model {
             $this->load->model("admin/Segment_contestant_model", "segment_contestant_model");
             
             $segment_contestants = $this->segment_contestant_model->by_segment($this->id);
-        
-            print_r($contestants);
         }
         
         return $segment_contestants;
@@ -110,7 +108,7 @@ class Segment_model extends PT_Model {
      * @since 1.0.0
      * @version 1.0.0
      */
-    public function segment_judges()
+    public function judges()
     {
         $segment_judges = array();
         
@@ -122,5 +120,23 @@ class Segment_model extends PT_Model {
         }
         
         return $segment_judges;
+    }
+    
+    public function new_judge($data = array())
+    {
+        $segment_judge = NULL;
+        
+        if($this->id)
+        {
+            $this->load->model("admin/Judge_model", "judge_model");
+            
+            $judge = $this->judge_model->create($data);
+            
+            $this->load->model("admin/Segment_judge_model", "segment_judge_model");
+            
+            $segment_judge = $this->segment_judge_model->create(array("segment_id" => $this->id, "judge_id" => $judge->id));
+        }
+        
+        return $segment_judge;
     }
 }

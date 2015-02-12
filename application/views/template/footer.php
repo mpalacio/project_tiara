@@ -16,6 +16,8 @@
         <script type="text/javascript" src="<?php echo base_url("js/moment/2.9.0/moment.min.js"); ?>"></script>
         <script type="text/javascript" src="<?php echo base_url("js/bootstrap/datetimepicker/4.0.0/bootstrap-datetimepicker.min.js"); ?>"></script>
         
+        <script type="text/javascript" src="<?php echo base_url("js/tiara/main.js"); ?>"></script>
+        
         <?php if(is_array($scripts) AND count($scripts))
         {
             foreach($scripts AS $script)

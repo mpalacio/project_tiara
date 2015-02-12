@@ -1,6 +1,6 @@
 <p class="text-right">
-<?php echo anchor("admin/competitions/" . $segment->competition_id . "/segments/" . $segment->id . "/judges/create", "Create", "id='create-judges' class='btn btn-default'"); ?>
-    <button class="btn btn-default">Fetch from Segment</button>
+<a href="<?php echo base_url("admin/competitions/" . $segment->competition_id . "/segments/" . $segment->id . "/judges/create"); ?>" class="btn btn-default" id="create-judge">Create</a>
+<a href="<?php echo base_url("admin/competitions/" . $segment->competition_id . "/segments/" . $segment->id . "/judges/get"); ?>" class="btn btn-default" id="get-judge">Get from Segment</a>
 </p>
 
 <div class="row">
@@ -16,10 +16,10 @@
                 </tr>
             </thead>
             <tbody>
-        <?php
-            if(is_array($segment_judges) AND count($segment_judges))
+        <?php 
+            if(is_array($segment->judges()) AND count($segment->judges()))
             {
-		foreach($segment_judges AS $segment_judge)
+		foreach($segment->judges() AS $segment_judge)
                 {
                     $judge = $segment_judge->judge(); ?>
                 <tr>
@@ -38,14 +38,14 @@
             else
             { ?>
                 <tr>
-                    <td colspan="7"></td>
+                    <td colspan="5">&nbsp;</td>
                 </tr>
         <?php
             } ?>
             </tbody>
             <tfoot>
                 <tr>
-                    <td colspan="7">Total: 1</td>
+                    <td colspan="7">Total: <?php echo count($segment->judges()); ?></td>
                 </tr>
             </tfoot>
         </table>

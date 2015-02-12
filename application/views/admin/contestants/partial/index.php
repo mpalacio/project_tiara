@@ -1,6 +1,6 @@
 <p class="text-right">
-    <button class="btn btn-default">Fetch from Segment</button>
     <button class="btn btn-default">Create</button>
+    <button class="btn btn-default">Fetch from Segment</button>
 </p>
 
 <div class="row">
@@ -42,7 +42,7 @@
             else
             { ?>
                 <tr>
-                    <td colspan="7"></td>
+                    <td colspan="7">&nbsp;</td>
                 </tr>
         <?php
             } ?>

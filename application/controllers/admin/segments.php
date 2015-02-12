@@ -47,9 +47,7 @@ class Segments extends PT_Controller {
         
         $competition = $this->competition_model->get($competition_id);
         
-        $segment = $competition->segment($id);
-        
-        $this->load->view("admin/segments/partial/view", array("competition" => $competition, "segment" => $segment));
+        $this->load->view("admin/segments/partial/view", array("competition" => $competition, "segment" => $competition->segment($id)));
         
         $this->load->view("template/footer", array(
                 "scripts" => array(

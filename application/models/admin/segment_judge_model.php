@@ -58,4 +58,15 @@ class Segment_judge_model extends PT_Model {
 	
 	return $judge;
     }
+    
+    public function create($data = array())
+    {
+	$segment_judge = $this->instantiate($data);
+        
+        $this->db->insert(self::$table, $segment_judge);
+        
+        $segment_judge->id = $this->db->insert_id();
+        
+        return $segment_judge;
+    }
 }

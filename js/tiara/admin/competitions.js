@@ -1,13 +1,14 @@
 $(document).ready(function() {
     initialize()
     
-    $('#create-competitions').click(function(event) {
+    $('#create-competition').click(function(event) {
         event.preventDefault()
         
         var href = $(this).attr("href")
         
         $.ajax({
             url: href,
+            type: "POST",
             success: function(response) {
                 try {
                     response = $.parseJSON(response)

@@ -49,6 +49,10 @@ class Competitions extends PT_Controller {
         // GET Request
         else
         {
+            $competitions = array();
+        
+            $competitions = $this->competition_model->get();
+            
             $this->load->view("template/header", array(
                     "title" => "Sample | Index",
                     "styles" => array(
@@ -58,7 +62,7 @@ class Competitions extends PT_Controller {
                 )
             );
             
-            $this->load->view("admin/competitions/partial/index");
+            $this->load->view("admin/competitions/partial/index", array("competitions" => $competitions));
             
             $this->load->view("template/footer", array(
                     "modal" => $this->load->view("admin/competitions/modal/create", array(), TRUE),
@@ -73,9 +77,9 @@ class Competitions extends PT_Controller {
     
     public function save()
     {
-        $competition = $this->input->post("competition");
+        $competition = json_decode($this->input->post("competition"), TRUE);
         
-        $competition = $this->competition_model->create(json_decode($competition, TRUE));
+        $competition = $this->competition_model->create($competition);
         
         echo json_encode($competition);
     }

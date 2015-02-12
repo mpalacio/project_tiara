@@ -1,5 +1,5 @@
 <div class="page-header">
-    <h1 class="clearfix">Competitions<?php echo anchor("admin/competitions/create", "Create", "id='competitions-create' class='btn btn-default pull-right hidden-print'"); ?>
+    <h1 class="clearfix">Competitions<?php echo anchor("admin/competitions/create", "Create", "id='create-competition' class='btn btn-default pull-right hidden-print'"); ?>
 </div>
 
 <div class="row">

@@ -6,7 +6,7 @@
         </div>
         
         <div class="modal-body">
-            <form action="<?php echo base_url("admin/competition/" . $segment->competition_id . "/segments/" . $segment->id . "/judges/save"); ?>" method="post">
+            <form action="<?php echo base_url("admin/competitions/" . $segment->competition_id . "/segments/" . $segment->id . "/judges/save"); ?>" method="post">
                 <div class="form-group">
                     <label for="name">Name</label>
                     <div class="row">
@@ -23,11 +23,11 @@
                     <div class="row">
 			<div class="col-md-6">
 			    <label for="name">Username</label>
-			    <input type="text" class="form-control" id="first-name" placeholder="Username" />
+			    <input type="text" class="form-control" id="username" placeholder="Username" />
 			</div>
 			<div class="col-md-6">
 			    <label for="name">Password</label>
-			    <input type="text" class="form-control" id="last-name" placeholder="Password" />
+			    <input type="password" class="form-control" id="password" placeholder="Password" />
 			</div>
 		    </div>
                 </div>
