@@ -17,7 +17,7 @@
         <script type="text/javascript" src="<?php echo base_url("js/bootstrap/datetimepicker/4.0.0/bootstrap-datetimepicker.min.js"); ?>"></script>
         
         <script type="text/javascript" src="<?php echo base_url("js/tiara/main.js"); ?>"></script>
-        
+        s
         <?php if(is_array($scripts) AND count($scripts))
         {
             foreach($scripts AS $script)
