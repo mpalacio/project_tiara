@@ -49,5 +49,6 @@ $route['admin/competitions/(:num)/segments/(view)/(:num)'] = 'admin/segments/$2/
 
 $route['admin/competitions/(:num)/segments/(:num)/judges'] = 'admin/judges/$2/$1';
 $route['admin/competitions/(:num)/segments/(:num)/judges/(create|get|save)'] = 'admin/judges/$3/$2/$1';
+s
 /* End of file routes.php */
 /* Location: ./application/config/routes.php */
