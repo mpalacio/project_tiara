@@ -4,10 +4,10 @@
         <title><?php echo $title; ?></title>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
-    
+
         <link rel="stylesheet" href="<?php echo base_url("css/bootstrap/3.3.2/bootstrap.min.css"); ?>" />
         <link rel="stylesheet" href="<?php echo base_url("css/bootstrap/datetimepicker/4.0.0/bootstrap-datetimepicker.min.css"); ?>" />
-        
+
         <?php if(is_array($styles) AND count($styles))
         {
             foreach($styles AS $style)
@@ -15,8 +15,7 @@
         } ?>
     </head>
     <body>
-        <?php echo $nav; ?>
-        
+        <?php echo isset($nav) ? $nav : ""; ?>
+
         <div class="container">
-            
-        
+

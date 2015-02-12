@@ -42,12 +42,16 @@ $route['default_controller'] = "welcome";
 $route['404_override'] = '';
 
 /**
- * 
+ *
  */
 $route['admin/competitions/(:num)/segments'] = 'admin/segments/index/$1';
 $route['admin/competitions/(:num)/segments/(view)/(:num)'] = 'admin/segments/$2/$3/$1';
 
 $route['admin/competitions/(:num)/segments/(:num)/judges'] = 'admin/judges/$2/$1';
 $route['admin/competitions/(:num)/segments/(:num)/judges/(create)'] = 'admin/judges/$3/$2/$1';
+
+$route['competition_segments'] = 'judges/competition_segments/$1';
+$route['judge/(:num)'] = 'judges/judging/$1';
+$route['review/(:num)'] = 'judges/review/$1';
 /* End of file routes.php */
 /* Location: ./application/config/routes.php */
