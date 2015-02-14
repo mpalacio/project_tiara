@@ -9,7 +9,21 @@ class Contestant_model extends PT_Model {
     
     public $first_name = NULL;
     
+    public $middle_name = NULL;
+    
     public $last_name = NULL;
+    
+    public $birthday = NULL;
+    
+    public $occupation = NULL;
+    
+    public $telephone = NULL;
+    
+    public $mobile = NULL;
+    
+    public $email = NULL;
+    
+    public $citizenship = NULL;
     
     public function __construct()
     {
@@ -32,5 +46,16 @@ class Contestant_model extends PT_Model {
         }
         
         return ($id) ? array_shift($contestants) : $contestants;
+    }
+    
+    public function create($data = array())
+    {
+        $contestant = $this->instantiate($data);
+        
+        $this->db->insert(self::$table, $contestant);
+        
+        $contestant->id = $this->db->insert_id();
+        
+        return $contestant;
     }
 }

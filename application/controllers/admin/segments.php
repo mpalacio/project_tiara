@@ -51,6 +51,7 @@ class Segments extends PT_Controller {
         
         $this->load->view("template/footer", array(
                 "scripts" => array(
+                    "tiara/admin/contestants", 
                     "tiara/admin/judges"
                 )
             )

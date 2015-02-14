@@ -46,4 +46,15 @@ class Segment_contestant_model extends PT_Model {
         
         return $contestant;
     }
+    
+    public function create($data = array())
+    {
+	$segment_contestant = $this->instantiate($data);
+        
+        $this->db->insert(self::$table, $segment_contestant);
+        
+        $segment_contestant->id = $this->db->insert_id();
+        
+        return $segment_contestant;
+    }
 }

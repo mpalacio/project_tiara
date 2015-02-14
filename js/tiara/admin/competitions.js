@@ -1,6 +1,11 @@
 $(document).ready(function() {
     initialize()
     
+    $('#date').datetimepicker({
+        format: 'MM/DD/YYYY',
+        keepOpen: true
+    })
+    
     $('#create-competition').click(function(event) {
         event.preventDefault()
         
@@ -16,7 +21,10 @@ $(document).ready(function() {
                     if (response.status == "success") {
                         $('.modal').html(response.data.modal).modal('show')
                         
-                        window.history.replaceState({}, null, href)
+                        $('#date').datetimepicker({
+                            format: 'MM/DD/YYYY',
+                            keepOpen: true
+                        })
                     }
                 } catch(e) {
                     console.log(e)
@@ -64,24 +72,6 @@ $(document).ready(function() {
         window.history.replaceState({}, null, $('#competition').attr('href'))
     })
 })
-
-function initialize() {
-    $('#date').datetimepicker({
-        format: 'MM/DD/YYYY',
-        keepOpen: true
-    })
-    
-    $.ajaxSetup({
-        data: {
-            csrf_pt_token: $.cookie('csrf_pt_cookie')
-        }
-    })
-    
-    if($('.modal').children().length)
-    {
-        $('.modal').modal('show')
-    }
-}
 
 function Competition() {
     this.name = null;

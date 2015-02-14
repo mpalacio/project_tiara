@@ -1,6 +1,6 @@
 <p class="text-right">
-    <button class="btn btn-default">Create</button>
-    <button class="btn btn-default">Fetch from Segment</button>
+    <a href="<?php echo base_url("admin/competitions/" . $segment->competition_id . "/segments/" . $segment->id . "/contestants/create"); ?>" class="btn btn-default" id="create-contestant">Create</a>
+    <a href="<?php echo base_url("admin/competitions/" . $segment->competition_id . "/segments/" . $segment->id . "/contestants/get"); ?>" class="btn btn-default" id="get-contestants">Get from Segment</a>
 </p>
 
 <div class="row">

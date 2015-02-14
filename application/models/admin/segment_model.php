@@ -122,6 +122,10 @@ class Segment_model extends PT_Model {
         return $segment_judges;
     }
     
+    
+    /**
+     * Create New Segment Judge
+     */
     public function new_judge($data = array())
     {
         $segment_judge = NULL;
@@ -138,5 +142,23 @@ class Segment_model extends PT_Model {
         }
         
         return $segment_judge;
+    }
+    
+    public function new_contestant($data = array())
+    {
+        $segment_contestant = NULL;
+        
+        if($this->id)
+        {
+            $this->load->model("admin/Contestant_model", "contestant_model");
+            
+            $contestant = $this->contestant_model->create($data);
+            
+            $this->load->model("admin/Segment_contestant_model", "segment_contestant_model");
+            
+            $segment_contestant = $this->segment_contestant_model->create(array("segment_id" => $this->id, "contestant_id" => $contestant->id));
+        }
+        
+        return $segment_contestant;
     }
 }
