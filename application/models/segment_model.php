@@ -6,27 +6,46 @@ class Segment_model extends CI_Model {
 		$this->load->helper('date');
 	}
 
-	function get_segments() {
-		return $this->db->get('segments');
+	function get_competition_segments($id) {
+		$this->db->select('segments.name AS segment_name, competitions.name AS competition_name, segments.id AS segment_id');
+		$this->db->from('segment_judges');
+		$this->db->join('segments', 'segment_judges.segment_id = segments.id');
+		$this->db->join('competitions', 'competitions.id = segments.competition_id');
+		$this->db->where('segment_judges.judge_id', $id);
+		$query = $this->db->get();
+		return $query->result();
 	}
 
-	function add_segment() {
-		$this->input->post('_date_created') = now();
-		$this->db->insert('segments', $this->input->post());
+	function get_segment_criterias($id) {
+		$this->db->where('segment_id', $id);
+		$query = $this->db->get('segment_criterias');
+		return $query->result();
 	}
 
-	function delete_segment() {
-		$this->db->delete('segments', $this->input->post());
+	function get_segment_as_criteria_criterias($id) {
+		$this->db->select('segments_as_criteria.*, segments.name');
+		$this->db->from('segments_as_criteria');
+		$this->db->join('segments', 'segments.id = segments_as_criteria.node_segment_id');
+		$this->db->where('segments_as_criteria.segment_id', $id);
+		$query = $this->db->get();
+		return $query->result();
 	}
 
-	function edit_segment() {
-		$fields = array();
-		foreach (array('first_name', 'last_name', 'username', 'password', 'status') as $field)
-			if(isset($this->input->post($field)))
-				$fields[$field] => $this->input->post($field);
-		$fields['_date_modified'] = now();
-		$this->db->where('id', $this->input->post('id'));
-		$this->db->update('segments', $fields);
+	function get_contestants($id) {
+		$this->db->select('segment_contestants.*, contestants.*, segment_contestants.id AS segment_contestant_id');
+		$this->db->from('segment_contestants');
+		$this->db->join('contestants', 'contestants.id = segment_contestants.contestant_id');
+		$this->db->where('segment_contestants.segment_id', $id);
+		$query = $this->db->get();
+		return $query->result();
+	}
+
+	function get_segment_judge($judge_id, $segment_id) {
+		$this->db->from('segment_judges');
+		$this->db->where('judge_id', $judge_id);
+		$this->db->where('segment_id', $segment_id);
+		$query = $this->db->get();
+		return $query->row();
 	}
 
 }

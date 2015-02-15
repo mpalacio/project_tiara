@@ -16,14 +16,13 @@ class Judges extends PT_Controller {
 		));
 		$this->load->view("judges/partial/index");
 		$this->load->view("template/footer");
-
-		echo "";
 	}
 
 	public function competition_segments(){
 		$this->load->model("Segment_model", "segment_model");
+		$judge_id = 1;
 
-		$competition_segments = $this->segment_model->get_competition_segments(1);
+		$competition_segments = $this->segment_model->get_competition_segments($judge_id);
 
 		$this->load->view("template/header", array(
 			"title" => "Sample | Index",
@@ -37,12 +36,14 @@ class Judges extends PT_Controller {
 		$this->load->view("template/footer");
 	}
 
-	public function judging($id){
+	public function judging($segment_id){
 		$this->load->model("Segment_model", "segment_model");
+		$judge_id = 1;
 
-		$segment_criterias = $this->segment_model->get_segment_criterias($id);
-		$segment_as_criteria_criterias = $this->segment_model->get_segment_as_criteria_criterias($id);
-		$contestants = $this->segment_model->get_contestants($id);
+		$segment_criterias = $this->segment_model->get_segment_criterias($segment_id);
+		$segment_as_criteria_criterias = $this->segment_model->get_segment_as_criteria_criterias($segment_id);
+		$contestants = $this->segment_model->get_contestants($segment_id);
+		$segment_judge = $this->segment_model->get_segment_judge($judge_id, $segment_id);
 
 		$this->load->view("template/header", array(
 			"title" => "Sample | Index",
@@ -51,8 +52,12 @@ class Judges extends PT_Controller {
 			),
 			"nav" => $this->load->view("judges/nav", array(), TRUE)
 		));
-		$this->load->view("judges/partial/judging", compact('segment_criterias', 'segment_as_criteria_criterias', 'contestants'));
-		$this->load->view("template/footer");
+		$this->load->view("judges/partial/judging", compact('segment_criterias', 'segment_as_criteria_criterias', 'contestants', 'segment_judge'));
+		$this->load->view("template/footer", array(
+			"scripts" => array(
+				"tiara/judges"
+			)
+		));
 	}
 
 	public function profile(){
