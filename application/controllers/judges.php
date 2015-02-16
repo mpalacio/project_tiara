@@ -35,7 +35,7 @@ class Judges extends PT_Controller {
 		$this->load->view("judges/partial/competition_segments", compact("competition_segments"));
 		$this->load->view("template/footer");
 	}
-
+	
 	public function judging($segment_id){
 		$this->load->model("Segment_model", "segment_model");
 		$judge_id = 1;

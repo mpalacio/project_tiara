@@ -11,7 +11,7 @@
                     <th>ID</th>
                     <th>Number</th>
                     <th>Name</th>
-                    <th>Description</th>
+                    <th>Birthday</th>
                     <th>Date</th>
                     <th >Status</th>
                     <th class="hidden-print">&nbsp;</th>
@@ -19,9 +19,9 @@
             </thead>
             <tbody>
         <?php
-            if(is_array($segment_contestants) AND count($segment_contestants))
+            if(is_array($segment->contestants()) AND count($segment->contestants()))
             {
-                foreach($segment_contestants AS $segment_contestant)
+                foreach($segment->contestants() AS $segment_contestant)
                 {
                     $contestant = $segment_contestant->contestant(); ?>
                 <tr>
@@ -32,8 +32,8 @@
                     <td><?php echo ""; ?></td>
                     <td><?php echo ""; ?></td>
                     <td class="hidden-print">
-                        <?php echo anchor("admin/segment/edit/" . $segment->id, "Edit", "class='edit-competitions btn btn-default btn-sm'"); ?>
-                        <?php echo anchor("admin/segment/delete/" . $segment->id, "Delete", "class='btn btn-default btn-sm'"); ?>
+                        <?php echo anchor("admin/competitions/" . $segment->competition_id . "/segments/" . $segment->id . "/contestants/edit/" . $contestant->id, "Edit", "class='edit-competitions btn btn-default btn-sm'"); ?>
+                        <?php echo anchor("admin/competitions/" . $segment->competition_id . "/segments/" . $segment->id . "/contestants/delete/" . $contestant->id, "Delete", "class='btn btn-default btn-sm'"); ?>
                     </td>
                 </tr>
         <?php

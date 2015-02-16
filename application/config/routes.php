@@ -75,10 +75,22 @@ $route['admin/competitions/(:num)/segments/(:num)/judges/(create|get|save)'] = '
  */
 
 /**
- *
+ * 
  */
 $route['competition_segments'] = 'judges/competition_segments/$1';
 $route['judge/(:num)'] = 'judges/judging/$1';
 // $route['competition_segments'] = 'judges/review/$1';
+
+/**
+ * Tiara Competition Cover Routing Table
+ * @code begin
+ */
+$route['([a-z0-9-]+)'] = 'competitions/index/$1';
+$route['([a-z0-9-]+)/login'] = 'competitions/login/$1';
+/**
+ * Tiara Competition Cover Routing Table
+ * @code end
+ */
+
 /* End of file routes.php */
 /* Location: ./application/config/routes.php */

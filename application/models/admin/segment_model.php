@@ -122,7 +122,6 @@ class Segment_model extends PT_Model {
         return $segment_judges;
     }
     
-    
     /**
      * Create New Segment Judge
      */

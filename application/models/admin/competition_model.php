@@ -9,6 +9,8 @@ class Competition_model extends PT_Model {
     
     public $description = NULL;
     
+    public $slug = NULL;
+    
     public $date = NULL;
     
     public $status = 1;
@@ -43,6 +45,29 @@ class Competition_model extends PT_Model {
         }
         
         return ($id) ? array_shift($competitions) : $competitions;
+    }
+    
+    /**
+     * Get Competition By Slug
+     *
+     * Description
+     *
+     * @author Gertrude R
+     * @since 1.0.0
+     * @version 1.0.0
+     */
+    public function get_by_slug($slug = NULL)
+    {
+        $competition = NULL;
+        
+        $this->db->where(array("slug" => $slug));
+        
+        $query = $this->db->get(self::$table);
+        
+        if($query->num_rows())
+            $competition = $this->instantiate($query->row_array());
+        
+        return $competition;
     }
     /**
      * Get Competition Segments
@@ -102,6 +127,8 @@ class Competition_model extends PT_Model {
         $competition = $this->instantiate($data);
         
         $competition->date = date("Y-m-d", strtotime($competition->date));
+        
+        $competition->slug = url_title($competition->name, "-", TRUE);
         
         $this->db->insert(self::$table, $competition);
         

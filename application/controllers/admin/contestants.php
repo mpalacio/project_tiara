@@ -11,6 +11,9 @@ class Contestants extends PT_Controller {
         $this->load->model("admin/Contestant_model", "contestant_model");
     }
     
+    /**
+     * 
+     */
     public function create($segment_id, $competition_id)
     {
 	$this->load->model("admin/Competition_model", "competition_model");
@@ -51,7 +54,13 @@ class Contestants extends PT_Controller {
     }
     
     /**
-     * 
+     * Create New Contestant
+     *
+     * Description
+     *
+     * @author Gertrude R
+     * @since 1.0.0
+     * @version 1.0.0
      */
     public function save($segment_id, $competition_id)
     {
@@ -65,6 +74,6 @@ class Contestants extends PT_Controller {
 	
 	$segment_contestant = $segment->new_contestant($contestant);
 	
-	print_r($segment_contestant);
+	echo $this->response->success();
     }
 }

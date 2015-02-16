@@ -19,7 +19,7 @@
                 </div>
                 
                 <div role="tabpanel" class="tab-pane" id="criterias">
-                    
+                <?php $this->load->view("admin/criterias/partial/index", array("segment" => $segment)); ?>
                 </div>
                 
                 <div role="tabpanel" class="tab-pane" id="judges">

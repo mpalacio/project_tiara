@@ -22,6 +22,20 @@ class Judge_model extends PT_Model {
 	$this->load->library("encrypt");
     }
     
+    public function authenticate($username = NULL, $password = NULL)
+    {
+	$judge = NULL;
+	
+	$this->db->where(array("username" => $username, "password" => $this->encrypt->sha1($password)));
+	
+	$query = $this->db->get(self::$table);
+	
+	if($query->num_rows())
+	    $judge = $this->instantiate($this->row_array());
+	    
+	return $judge;
+    }
+    
     public function get($id = 0)
     {
 	$judges = array();

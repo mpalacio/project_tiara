@@ -1,14 +1,24 @@
 function initialize() {
-		$.ajaxSetup({
-				data: {
-						csrf_pt_token: $.cookie('csrf_pt_cookie')
-				}
-		})
+    $.ajaxSetup({
+        data: {
+            csrf_pt_token: $.cookie('csrf_pt_cookie')
+        }
+    })
 
-		if($('.modal').children().length)
-		{
-				$('.modal').modal('show')
-		}
+    if($('.modal').children().length)
+    {
+        $('.modal').modal('show')
+    }
+}
+
+function parseJSON(string) {
+    try {
+        string = $.parseJSON(string)
+        
+        return string
+    } catch(error) {
+        console.log(error)
+    }
 }
 
 $.extend( {

@@ -1,10 +1,10 @@
 $(document).ready(function() {
     initialize()
     
-    //$('#birthday').datetimepicker({
-    //    format: 'MM/DD/YYYY',
-    //    keepOpen: true
-    //})
+    $('#birthday').datetimepicker({
+        format: 'MM/DD/YYYY',
+        keepOpen: true
+    })
     
     $('#create-contestant').click(function(event) {
         event.preventDefault()
@@ -20,10 +20,10 @@ $(document).ready(function() {
                     if (response.status == "success") {
                         $('.modal').html(response.data.modal).modal('show')
                         
-                        // $('#birthday').datetimepicker({
-                        //    format: 'MM/DD/YYYY',
-                        //    keepOpen: true
-                        //})
+                        $('#birthday').datetimepicker({
+                            format: 'MM/DD/YYYY',
+                            keepOpen: true
+                        })
                     }
                 } catch(e) {
                     console.log(e)
@@ -60,8 +60,12 @@ $(document).ready(function() {
         var href = $('.modal form').attr('action')
         $.post(href, {
             contestant: JSON.stringify(contestant)
-        }, function() {
-            //$('.modal').modal('close')
+        }, function(response) {
+            response = parseJSON(response)
+            
+            if (response.status == 'success') {
+                $('.modal').modal('hide')
+            }
         })
     })
 });

@@ -1,0 +1,30 @@
+/**
+ * Globals
+ */
+
+/* Links */
+a,
+a:focus,
+a:hover {
+  color: #fff;
+}
+
+
+/**
+ * Base structure
+ */
+
+html,
+body {
+  height: 100%;
+  background-color: #fff;
+}
+body {
+  background: url('http://2.bp.blogspot.com/-KUNCbkz7tIM/UQM11j9hNlI/AAAAAAAAAbg/ou_BVXnU6oM/s1600/798396_10200299931038599_1065065051_o.jpg') no-repeat center center fixed;
+  -webkit-background-size: cover;
+  padding-top: 70px;
+  color: #fff;
+  text-align: center;
+  text-shadow: 0 1px 3px rgba(0,0,0,.5);
+}
+

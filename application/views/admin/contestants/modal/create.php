@@ -7,15 +7,6 @@
         
         <div class="modal-body">
             <form action="<?php echo base_url("admin/competitions/" . $segment->competition_id . "/segments/" . $segment->id . "/contestants/save"); ?>" method="post">
-                <div class="form-group">
-                    <div class="row">
-			<div class="col-md-4">
-			    <label for="name">Number</label>
-			    <input type="text" class="form-control" id="number" placeholder="Telephone" />
-			</div>
-		    </div>
-                </div>
-		
 		<div class="form-group">
                     <label for="name">Name</label>
                     <div class="row">
@@ -56,7 +47,7 @@
 			</div>
 			<div class="col-md-6">
 			    <label for="name">Religion</label>
-			    <input type="password" class="form-control" id="religion" placeholder="Religion" />
+			    <input type="text" class="form-control" id="religion" placeholder="Religion" />
 			</div>
 		    </div>
                 </div>
@@ -69,7 +60,7 @@
 			</div>
 			<div class="col-md-6">
 			    <label for="name">Occupation</label>
-			    <input type="password" class="form-control" id="occupation" placeholder="Occupation" />
+			    <input type="text" class="form-control" id="occupation" placeholder="Occupation" />
 			</div>
 		    </div>
                 </div>
