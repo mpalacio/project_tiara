@@ -86,7 +86,7 @@ $route['judge/(:num)'] = 'judges/judging/$1';
  * @code begin
  */
 $route['([a-z0-9-]+)'] = 'competitions/index/$1';
-$route['([a-z0-9-]+)/login'] = 'competitions/login/$1';
+$route['([a-z0-9-]+)/(logout)'] = 'competitions/logout/$1';
 /**
  * Tiara Competition Cover Routing Table
  * @code end

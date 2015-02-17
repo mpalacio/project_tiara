@@ -69,6 +69,34 @@ class Competition_model extends PT_Model {
         
         return $competition;
     }
+    
+    public function judges()
+    {
+        $judges = array();
+        
+        if($this->id)
+        {
+            $this->load->model("admin/Judge_model", "judge_model");
+            
+            $judges = $this->judge_model->by_competition($this->id);
+        }
+        
+        return $judges;
+    }
+    
+    public function judge($judge_id = 0)
+    {
+        $judge = NULL;
+        
+        if($this->id)
+        {
+            $this->load->model("admin/Judge_model", "judge");
+            
+            $judge = $this->judge->get($judge_id, $this->id);
+        }
+        
+        return $judge;
+    }
     /**
      * Get Competition Segments
      *
@@ -84,9 +112,9 @@ class Competition_model extends PT_Model {
         
         if($this->id)
         {
-            $this->load->model("admin/Segment_model", "segment_model");
+            $this->load->model("admin/Segment_model", "segment");
             
-            $segments = $this->segment_model->by_competition($this->id);
+            $segments = $this->segment->get(0, $this->id);
         }
         
         return $segments;
@@ -102,13 +130,13 @@ class Competition_model extends PT_Model {
      */
     public function segment($segment_id = 0)
     {
-        $segments = NULL;
+        $segment = NULL;
         
         if($this->id)
         {
-            $this->load->model("admin/Segment_model", "segment_model");
+            $this->load->model("admin/Segment_model", "segment");
             
-            $segment = $this->segment_model->get($segment_id, $this->id);
+            $segment = $this->segment->get($segment_id, $this->id);
         }
         
         return $segment;

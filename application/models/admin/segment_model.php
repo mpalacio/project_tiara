@@ -30,9 +30,10 @@ class Segment_model extends PT_Model {
      */
     public function get($id = 0, $competition_id = 0)
     {
-        $segment = NULL;
+        $segments = $where = array();
         
-        $where = array("id" => $id);
+        if($id)
+            $where["id"] = $id;
         
         if($competition_id)
             $where["competition_id"] = $competition_id;
@@ -42,40 +43,13 @@ class Segment_model extends PT_Model {
         $query = $this->db->get(self::$table);
         
         if($query->num_rows())
-            $segment = $this->instantiate($query->row_array());
-        
-        return $segment;
-    }
-    
-    /**
-     * Get Segments By Competition
-     *
-     * Description
-     *
-     * @author Gertrude R
-     * @since 1.0.0
-     * @version 1.0.0
-     */
-    public function by_competition($competition_id = 0)
-    {
-        $segments = array();
-        
-        if($competition_id)
         {
-            $this->db->where(array("competition_id" => $competition_id));
-            
-            $query = $this->db->get(self::$table);
-            
-            if($query->num_rows())
-            {
-                foreach($query->result_array() AS $row)
-                    $segments[] = $this->instantiate($row);
-            }
+            foreach($query->result_array() AS $row)
+                $segments[] = $this->instantiate($row);
         }
         
-        return $segments;
+        return ($id) ? array_shift($segments) : $segments;
     }
-    
     /**
      * Get Segment Contestants
      *

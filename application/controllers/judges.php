@@ -45,13 +45,28 @@ class Judges extends PT_Controller {
 		$contestants = $this->segment_model->get_contestants($segment_id);
 		$segment_judge = $this->segment_model->get_segment_judge($judge_id, $segment_id);
 
+		/**
+		 * @author Gertrude R
+		 * @code begin
+		 */
+		$this->load->model("admin/Competition_model", "competition");
+		
+		$competition = $this->competition->get(1);
+		
+		$judge = json_decode($this->session->userdata("judge"));
+		
 		$this->load->view("template/header", array(
 			"title" => "Sample | Index",
 			"styles" => array(
 				"tiara/tiara"
 			),
-			"nav" => $this->load->view("judges/nav", array(), TRUE)
+			"nav" => $this->load->view("judges/nav", array("competition" => $competition, "judge" => $competition->judge($judge->id)), TRUE)
 		));
+		/**
+		 * @author Gertrude R
+		 * @code end
+		 */
+		
 		$this->load->view("judges/partial/judging", compact('segment_criterias', 'segment_as_criteria_criterias', 'contestants', 'segment_judge'));
 		$this->load->view("template/footer", array(
 			"scripts" => array(

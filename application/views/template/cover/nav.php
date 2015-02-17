@@ -13,10 +13,10 @@
 	<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 	    <?php echo form_open("", array("class" => "navbar-form navbar-right")); ?>
 		<div class="form-group">
-		    <input type="text" class="form-control" id="username" name="username" placeholder="Username" />
-		    <input type="password" class="form-control" id="password" name="password" placeholder="Password" />
+		    <input type="text" class="form-control input-sm" id="username" name="username" placeholder="Username" />
+		    <input type="password" class="form-control input-sm" id="password" name="password" placeholder="Password" />
 		</div>
-		<button type="submit" class="btn">Login</button>
+		<button type="submit" class="btn btn-sm">Login</button>
 	    </form>
 	</div><!-- /.navbar-collapse -->
     </div>

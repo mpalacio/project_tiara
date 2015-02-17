@@ -5,6 +5,8 @@ class Judge_model extends PT_Model {
 
     public $id = 0;
     
+    public $competition_id = 0;
+    
     public $first_name = 0;
     
     public $last_name = 0;
@@ -22,6 +24,15 @@ class Judge_model extends PT_Model {
 	$this->load->library("encrypt");
     }
     
+    /**
+     * Authenticate Judge
+     *
+     * Description
+     *
+     * @author Gertrude R
+     * @since 1.0.0
+     * @version 1.0.0
+     */
     public function authenticate($username = NULL, $password = NULL)
     {
 	$judge = NULL;
@@ -31,18 +42,29 @@ class Judge_model extends PT_Model {
 	$query = $this->db->get(self::$table);
 	
 	if($query->num_rows())
-	    $judge = $this->instantiate($this->row_array());
+	    $judge = $this->instantiate($query->row_array());
 	    
 	return $judge;
     }
-    
-    public function get($id = 0)
+    /**
+     * Get Judge(s)
+     *
+     * Description
+     *
+     * @author Gertrude R
+     * @since 1.0.0
+     * @version 1.0.0
+     */
+    public function get($id = 0, $competition_id = 0)
     {
-	$judges = array();
+	$judges = $where = array();
         
         if($id)
-            $this->db->where(array("id" => $id));
+            $where["id"] = $id;
             
+	if($competition_id)
+            $where["competition_id"] = $competition_id;
+	    
         $query = $this->db->get(self::$table);
         
         if($query->num_rows())

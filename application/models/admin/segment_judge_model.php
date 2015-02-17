@@ -21,9 +21,8 @@ class Segment_judge_model extends PT_Model {
     {
 	parent::__construct();
     }
-    
     /**
-     * 
+     * Title
      */
     public function by_segment($segment_id = 0)
     {
@@ -41,9 +40,27 @@ class Segment_judge_model extends PT_Model {
         
         return $segment_judges;
     }
-    
     /**
      * 
+     */
+    public function by_judge($judge_id = 0)
+    {
+	$judge_segments = array();
+	
+	$this->db->where(array("judge_id" => $judge_id));
+	
+	$query = $this->db->get(self::$table);
+	
+	if($query->num_rows())
+	{
+	    foreach($query->result_array() AS $row)
+		$judge_segments[] = $this->instantiate($row);
+	}
+	
+	return $judge_segments;
+    }
+    /**
+     * Title
      */
     public function judge()
     {
@@ -58,7 +75,9 @@ class Segment_judge_model extends PT_Model {
 	
 	return $judge;
     }
-    
+    /**
+     * Title
+     */
     public function create($data = array())
     {
 	$segment_judge = $this->instantiate($data);
