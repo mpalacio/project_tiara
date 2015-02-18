@@ -64,6 +64,9 @@ class Judge_model extends PT_Model {
             
 	if($competition_id)
             $where["competition_id"] = $competition_id;
+	
+	if(count($where))
+	    $this->db->where($where);
 	    
         $query = $this->db->get(self::$table);
         
