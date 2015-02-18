@@ -27,9 +27,14 @@ $(document).ready(function() {
                         
                         // Initialize the jQuery File Upload widget:
                         $('#fileupload').fileupload({
-                            // Uncomment the following to send cross-domain cookies:
-                            //xhrFields: {withCredentials: true},
-                            url: 'server/php/'
+                            formData: {
+                                csrf_pt_token: $.cookie('csrf_pt_cookie')
+                            },
+                            previewMinWidth: 100,
+                            previewMinHeight: 100,
+                            previewMaxWidth: 100,
+                            previewMaxHeight: 100,
+                            previewCrop: true
                         });
                     }
                 } catch(e) {

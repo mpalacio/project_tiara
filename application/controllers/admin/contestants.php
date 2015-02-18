@@ -76,4 +76,57 @@ class Contestants extends PT_Controller {
 	
 	echo $this->response->success();
     }
+
+    public function upload()
+    {
+	$config['upload_path'] = './uploads/';
+	$config['allowed_types'] = 'gif|jpg|png';
+	$config['max_size']	= '100';
+	$config['max_width']  = '1024';
+	$config['max_height']  = '768';
+	$config['file_name'] = array(uniqid());
+	
+	$this->load->library('upload', $config);
+	
+	if ( ! $this->upload->do_multi_upload("files"))
+	{
+		$error = array('error' => $this->upload->display_errors());
+		
+	    print_r($error);
+	}
+	else
+	{
+	    $upload_path_url = base_url() . "uploads/";
+	    $data = $this->upload->data();
+	    
+	    // to re-size for thumbnail images un-comment and set path here and in json array
+            $config = array();
+            $config['image_library'] = 'gd';
+            $config['source_image'] = $data['full_path'];
+            $config['create_thumb'] = TRUE;
+            $config['new_image'] = $data['file_path'] . '/thumbs/';
+            $config['maintain_ratio'] = TRUE;
+            $config['thumb_marker'] = '';
+            $config['width'] = 75;
+            $config['height'] = 50;
+            $this->load->library('image_lib', $config);
+            $this->image_lib->resize();
+	    
+	    //set the data for the json array
+            $info = new StdClass;
+            $info->name = $data['file_name'];
+            $info->size = $data['file_size'] * 1024;
+            $info->type = $data['file_type'];
+            $info->url = $upload_path_url . $data['file_name'];
+            // I set this to original file since I did not create thumbs.  change to thumbnail directory if you do = $upload_path_url .'/thumbs' .$data['file_name']
+            $info->thumbnailUrl = $upload_path_url . 'thumbs/' . $data['file_name'];
+            $info->deleteUrl = base_url() . 'upload/deleteImage/' . $data['file_name'];
+            $info->deleteType = 'DELETE';
+            $info->error = null;
+
+            $files[] = $info;
+	    
+	    echo json_encode(array("files" => $files));
+	}
+    }
 }

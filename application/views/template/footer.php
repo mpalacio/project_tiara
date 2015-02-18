@@ -31,7 +31,7 @@
                     <span class="preview"></span>
                 </td>
                 <td>
-                    <p class="name">{%=file.name%}</p>
+                    <p class="name" style="word-break: break-all">{%=file.name%}</p>
                     <strong class="error text-danger"></strong>
                 </td>
                 <td>
@@ -40,13 +40,13 @@
                 </td>
                 <td>
                     {% if (!i && !o.options.autoUpload) { %}
-                        <button class="btn btn-primary start" disabled>
+                        <button class="btn btn-primary btn-block start" disabled>
                             <i class="glyphicon glyphicon-upload"></i>
                             <span>Start</span>
                         </button>
                     {% } %}
                     {% if (!i) { %}
-                        <button class="btn btn-warning cancel">
+                        <button class="btn btn-warning btn-block cancel">
                             <i class="glyphicon glyphicon-ban-circle"></i>
                             <span>Cancel</span>
                         </button>

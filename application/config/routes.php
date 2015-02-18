@@ -57,7 +57,7 @@ $route['admin/competitions/(:num)/segments/(view)/(:num)'] = 'admin/segments/$2/
  * @code begin
  */
 $route['admin/competitions/(:num)/segments/(:num)/contestants'] = 'admin/contestants/$2/$1';
-$route['admin/competitions/(:num)/segments/(:num)/contestants/(create|get|save)'] = 'admin/contestants/$3/$2/$1';
+$route['admin/competitions/(:num)/segments/(:num)/contestants/(create|get|save|upload)'] = 'admin/contestants/$3/$2/$1';
 /**
  * Competition Segments Contestants Routing Table
  * @code end
