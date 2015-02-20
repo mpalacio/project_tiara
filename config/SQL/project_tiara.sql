@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 18, 2015 at 10:02 AM
+-- Generation Time: Feb 20, 2015 at 11:40 AM
 -- Server version: 5.6.21
 -- PHP Version: 5.6.3
 
@@ -82,16 +82,17 @@ CREATE TABLE IF NOT EXISTS `contestants` (
   `citizenship` varchar(25) NOT NULL,
   `_date_created` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `_date_modified` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `contestants`
 --
 
 INSERT INTO `contestants` (`id`, `competition_id`, `first_name`, `middle_name`, `last_name`, `birthday`, `occupation`, `telephone`, `mobile`, `email`, `religion`, `citizenship`, `_date_created`, `_date_modified`) VALUES
-(1, 0, 'Alvin Mark', 'Umacob', 'Cabelino', '0000-00-00', 'IT Instructor', '', '', '', '', 'Filipino', '2015-02-16 12:42:04', '2015-02-16 12:42:04'),
-(2, 0, 'Michael', '', 'Palacio', '0000-00-00', '', '', '', '', '', '', '2015-02-17 00:38:51', '2015-02-17 00:38:51'),
-(3, 0, '', '', '', '0000-00-00', '', '', '', '', '', '', '2015-02-18 00:17:33', '2015-02-18 00:17:33');
+(1, 1, 'Alvin Mark', 'Umacob', 'Cabelino', '0000-00-00', 'IT Instructor', '', '', '', '', 'Filipino', '2015-02-16 12:42:04', '2015-02-16 12:42:04'),
+(2, 1, 'Michael', '', 'Palacio', '0000-00-00', '', '', '', '', '', '', '2015-02-17 00:38:51', '2015-02-17 00:38:51'),
+(3, 1, 'Daisy Jane', '', 'Jabican', '0000-00-00', '', '', '', '', '', '', '2015-02-18 00:17:33', '2015-02-18 00:17:33'),
+(4, 1, 'Daisy jane', '', 'Jabican', '0000-00-00', '', '', '', '', '', '', '2015-02-20 02:21:16', '2015-02-20 02:21:16');
 
 -- --------------------------------------------------------
 
@@ -103,6 +104,59 @@ CREATE TABLE IF NOT EXISTS `contestant_images` (
 `id` int(20) NOT NULL,
   `contestant_id` int(20) NOT NULL,
   `url` text NOT NULL,
+  `_date_created` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `_date_modified` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `criterias`
+--
+
+CREATE TABLE IF NOT EXISTS `criterias` (
+`id` int(20) NOT NULL,
+  `segment_id` int(20) NOT NULL,
+  `name` varchar(50) NOT NULL,
+  `description` varchar(50) NOT NULL,
+  `percentage` decimal(5,2) NOT NULL,
+  `_date_created` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `_date_modified` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `criterias`
+--
+
+INSERT INTO `criterias` (`id`, `segment_id`, `name`, `description`, `percentage`, `_date_created`, `_date_modified`) VALUES
+(1, 1, 'INT', 'Intelligence', '25.00', '2015-02-12 00:11:52', '2015-02-12 00:11:52'),
+(2, 1, 'PER', 'Personality', '25.00', '2015-02-12 00:11:52', '2015-02-12 00:11:52'),
+(3, 1, 'CC', 'Casual Competition', '20.00', '2015-02-12 00:12:28', '2015-02-12 00:12:28'),
+(4, 1, 'LGC', 'Long Gown Competition', '20.00', '2015-02-12 00:12:28', '2015-02-12 00:12:28'),
+(5, 1, 'DEP', 'Deportment', '10.00', '2015-02-12 00:13:36', '2015-02-12 00:13:36'),
+(6, 2, 'TAL', 'Special skills, abilities and uniqueness of talent', '30.00', '2015-02-12 00:13:36', '2015-02-12 00:13:36'),
+(7, 2, 'PAE', 'Performance and execution', '30.00', '2015-02-12 00:14:03', '2015-02-12 00:14:03'),
+(8, 2, 'SMS', 'Showmanship', '15.00', '2015-02-12 00:14:03', '2015-02-12 00:14:03'),
+(9, 2, 'IMP', 'Over-all impact', '15.00', '2015-02-12 00:14:29', '2015-02-12 00:14:29'),
+(10, 2, 'DEP', 'Deportment', '10.00', '2015-02-12 00:14:29', '2015-02-12 00:14:29'),
+(11, 3, 'INT', 'Intelligence', '25.00', '2015-02-12 00:15:08', '2015-02-12 00:15:08'),
+(12, 3, 'PER', 'Personality', '30.00', '2015-02-12 00:15:08', '2015-02-12 00:15:08'),
+(13, 3, 'CC', 'Casual Competition', '15.00', '2015-02-12 00:15:37', '2015-02-12 00:15:37'),
+(14, 3, 'LGC', 'Long Gown Competition', '15.00', '2015-02-12 00:15:37', '2015-02-12 00:15:37'),
+(16, 4, 'QA', 'Question and answer', '50.00', '2015-02-12 00:16:34', '2015-02-12 00:16:34');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `criteria_scores`
+--
+
+CREATE TABLE IF NOT EXISTS `criteria_scores` (
+`id` int(20) NOT NULL,
+  `criteria_id` int(20) NOT NULL,
+  `segment_judge_id` int(20) NOT NULL,
+  `segment_contestant_id` int(20) NOT NULL,
+  `score` decimal(5,2) NOT NULL,
   `_date_created` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `_date_modified` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -123,7 +177,7 @@ CREATE TABLE IF NOT EXISTS `judges` (
   `status` tinyint(1) NOT NULL DEFAULT '1',
   `_date_created` datetime DEFAULT CURRENT_TIMESTAMP,
   `_date_modified` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `judges`
@@ -131,7 +185,8 @@ CREATE TABLE IF NOT EXISTS `judges` (
 
 INSERT INTO `judges` (`id`, `competition_id`, `first_name`, `last_name`, `username`, `password`, `status`, `_date_created`, `_date_modified`) VALUES
 (1, 1, 'Gertrude R', 'Cordero', 'gertruder', 'b6cd4c0729a71f2afdb0b211659ebf30f480ad70', 1, '2015-02-16 12:22:03', '2015-02-16 12:22:03'),
-(2, 1, 'Alvin Mark', 'Cabeliño', 'thevindetta', '85e8e4cfd16031015721ec7ab8b5b64b4681cdfc', 1, '2015-02-17 01:51:20', '2015-02-17 01:51:20');
+(2, 1, 'Alvin Mark', 'Cabeliño', 'thevindetta', '85e8e4cfd16031015721ec7ab8b5b64b4681cdfc', 1, '2015-02-17 01:51:20', '2015-02-17 01:51:20'),
+(3, 1, 'Michael', 'Palacio', 'mpalacio', '0900cf034e6ae16e1306e18aa9dbe36606b54239', 1, '2015-02-19 17:59:38', '2015-02-19 17:59:38');
 
 -- --------------------------------------------------------
 
@@ -144,6 +199,7 @@ CREATE TABLE IF NOT EXISTS `segments` (
   `competition_id` int(20) NOT NULL,
   `name` varchar(50) NOT NULL,
   `description` text NOT NULL,
+  `slug` varchar(150) NOT NULL,
   `date` datetime NOT NULL,
   `venue` varchar(200) NOT NULL,
   `status` tinyint(1) NOT NULL,
@@ -155,11 +211,11 @@ CREATE TABLE IF NOT EXISTS `segments` (
 -- Dumping data for table `segments`
 --
 
-INSERT INTO `segments` (`id`, `competition_id`, `name`, `description`, `date`, `venue`, `status`, `_date_created`, `_date_modified`) VALUES
-(1, 1, 'Selection of Top 15', 'Selection of Top 15', '2015-02-28 00:00:00', 'Gaisano Grand', 1, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
-(2, 1, 'Talent Competition', 'Talent Competition', '2015-03-06 00:00:00', 'Gaisano Mall', 1, '2015-02-12 00:06:35', '2015-02-12 00:06:35'),
-(3, 1, 'Top 5', 'Top 5', '2015-03-11 00:00:00', 'SM Lanang', 1, '2015-02-12 00:09:06', '2015-02-12 00:09:06'),
-(4, 1, 'Selection of Winners', 'Selection of Winners', '2015-03-11 00:00:00', 'SM Lanang', 1, '2015-02-12 00:10:32', '2015-02-12 00:10:32');
+INSERT INTO `segments` (`id`, `competition_id`, `name`, `description`, `slug`, `date`, `venue`, `status`, `_date_created`, `_date_modified`) VALUES
+(1, 1, 'Selection of Top 15', 'Selection of Top 15', 'selection-of-top-15', '2015-02-28 00:00:00', 'Gaisano Grand', 1, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(2, 1, 'Talent Competition', 'Talent Competition', 'talent-competition', '2015-03-06 00:00:00', 'Gaisano Mall', 1, '2015-02-12 00:06:35', '2015-02-12 00:06:35'),
+(3, 1, 'Top 5', 'Top 5', 'top-5', '2015-03-11 00:00:00', 'SM Lanang', 1, '2015-02-12 00:09:06', '2015-02-12 00:09:06'),
+(4, 1, 'Selection of Winners', 'Selection of Winners', 'selection-of-winners', '2015-03-11 00:00:00', 'SM Lanang', 1, '2015-02-12 00:10:32', '2015-02-12 00:10:32');
 
 -- --------------------------------------------------------
 
@@ -171,7 +227,7 @@ CREATE TABLE IF NOT EXISTS `segments_as_criteria` (
 `id` int(20) NOT NULL,
   `segment_id` int(20) NOT NULL,
   `node_segment_id` int(20) NOT NULL,
-  `percentage` decimal(3,0) NOT NULL
+  `percentage` decimal(5,2) NOT NULL
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
 
 --
@@ -179,8 +235,8 @@ CREATE TABLE IF NOT EXISTS `segments_as_criteria` (
 --
 
 INSERT INTO `segments_as_criteria` (`id`, `segment_id`, `node_segment_id`, `percentage`) VALUES
-(1, 4, 3, '50'),
-(2, 3, 2, '15');
+(1, 4, 3, '50.00'),
+(2, 3, 2, '15.00');
 
 -- --------------------------------------------------------
 
@@ -195,7 +251,7 @@ CREATE TABLE IF NOT EXISTS `segment_contestants` (
   `number` int(3) NOT NULL,
   `_date_created` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `_date_modified` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `segment_contestants`
@@ -204,60 +260,8 @@ CREATE TABLE IF NOT EXISTS `segment_contestants` (
 INSERT INTO `segment_contestants` (`id`, `segment_id`, `contestant_id`, `number`, `_date_created`, `_date_modified`) VALUES
 (1, 1, 1, 0, '2015-02-16 12:42:04', '2015-02-16 12:42:04'),
 (2, 1, 2, 0, '2015-02-17 00:38:51', '2015-02-17 00:38:51'),
-(3, 1, 3, 0, '2015-02-18 00:17:33', '2015-02-18 00:17:33');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `segment_criterias`
---
-
-CREATE TABLE IF NOT EXISTS `segment_criterias` (
-`id` int(20) NOT NULL,
-  `segment_id` int(20) NOT NULL,
-  `name` varchar(50) NOT NULL,
-  `description` varchar(50) NOT NULL,
-  `percentage` decimal(3,0) NOT NULL,
-  `_date_created` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `_date_modified` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `segment_criterias`
---
-
-INSERT INTO `segment_criterias` (`id`, `segment_id`, `name`, `description`, `percentage`, `_date_created`, `_date_modified`) VALUES
-(1, 1, 'INT', 'Intelligence', '25', '2015-02-12 00:11:52', '2015-02-12 00:11:52'),
-(2, 1, 'PER', 'Personality', '25', '2015-02-12 00:11:52', '2015-02-12 00:11:52'),
-(3, 1, 'CC', 'Casual Competition', '20', '2015-02-12 00:12:28', '2015-02-12 00:12:28'),
-(4, 1, 'LGC', 'Long Gown Competition', '20', '2015-02-12 00:12:28', '2015-02-12 00:12:28'),
-(5, 1, 'DEP', 'Deportment', '10', '2015-02-12 00:13:36', '2015-02-12 00:13:36'),
-(6, 2, 'TAL', 'Special skills, abilities and uniqueness of talent', '30', '2015-02-12 00:13:36', '2015-02-12 00:13:36'),
-(7, 2, 'PAE', 'Performance and execution', '30', '2015-02-12 00:14:03', '2015-02-12 00:14:03'),
-(8, 2, 'SMS', 'Showmanship', '15', '2015-02-12 00:14:03', '2015-02-12 00:14:03'),
-(9, 2, 'IMP', 'Over-all impact', '15', '2015-02-12 00:14:29', '2015-02-12 00:14:29'),
-(10, 2, 'DEP', 'Deportment', '10', '2015-02-12 00:14:29', '2015-02-12 00:14:29'),
-(11, 3, 'INT', 'Intelligence', '25', '2015-02-12 00:15:08', '2015-02-12 00:15:08'),
-(12, 3, 'PER', 'Personality', '30', '2015-02-12 00:15:08', '2015-02-12 00:15:08'),
-(13, 3, 'CC', 'Casual Competition', '15', '2015-02-12 00:15:37', '2015-02-12 00:15:37'),
-(14, 3, 'LGC', 'Long Gown Competition', '15', '2015-02-12 00:15:37', '2015-02-12 00:15:37'),
-(16, 4, 'QA', 'Question and answer', '50', '2015-02-12 00:16:34', '2015-02-12 00:16:34');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `segment_criteria_scores`
---
-
-CREATE TABLE IF NOT EXISTS `segment_criteria_scores` (
-`id` int(20) NOT NULL,
-  `segment_criteria_id` int(20) NOT NULL,
-  `segment_judge_id` int(20) NOT NULL,
-  `segment_contestant_id` int(20) NOT NULL,
-  `score` decimal(3,2) NOT NULL,
-  `_date_created` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `_date_modified` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+(3, 2, 3, 0, '2015-02-18 00:17:33', '2015-02-18 00:17:33'),
+(4, 1, 4, 0, '2015-02-20 02:21:16', '2015-02-20 02:21:16');
 
 -- --------------------------------------------------------
 
@@ -271,7 +275,7 @@ CREATE TABLE IF NOT EXISTS `segment_judges` (
   `judge_id` int(20) NOT NULL,
   `_date_created` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `_date_modified` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `segment_judges`
@@ -282,7 +286,9 @@ INSERT INTO `segment_judges` (`id`, `segment_id`, `judge_id`, `_date_created`, `
 (2, 2, 1, '2015-02-11 23:14:37', '2015-02-11 23:14:37'),
 (3, 3, 1, '2015-02-12 00:41:29', '2015-02-12 00:41:29'),
 (4, 4, 1, '2015-02-12 00:41:29', '2015-02-12 00:41:29'),
-(5, 1, 2, '2015-02-17 01:51:20', '2015-02-17 01:51:20');
+(5, 1, 2, '2015-02-17 01:51:20', '2015-02-17 01:51:20'),
+(6, 1, 3, '2015-02-19 17:59:38', '2015-02-19 17:59:38'),
+(7, 2, 3, '2015-02-20 02:18:14', '2015-02-20 02:18:14');
 
 --
 -- Indexes for dumped tables
@@ -313,6 +319,18 @@ ALTER TABLE `contestant_images`
  ADD PRIMARY KEY (`id`), ADD KEY `contestant_id` (`contestant_id`);
 
 --
+-- Indexes for table `criterias`
+--
+ALTER TABLE `criterias`
+ ADD PRIMARY KEY (`id`), ADD KEY `segment_id` (`segment_id`);
+
+--
+-- Indexes for table `criteria_scores`
+--
+ALTER TABLE `criteria_scores`
+ ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `judges`
 --
 ALTER TABLE `judges`
@@ -335,18 +353,6 @@ ALTER TABLE `segments_as_criteria`
 --
 ALTER TABLE `segment_contestants`
  ADD PRIMARY KEY (`id`), ADD KEY `segment_id` (`segment_id`,`contestant_id`);
-
---
--- Indexes for table `segment_criterias`
---
-ALTER TABLE `segment_criterias`
- ADD PRIMARY KEY (`id`), ADD KEY `segment_id` (`segment_id`);
-
---
--- Indexes for table `segment_criteria_scores`
---
-ALTER TABLE `segment_criteria_scores`
- ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `segment_judges`
@@ -372,17 +378,27 @@ MODIFY `id` int(20) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
 -- AUTO_INCREMENT for table `contestants`
 --
 ALTER TABLE `contestants`
-MODIFY `id` int(20) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=4;
+MODIFY `id` int(20) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=5;
 --
 -- AUTO_INCREMENT for table `contestant_images`
 --
 ALTER TABLE `contestant_images`
 MODIFY `id` int(20) NOT NULL AUTO_INCREMENT;
 --
+-- AUTO_INCREMENT for table `criterias`
+--
+ALTER TABLE `criterias`
+MODIFY `id` int(20) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=17;
+--
+-- AUTO_INCREMENT for table `criteria_scores`
+--
+ALTER TABLE `criteria_scores`
+MODIFY `id` int(20) NOT NULL AUTO_INCREMENT;
+--
 -- AUTO_INCREMENT for table `judges`
 --
 ALTER TABLE `judges`
-MODIFY `id` int(20) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
+MODIFY `id` int(20) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT for table `segments`
 --
@@ -397,22 +413,12 @@ MODIFY `id` int(20) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
 -- AUTO_INCREMENT for table `segment_contestants`
 --
 ALTER TABLE `segment_contestants`
-MODIFY `id` int(20) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=4;
---
--- AUTO_INCREMENT for table `segment_criterias`
---
-ALTER TABLE `segment_criterias`
-MODIFY `id` int(20) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=17;
---
--- AUTO_INCREMENT for table `segment_criteria_scores`
---
-ALTER TABLE `segment_criteria_scores`
-MODIFY `id` int(20) NOT NULL AUTO_INCREMENT;
+MODIFY `id` int(20) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=5;
 --
 -- AUTO_INCREMENT for table `segment_judges`
 --
 ALTER TABLE `segment_judges`
-MODIFY `id` int(20) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=6;
+MODIFY `id` int(20) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=8;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
