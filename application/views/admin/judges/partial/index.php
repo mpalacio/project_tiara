@@ -19,9 +19,8 @@
         <?php 
             if(is_array($segment->judges()) AND count($segment->judges()))
             {
-		foreach($segment->judges() AS $segment_judge)
-                {
-                    $judge = $segment_judge->judge(); ?>
+		foreach($segment->judges() AS $judge)
+                { ?>
                 <tr>
                     <td><?php echo $judge->id; ?></td>
                     <td><?php echo $judge->first_name . " " . $judge->last_name; ?></td>

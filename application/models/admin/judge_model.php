@@ -79,6 +79,15 @@ class Judge_model extends PT_Model {
         return ($id) ? array_shift($judges) : $judges;
     }
     
+    /**
+     * Create New Judge
+     *
+     * Description
+     *
+     * @author Gertrude R
+     * @since 1.0.0
+     * @version 1.0.0
+     */
     public function create($data = array())
     {
 	$judge = $this->instantiate($data);
@@ -90,5 +99,58 @@ class Judge_model extends PT_Model {
         $judge->id = $this->db->insert_id();
         
         return $judge;
+    }
+    /**
+     * Get Judge Segments
+     *
+     * Description
+     *
+     * @author Gertrude R
+     * @since 1.0.0
+     * @version 1.0.0
+     */
+    public function segments()
+    {
+	$segments = array();
+	
+	if($this->id)
+	{
+	    $this->load->model("admin/Segment_model", "segment_model");
+	    
+	    $this->db->select("segments.*");
+	    $this->db->join("segment_judges", "segment_judges.segment_id = segments.id", "left");
+	    $this->db->where(array("segment_judges.judge_id" => $this->id));
+	    
+	    $query = $this->db->get("segments");
+	    
+	    if($query->num_rows())
+	    {
+		foreach($query->result_array() AS $row)
+		    $segments[] = $this->segment_model->instantiate($row);
+	    }
+	}
+	
+	return $segments;
+    }
+    
+    /**
+     * Get Segment By Slug
+     *
+     * Description
+     *
+     * @author Gertrude R
+     * @since 1.0.0
+     * @version 1.0.0
+     */
+    public function segment_by_slug($slug = NULL)
+    {
+	if($this->id)
+	{
+	    foreach($this->segments() AS $segment)
+		if($segment->slug == $slug)
+		    return $segment;
+	}
+	
+	return NULL;
     }
 }

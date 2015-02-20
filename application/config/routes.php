@@ -63,7 +63,7 @@ $route['admin/competitions/(:num)/segments/(:num)/contestants/(create|get|save|u
  * @code end
  */
 
- /**
+/**
  * Competition Segments Judges Routing Table
  * @code start
  */
@@ -75,6 +75,18 @@ $route['admin/competitions/(:num)/segments/(:num)/judges/(create|get|save)'] = '
  */
 
 /**
+ * Competition Segment Criterias Routing Table
+ * @code start
+ */
+$route['admin/competitions/(:num)/segments/(:num)/criterias'] = 'admin/criterias/$2/$1';
+$route['admin/competitions/(:num)/segments/(:num)/criterias/(create|get|save)'] = 'admin/criterias/$3/$2/$1';
+$route['admin/competitions/(:num)/segments/(:num)/criterias/(edit|update|delete)/(:num)'] = 'admin/criterias/$3/$4/$2/$1';
+/**
+ * Competition Segments Judges Routing Table
+ * @code end
+ */
+ 
+/**
  * 
  */
 $route['competition_segments'] = 'judges/competition_segments/$1';
@@ -82,15 +94,20 @@ $route['judge/(:num)'] = 'judges/judging/$1';
 // $route['competition_segments'] = 'judges/review/$1';
 
 /**
- * Tiara Competition Cover Routing Table
+ * Tiara Competition Routing Table
  * @code begin
  */
 $route['([a-z0-9-]+)'] = 'competitions/index/$1';
 $route['([a-z0-9-]+)/(logout)'] = 'competitions/logout/$1';
 /**
- * Tiara Competition Cover Routing Table
+ * Tiara Competition Routing Table
  * @code end
  */
+
+$route['([a-z0-9-]+)/judges'] = 'segments/index/$1';
+$route['([a-z0-9-]+)/judges/([a-z0-9-]+)'] = 'segments/sheet/$2/$1';
+$route['([a-z0-9-]+)/judges/([a-z0-9-]+)/score/(:num)'] = 'segments/score/$3/$2/$1';
+$route['([a-z0-9-]+)/judges/([a-z0-9-]+)/contestants/(:num)'] = 'contestants/view/$3/$2/$1';
 
 /* End of file routes.php */
 /* Location: ./application/config/routes.php */

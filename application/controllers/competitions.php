@@ -33,7 +33,7 @@ class Competitions extends PT_Controller {
 	}
 	else
 	{
-	    redirect("judge/1");
+	    redirect($this->competition->slug . "/judges");
 	}
     }
     /**

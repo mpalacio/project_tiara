@@ -15,7 +15,7 @@
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><?php echo $judge->first_name; ?> <span class="caret"></span></a>
                     <ul class="dropdown-menu" role="menu">
-                        <li><a href="<?php echo base_url($competition->slug. "/logout"); ?>">Logout</a></li>
+                        <li><a href="<?php echo base_url($competition->slug. "/logout"); ?>"><span class="glyphicon glyphicon-log-out" aria-hidden="true"></span> Logout</a></li>
                     </ul>
                 </li>
             </ul>

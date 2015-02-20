@@ -22,17 +22,29 @@ class Segment_judge_model extends PT_Model {
 	parent::__construct();
     }
     /**
-     * Title
+     * Get Segment Judge(s)
+     *
+     * Description
+     *
+     * @author Gertrude R
+     * @since 1.0.0
+     * @version 1.0.0
      */
-    public function by_segment($segment_id = 0)
+    public function get($id = 0, $segment_id = 0)
     {
-	$segment_judges = array();
-	
-	$this->db->where(array("segment_id" => $segment_id));
-	
-	$query = $this->db->get(self::$table);
-	
-	if($query->num_rows())
+        $segment_judges = $where = array();
+        
+        if($id)
+            $where["id"] = $id;
+            
+        if($segment_id)
+            $where["segment_id"] = $segment_id;
+            
+        $this->db->where($where);
+        
+        $query = $this->db->get(self::$table);
+        
+        if($query->num_rows())
         {
             foreach($query->result_array() AS $row)
                 $segment_judges[] = $this->instantiate($row);
@@ -41,26 +53,13 @@ class Segment_judge_model extends PT_Model {
         return $segment_judges;
     }
     /**
-     * 
-     */
-    public function by_judge($judge_id = 0)
-    {
-	$judge_segments = array();
-	
-	$this->db->where(array("judge_id" => $judge_id));
-	
-	$query = $this->db->get(self::$table);
-	
-	if($query->num_rows())
-	{
-	    foreach($query->result_array() AS $row)
-		$judge_segments[] = $this->instantiate($row);
-	}
-	
-	return $judge_segments;
-    }
-    /**
-     * Title
+     * Get Judge
+     *
+     * Description
+     *
+     * @author Gertrude R
+     * @since 1.0.0
+     * @version 1.0.0
      */
     public function judge()
     {
@@ -75,8 +74,37 @@ class Segment_judge_model extends PT_Model {
 	
 	return $judge;
     }
+    
     /**
-     * Title
+     * Get Segment
+     *
+     * Description
+     *
+     * @author Gertrude R
+     * @since 1.0.0
+     * @version 1.0.0
+     */
+    public function segment()
+    {
+	$segment = NULL;
+	
+	if($this->segment_id)
+	{
+	    $this->load->model("admin/Segment_model", "segment_model");
+	    
+	    $segment = $this->segment_model->get($this->segment_id);
+	}
+	
+	return $segment;
+    }
+    /**
+     * Create Segment
+     *
+     * Description
+     *
+     * @author Gertrude R
+     * @since 1.0.0
+     * @version 1.0.0
      */
     public function create($data = array())
     {

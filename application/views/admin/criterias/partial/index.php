@@ -17,19 +17,18 @@
             </thead>
             <tbody>
         <?php
-            if(is_array(array()) AND count(array()))
+            if(is_array($segment->criterias()) AND count($segment->criterias()))
             {
-                foreach(array() AS $segment_criteria)
-                {
-                    $criteria = $segment_criteria->criteria(); ?>
+                foreach($segment->criterias() AS $segment_criteria)
+                { ?>
                 <tr>
-                    <td><?php echo $criteria->id; ?></td>
-                    <td><?php echo ""; ?></td>
-                    <td><?php echo ""; ?></td>
-                    <td><?php echo ""; ?></td>
+                    <td><?php echo $segment_criteria->id; ?></td>
+                    <td><?php echo $segment_criteria->name;; ?></td>
+                    <td><?php echo $segment_criteria->description; ?></td>
+                    <td class="text-right"><?php echo $segment_criteria->percentage; ?></td>
                     <td class="hidden-print">
-                        <?php echo anchor("admin/competitions/" . $segment->competition_id . "/segments/" . $segment->id . "/contestants/edit/" . $criteria->id, "Edit", "class='edit-competitions btn btn-default btn-sm'"); ?>
-                        <?php echo anchor("admin/competitions/" . $segment->competition_id . "/segments/" . $segment->id . "/contestants/delete/" . $criteria->id, "Delete", "class='btn btn-default btn-sm'"); ?>
+                        <?php echo anchor("admin/competitions/" . $segment->competition_id . "/segments/" . $segment->id . "/criterias/edit/" . $segment_criteria->id, "Edit", "class='edit-criteria btn btn-default btn-sm'"); ?>
+                        <?php echo anchor("admin/competitions/" . $segment->competition_id . "/segments/" . $segment->id . "/criterias/delete/" . $segment_criteria->id, "Delete", "class='btn btn-default btn-sm'"); ?>
                     </td>
                 </tr>
         <?php

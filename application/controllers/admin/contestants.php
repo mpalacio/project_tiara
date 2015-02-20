@@ -16,14 +16,14 @@ class Contestants extends PT_Controller {
      */
     public function create($segment_id, $competition_id)
     {
-	$this->load->model("admin/Competition_model", "competition_model");
+	$this->load->model("admin/Segment_model", "segment_model");
 	
 	// AJAX Request
 	if($this->input->is_ajax_request())
 	{
-	    $competition = $this->competition_model->get($competition_id);
+	    $segment = $this->segment_model->get($segment_id, $competition_id);
 	    
-	    $data = array("modal" => $this->load->view("admin/contestants/modal/create", array("segment" => $competition->segment($segment_id)), TRUE));
+	    $data = array("modal" => $this->load->view("admin/contestants/modal/create", array("segment" => $segment), TRUE));
 	
 	    echo json_encode(array("status" => "success", "data" => $data));
 	}

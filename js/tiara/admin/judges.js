@@ -13,7 +13,7 @@ $(document).ready(function() {
                     response = $.parseJSON(response)
                     
                     if (response.status == "success") {
-                        $('.modal').html(response.data.modal).modal('show')
+                        $('.modal').html(response.success.data.modal).modal('show')
                         
                         //window.history.replaceState({}, null, href)
                     }
@@ -52,6 +52,7 @@ $(document).ready(function() {
         judge.get()
         
         var href = $('.modal form').attr('action')
+        
         $.post(href, {
             judge: JSON.stringify(judge)
         }, function() {

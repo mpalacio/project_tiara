@@ -49,14 +49,12 @@ class Segments extends PT_Controller {
         );
         
         $competition = $this->competition_model->get($competition_id);
-        $segment = $competition->segment($id);
-        
-        $s = $segment->judges();
         
         $this->load->view("admin/segments/partial/view", array("competition" => $competition, "segment" => $competition->segment($id)));
         
         $this->load->view("template/footer", array(
                 "scripts" => array(
+                    "tiara/admin/criterias", 
                     "tiara/admin/contestants", 
                     "tiara/admin/judges",
                     "jquery/jquery-ui/jquery.ui.widget",
@@ -72,6 +70,8 @@ class Segments extends PT_Controller {
                     "jquery/file-upload/jquery.fileupload-video",
                     "jquery/file-upload/jquery.fileupload-validate",
                     "jquery/file-upload/jquery.fileupload-ui",
+                    "jquery/input-mask/jquery.inputmask.min",
+                    "jquery/input-mask/jquery.inputmask.numeric.extensions.min",
                     "tiara/main"
                 )
             )

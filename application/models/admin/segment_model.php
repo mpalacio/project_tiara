@@ -9,6 +9,10 @@ class Segment_model extends PT_Model {
     
     public $name = NULL;
     
+    public $description = NULL;
+    
+    public $slug = NULL;
+    
     public $date = NULL;
     
     public $venue = NULL;
@@ -52,6 +56,44 @@ class Segment_model extends PT_Model {
         return ($id) ? array_shift($segments) : $segments;
     }
     /**
+     * Get Segment Criteria(s)
+     *
+     * Description
+     *
+     * @author Gertrude R
+     * @since 1.0.0
+     * @version 1.0.0
+     */
+    public function criterias()
+    {
+        $criterias = array();
+        
+        if($this->id)
+        {
+            $this->load->model("admin/Criteria_model", "criteria_model");
+            
+            $criterias = $this->criteria_model->get(0, $this->id);
+        }
+        
+        return $criterias;
+    }
+    /**
+     * Get Segment Criteria
+     */
+    public function criteria($criteria_id = 0)
+    {
+        $segment_criteria = NULL;
+        
+        if($this->id)
+        {
+            $this->load->model("admin/Criteria_model", "criteria_model");
+            
+            $segment_criteria = $this->criteria_model->get($criteria_id, $this->id);
+        }
+        
+        return $segment_criteria;
+    }
+    /**
      * Get Segment Contestants
      *
      * Description
@@ -62,16 +104,26 @@ class Segment_model extends PT_Model {
      */
     public function contestants()
     {
-        $segment_contestants = array();
+        $contestants = array();
         
         if($this->id)
         {
-            $this->load->model("admin/Segment_contestant_model", "segment_contestant_model");
+            $this->load->model("admin/Contestant_model", "contestant_model");
             
-            $segment_contestants = $this->segment_contestant_model->by_segment($this->id);
+            $this->db->select("contestants.*");
+	    $this->db->join("segment_contestants", "segment_contestants.contestant_id = contestants.id", "left");
+	    $this->db->where(array("segment_contestants.segment_id" => $this->id));
+	    
+            $query = $this->db->get("contestants");
+            
+	    if($query->num_rows())
+	    {
+		foreach($query->result_array() AS $row)
+		    $contestants[] = $this->contestant_model->instantiate($row);
+	    }
         }
         
-        return $segment_contestants;
+        return $contestants;
     }
     
     /**
@@ -85,39 +137,36 @@ class Segment_model extends PT_Model {
      */
     public function judges()
     {
-        $segment_judges = array();
-        
-        if($this->id)
-        {
-            $this->load->model("admin/Segment_judge_model", "segment_judge_model");
-            
-            $segment_judges = $this->segment_judge_model->by_segment($this->id);
-        }
-        
-        return $segment_judges;
-    }
-    
-    /**
-     * Create New Segment Judge
-     */
-    public function new_judge($data = array())
-    {
-        $segment_judge = NULL;
+        $judges = array();
         
         if($this->id)
         {
             $this->load->model("admin/Judge_model", "judge_model");
             
-            $judge = $this->judge_model->create($data);
+            $this->db->select("judges.*");
+	    $this->db->join("segment_judges", "segment_judges.judge_id = judges.id", "left");
+	    $this->db->where(array("segment_judges.segment_id" => $this->id));
+	    
+            $query = $this->db->get("judges");
             
-            $this->load->model("admin/Segment_judge_model", "segment_judge_model");
-            
-            $segment_judge = $this->segment_judge_model->create(array("segment_id" => $this->id, "judge_id" => $judge->id));
+	    if($query->num_rows())
+	    {
+		foreach($query->result_array() AS $row)
+		    $judges[] = $this->judge_model->instantiate($row);
+	    }
         }
         
-        return $segment_judge;
+        return $judges;
     }
-    
+    /**
+     * Create New Segment Contestant
+     *
+     * Description
+     *
+     * @author Gertrude R
+     * @since 1.0.0
+     * @version 1.0.0
+     */
     public function new_contestant($data = array())
     {
         $segment_contestant = NULL;
@@ -125,6 +174,8 @@ class Segment_model extends PT_Model {
         if($this->id)
         {
             $this->load->model("admin/Contestant_model", "contestant_model");
+            
+            $data["competition_id"] = $this->competition_id;
             
             $contestant = $this->contestant_model->create($data);
             

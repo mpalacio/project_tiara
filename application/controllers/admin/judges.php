@@ -18,7 +18,7 @@ class Judges extends PT_Controller {
 	    
 	    $data = array("modal" => $this->load->view("admin/judges/modal/create", array("segment" => $competition->segment($segment_id)), TRUE));
             
-            echo json_encode(array("status" => "success", "data" => $data));
+            echo $this->response->success($data);
 	}
 	// GET Request
 	else
@@ -57,7 +57,7 @@ class Judges extends PT_Controller {
 	    
 	    $data = array("modal" => $this->load->view("admin/judges/modal/get", array("segment" => $competition->segment($segment_id)), TRUE));
             
-            echo json_encode(array("status" => "success", "data" => $data));
+            echo $this->response->success($data);
 	}
 	// GET Request
 	else
@@ -65,19 +65,74 @@ class Judges extends PT_Controller {
 	    
 	}
     }
-    
+    /**
+     * Save Judge
+     *
+     * Description
+     *
+     * @author Gertrude R
+     * @since 1.0.0
+     * @version 1.0.0
+     */
     public function save($segment_id, $competition_id)
     {
 	$judge = json_decode($this->input->post("judge"), TRUE);
     
-	$this->load->model("admin/Competition_model", "competition_model");
+	$segment_judge = NULL;
+    
+	$this->load->model("admin/Segment_model", "segment_model");
 	
-	$competition = $this->competition_model->get($competition_id);
+	$segment = $this->segment_model->get($segment_id, $competition_id);
 	
-	$segment = $competition->segment($segment_id);
+	if($segment)
+	{
+	    /**
+	     * Create New Judge
+	     * @code begin
+	     */
+	    $this->load->model("admin/Judge_model", "judge_model");
+	    
+	    $judge["competition_id"] = $competition_id;
+	    
+	    $judge = $this->judge_model->create($judge);
+	    /**
+	     * Create New Judge
+	     * @code end
+	     */
+	    
+	    /**
+	     * Create New Segment Judge
+	     * @code begin
+	     */ 
+	    if($judge)
+	    {
+		$this->load->model("admin/Segment_judge_model", "segment_judge_model");
+		
+		$segment_judge = $this->segment_judge_model->create(array("segment_id" => $segment->id, "judge_id" => $judge->id));
+	    }
+	    /**
+	     * Create New Segment Judge
+	     * @code end
+	     */ 
+	}
 	
-	$segment_judge = $segment->new_judge($judge);
+	$data = array(
+	    "partial" => $this->load->view("admin/judges/partial/index", array("segment" => $segment_judge->segment()), TRUE)
+	);
 	
-	print_r($segment_judge);
+	echo $this->response->success($data);
+    }
+    /**
+     * Update Judge
+     *
+     * Description
+     *
+     * @author Gertrude R
+     * @since 1.0.0
+     * @version 1.0.0
+     */
+    public function update($id, $segment_id, $competition_id)
+    {
+	
     }
 }

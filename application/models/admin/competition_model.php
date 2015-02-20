@@ -70,6 +70,15 @@ class Competition_model extends PT_Model {
         return $competition;
     }
     
+    /**
+     * Competition Judges
+     *
+     * Description
+     *
+     * @author Gertrude R
+     * @since 1.0.0
+     * @version 1.0.0
+     */
     public function judges()
     {
         $judges = array();
@@ -84,6 +93,15 @@ class Competition_model extends PT_Model {
         return $judges;
     }
     
+    /**
+     * Competition Judge
+     *
+     * Description
+     *
+     * @author Gertrude R
+     * @since 1.0.0
+     * @version 1.0.0
+     */
     public function judge($judge_id = 0)
     {
         $judge = NULL;
@@ -134,9 +152,9 @@ class Competition_model extends PT_Model {
         
         if($this->id)
         {
-            $this->load->model("admin/Segment_model", "segment");
+            $this->load->model("admin/Segment_model", "segment_model");
             
-            $segment = $this->segment->get($segment_id, $this->id);
+            $segment = $this->segment_model->get($segment_id, $this->id);
         }
         
         return $segment;

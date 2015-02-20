@@ -48,7 +48,7 @@
 $active_group = 'default';
 $active_record = TRUE;
 
-$db['default']['hostname'] = '192.168.0.138';
+$db['default']['hostname'] = '192.168.0.100';
 $db['default']['username'] = 'php';
 $db['default']['password'] = '';
 $db['default']['database'] = 'project_tiara';
