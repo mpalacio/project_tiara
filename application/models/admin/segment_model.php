@@ -79,6 +79,7 @@ class Segment_model extends PT_Model {
     }
     /**
      * Get Segment Criteria
+     * @todo
      */
     public function criteria($criteria_id = 0)
     {
@@ -141,19 +142,12 @@ class Segment_model extends PT_Model {
         
         if($this->id)
         {
-            $this->load->model("admin/Judge_model", "judge_model");
+            $this->load->model("admin/Segment_judge_model", "segment_judge_model");
             
-            $this->db->select("judges.*");
-	    $this->db->join("segment_judges", "segment_judges.judge_id = judges.id", "left");
-	    $this->db->where(array("segment_judges.segment_id" => $this->id));
-	    
-            $query = $this->db->get("judges");
+            $segment_judges = $this->segment_judge_model->get(0, $this->id);
             
-	    if($query->num_rows())
-	    {
-		foreach($query->result_array() AS $row)
-		    $judges[] = $this->judge_model->instantiate($row);
-	    }
+            foreach($segment_judges AS $segment_judge)
+                $judges[] = $segment_judge->judge();
         }
         
         return $judges;

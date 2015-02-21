@@ -115,19 +115,12 @@ class Judge_model extends PT_Model {
 	
 	if($this->id)
 	{
-	    $this->load->model("admin/Segment_model", "segment_model");
+	    $this->load->model("admin/Judge_segment_model", "judge_segment_model");
 	    
-	    $this->db->select("segments.*");
-	    $this->db->join("segment_judges", "segment_judges.segment_id = segments.id", "left");
-	    $this->db->where(array("segment_judges.judge_id" => $this->id));
+	    $judge_segments = $this->judge_segment_model->get(0, $this->id);
 	    
-	    $query = $this->db->get("segments");
-	    
-	    if($query->num_rows())
-	    {
-		foreach($query->result_array() AS $row)
-		    $segments[] = $this->segment_model->instantiate($row);
-	    }
+	    foreach($judge_segments AS $judge_segment)
+		$segments[] = $judge_segment->segment();
 	}
 	
 	return $segments;

@@ -31,8 +31,7 @@ class Segment_contestant_model extends PT_Model {
         if($id)
             $where["id"] = $id;
             
-        if($segment_id)
-            $where["segment_id"] = $segment_id;
+        $where["segment_id"] = $segment_id;
             
         $this->db->where($where);
         
@@ -68,29 +67,6 @@ class Segment_contestant_model extends PT_Model {
         }
         
         return $contestant;
-    }
-    
-    /**
-     * Get Segment
-     *
-     * Description
-     *
-     * @author Gertrude R
-     * @since 1.0.0
-     * @version 1.0.0
-     */
-    public function segment()
-    {
-	$segment = NULL;
-	
-	if($this->segment_id)
-	{
-	    $this->load->model("admin/Segment_model", "segment_model");
-	    
-	    $segment = $this->segment_model->get($this->segment_id);
-	}
-	
-	return $segment;
     }
     /**
      * Create Segment Contestant
