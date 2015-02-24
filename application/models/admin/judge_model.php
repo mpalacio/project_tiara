@@ -24,15 +24,7 @@ class Judge_model extends PT_Model {
 	$this->load->library("encrypt");
     }
     
-    /**
-     * Authenticate Judge
-     *
-     * Description
-     *
-     * @author Gertrude R
-     * @since 1.0.0
-     * @version 1.0.0
-     */
+    // OK
     public function authenticate($username = NULL, $password = NULL)
     {
 	$judge = NULL;
@@ -46,48 +38,7 @@ class Judge_model extends PT_Model {
 	    
 	return $judge;
     }
-    /**
-     * Get Judge(s)
-     *
-     * Description
-     *
-     * @author Gertrude R
-     * @since 1.0.0
-     * @version 1.0.0
-     */
-    public function get($id = 0, $competition_id = 0)
-    {
-	$judges = $where = array();
-        
-        if($id)
-            $where["id"] = $id;
-            
-	if($competition_id)
-            $where["competition_id"] = $competition_id;
-	
-	if(count($where))
-	    $this->db->where($where);
-	    
-        $query = $this->db->get(self::$table);
-        
-        if($query->num_rows())
-        {
-            foreach($query->result_array() AS $row)
-                $judges[] = $this->instantiate($row);
-        }
-        
-        return ($id) ? array_shift($judges) : $judges;
-    }
-    
-    /**
-     * Create New Judge
-     *
-     * Description
-     *
-     * @author Gertrude R
-     * @since 1.0.0
-     * @version 1.0.0
-     */
+    // OK
     public function create($data = array())
     {
 	$judge = $this->instantiate($data);
@@ -100,50 +51,55 @@ class Judge_model extends PT_Model {
         
         return $judge;
     }
-    /**
-     * Get Judge Segments
-     *
-     * Description
-     *
-     * @author Gertrude R
-     * @since 1.0.0
-     * @version 1.0.0
-     */
-    public function segments()
+    // OK
+    public function get($id = 0, $competition_id = 0)
     {
-	$segments = array();
+	$judges = $where = array();
+        
+        if($id)
+            $where["id"] = $id;
+	    
+        if($competition_id)
+	    $where["competition_id"] = $competition_id;
 	
+	$this->db->where($where);
+	    
+        $query = $this->db->get(self::$table);
+        
+        if($query->num_rows())
+        {
+            foreach($query->result_array() AS $row)
+                $judges[] = $this->instantiate($row);
+        }
+        
+        return ($id) ? array_shift($judges) : $judges;
+    }
+    
+    // OK
+    public function segment($segment_id = 0)
+    {
 	if($this->id)
 	{
 	    $this->load->model("admin/Judge_segment_model", "judge_segment_model");
 	    
-	    $judge_segments = $this->judge_segment_model->get(0, $this->id);
+	    $judge_segment = $this->judge_segment_model->get(0, $segment_id, $this->id);
 	    
-	    foreach($judge_segments AS $judge_segment)
-		$segments[] = $judge_segment->segment();
-	}
-	
-	return $segments;
-    }
-    
-    /**
-     * Get Segment By Slug
-     *
-     * Description
-     *
-     * @author Gertrude R
-     * @since 1.0.0
-     * @version 1.0.0
-     */
-    public function segment_by_slug($slug = NULL)
-    {
-	if($this->id)
-	{
-	    foreach($this->segments() AS $segment)
-		if($segment->slug == $slug)
-		    return $segment;
+	    return $judge_segment;
 	}
 	
 	return NULL;
+    }
+    // OK
+    public function segments()
+    {
+	$judge_segments = array();
+	
+	if($this->id)
+	{
+	    $this->load->model("admin/Judge_segment_model", "judge_segment_model");
+	    $judge_segments = $this->judge_segment_model->get(0, 0, $this->id);
+	}
+	
+	return $judge_segments;
     }
 }

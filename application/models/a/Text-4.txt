@@ -1,0 +1,19 @@
+Segments Index Page
+    $competition = $this->competition_model->get_by_slug($slug);
+
+    $judge = $competition->judge($judge->id); // Session: $judge->id
+
+    $judge_segments = $judge->segments();
+
+
+Segment Sheet Page
+    $competition = $this->competition_model->get_by_slug($slug);
+
+// Check if judge is a competition judge
+    $judge = $competition->judge($judge->id); // Session: $judge->id
+    
+    // Check if slug is a segment in the competition
+    $segment = $competition->segment_by_slug($segment_slug);
+    
+    
+    $judge_segment = $judge->segment($segment->id);

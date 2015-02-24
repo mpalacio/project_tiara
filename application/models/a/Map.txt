@@ -1,0 +1,90 @@
+JUDGE MODEL
+
+public function get(:id, :competition-id)
+    Used in:
+        -$competition->judges() // Competition_model::judges()
+            judge_model::get(0, $competition_model::id)
+            
+        -$competition->judge(:id) // Competition_model::judge(:judge-id)
+            judge_model::get(id, competition_model::id)
+            
+        -$segment_judge->judge() // Segment_judge_model::judge()
+            judge_model::get(segment_judge_model::judge_id, 0)
+
+
+    
+SEGMENT MODEL
+
+public function get(:id, :competition-id)
+    Used in:
+        -$competition->segments() // Competition_model::segments()
+            segment_model::get(0, competition_model::id)
+        
+        -$competition->segment(:segment-id) // Competition_model::segment(:segment-id)
+            Segment_model::get(id, competition_model::id)
+            
+        -$judge_segment->segment() // Judge_segment_model::segment()
+            Segment_model::get(judge_segment_model::segment_id, 0)
+        
+public function get_by_slug(:slug, :competition-id)
+    Used in:
+        -$competition->segment_by_slug(:slug) // Competition_model::segment_by_slug(:slug)
+            Segment_model::get_by_slug(:slug, competition_model::id)
+
+
+
+CONTESTANT MODEL
+
+public function get(:id, :competition-id)
+    Used in:
+        -$segment_contestant->contestant() // Segment_contestant_model::contestant()
+            Constestant_model::get(segment_contestant_model::contestant_id, 0)
+
+
+
+SEGMENT JUDGE MODEL
+
+public function get(:judge-id, :segment-id)
+    Used in:
+        -$segment->judges() // Segment_model::judges()
+            Segment_judge_model::get(0, segment_model::id)
+        
+        -$segment->judge(:judge-id) // Segment_model::judge(:judge-id)
+            Segment_judge_model::get(:judge-id, segment_model::id)
+        
+        
+
+JUDGE SEGMENT MODEL
+
+public function get(:segment-id, :judge-id)
+    Used in:
+        -$judge->segments() // Judge_model::segments()
+            judge_segment_model::get(0, judge_model::id)
+            
+        -$judge->segment(:segment-id) // Judge_model::segment(:segment-id)
+            judge_segment_model::get(:segment-id, judge_model::id)
+            
+
+
+SEGMENT CONTESTANT MODEL
+
+public function get(:contestant-id, :segment-id)
+    Used in:
+        -$segment->contestants() // Segment_model::contestants()
+            Segment_contestant_model::get(0, segment_model::id)
+        
+        -$segment->contestant(:contestant-id) // Segment_model::contestant(:contestant-id)
+            Segment_contestant_model::get(:contestant-id, segment_model::id)
+            
+
+
+SEGMENT CRITERIA MODEL
+
+public function get(:criteria-id, :segment-id)
+    Used in:
+        -$segment->criterias() // Segment_model::criterias()
+            criteria_model::get(0, segment_model::id)
+        
+        -$segment->criteria(:criteria-id) // Segment_model::criteria(:criteria-id)
+            criteria_model::get(:criteria-id, segment_model::id)
+            

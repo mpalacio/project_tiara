@@ -1,0 +1,50 @@
+$competition = $this->competition->get_by_slug(:slug) OR $this->competition->get(:competition-id)
+
+$competition->judges()
+    Array: Judge Object
+    
+$judge = $competition->judge(:judge-id)
+    Object: Judge
+    
+$judge->segments()
+    Array: Judge Segment Object
+    
+$judge_segment = $judge->segment(:segment-id)
+    Object: Judge Segment
+
+$judge_segment->segment()
+    Object: Segment
+
+$competition->segments()
+    Array: Segment Object
+    
+$segment = $competition->segment(:segment-id) OR $competition->segment_by_slug(:$segment-slug)
+    Object: Segment
+    
+$segment->judges()
+    Array: Segment Judge Object
+    
+$segment_judge = $segment->judge(:judge-id)
+    Object: Segment Judge
+    
+$segment_judge->judge()
+    Object: Judge
+    
+$segment->contestants()
+    Array: Segment Contestant Object
+    
+$segment_contestant = $segment->contestant(:contestant-id)
+    Object: Segment Contestant
+
+$segment_contestant->contestant()
+    Object: Contestant
+    
+$segment->criterias()
+    Array: Criteria Object
+    
+$segment_criteria = $segment->criteria(:criteria-id)
+    Object: Criteria
+
+
+$segment_judge->score(:criteria-id, :segment-contestant-id)
+    Object: Criteria Score

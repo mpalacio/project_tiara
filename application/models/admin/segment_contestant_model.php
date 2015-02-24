@@ -15,46 +15,18 @@ class Segment_contestant_model extends PT_Model {
     {
         parent::__construct();
     }
-    /**
-     * Get Segment Contestant(s)
-     * 
-     * Description
-     *
-     * @author Gertrude R
-     * @since 1.0.0
-     * @version 1.0.0
-     */
-    public function get($id = 0, $segment_id = 0)
+    // OK
+    public function create($data = array())
     {
-        $segment_contestants = $where = array();
+	$segment_contestant = $this->instantiate($data);
         
-        if($id)
-            $where["id"] = $id;
-            
-        $where["segment_id"] = $segment_id;
-            
-        $this->db->where($where);
+        $this->db->insert(self::$table, $segment_contestant);
         
-        $query = $this->db->get(self::$table);
+        $segment_contestant->id = $this->db->insert_id();
         
-        if($query->num_rows())
-        {
-            foreach($query->result_array() AS $row)
-                $segment_contestants[] = $this->instantiate($row);
-        }
-        
-        return $segment_contestants;
+        return $segment_contestant;
     }
-    
-    /**
-     * Get Contestant
-     *
-     * Description
-     *
-     * @author Gertrude R
-     * @since 1.0.0
-     * @version 1.0.0
-     */
+    // OK
     public function contestant()
     {
         $contestant = NULL;
@@ -68,23 +40,28 @@ class Segment_contestant_model extends PT_Model {
         
         return $contestant;
     }
-    /**
-     * Create Segment Contestant
-     *
-     * Description
-     *
-     * @author Gertrude R
-     * @since 1.0.0
-     * @version 1.0.0
-     */
-    public function create($data = array())
+    
+    // OK
+    public function get($id = 0, $segment_id = 0)
     {
-	$segment_contestant = $this->instantiate($data);
+        $segment_contestants = $where = array();
         
-        $this->db->insert(self::$table, $segment_contestant);
+        if($id)
+            $where["id"] = $id;
+            
+        if($segment_id)
+            $where["segment_id"] = $segment_id;
+            
+        $this->db->where($where);
         
-        $segment_contestant->id = $this->db->insert_id();
+        $query = $this->db->get(self::$table);
         
-        return $segment_contestant;
+        if($query->num_rows())
+        {
+            foreach($query->result_array() AS $row)
+                $segment_contestants[] = $this->instantiate($row);
+        }
+        
+        return $segment_contestants;
     }
 }

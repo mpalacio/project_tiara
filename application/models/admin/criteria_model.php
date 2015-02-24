@@ -1,4 +1,4 @@
-<?php
+<?php if ( ! defined("BASEPATH")) exit("No direct script access allowed");
 
 class Criteria_model extends PT_Model {
     public static $table = "criterias";
@@ -17,15 +17,7 @@ class Criteria_model extends PT_Model {
     {
 	parent::__construct();
     }
-    /**
-     * Get Segment Criteria(s)
-     *
-     * Description
-     *
-     * @author Gertrude R
-     * @since 1.0.0
-     * @version 1.0.0
-     */
+    // OK
     public function get($id = 0, $segment_id = 0)
     {
 	$segment_criterias = $where = array();
@@ -49,15 +41,19 @@ class Criteria_model extends PT_Model {
 	return ($id) ? array_shift($segment_criterias) : $segment_criterias;
     }
     
-    /**
-     * Get Segment Where Criteria Belongs
-     *
-     * Description
-     *
-     * @author Gertrude R
-     * @since 1.0.0
-     * @version 1.0.0
-     */
+    public function score($segment_judge_id = 0, $segment_contestant_id = 0)
+    {
+	$criteria_score = NULL;
+	
+	if($this->id)
+	{
+	    $this->load->model("admin/Criteria_score_model", "criteria_score_model");
+	    
+	    $criteria_score = $this->criteria_score_model->get(0, $this->id, $segment_judge_id, $segment_contestant_id);
+	}
+	
+	return $criteria_score;
+    }
     public function segment()
     {
 	$segment = NULL;
@@ -71,15 +67,7 @@ class Criteria_model extends PT_Model {
 	
 	return $segment;
     }
-    /**
-     * Update Segment Criteria
-     *
-     * Description
-     *
-     * @author Gertrude R
-     * @since 1.0.0
-     * @version 1.0.0
-     */
+    
     public function update()
     {
 	$criteria = NULL;

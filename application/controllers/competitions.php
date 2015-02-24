@@ -47,11 +47,11 @@ class Competitions extends PT_Controller {
      */
     public function authenticate($password)
     {
-	$this->load->model("admin/Judge_model", "judge");
+	$this->load->model("admin/Judge_model", "judge_model");
 	
 	$username = $this->input->post("username");
 	
-	$judge = $this->judge->authenticate($username, $password);
+	$judge = $this->judge_model->authenticate($username, $password);
 	
 	if($judge)
 	{

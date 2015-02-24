@@ -23,15 +23,63 @@ class Segment_model extends PT_Model {
     {
         parent::__construct();
     }
-    /**
-     * Get Segment(s)
-     *
-     * Description
-     *
-     * @author Gertrude R
-     * @since 1.0.0
-     * @version 1.0.0
-     */
+    // OK
+    public function criteria($criteria_id = 0)
+    {
+        $criteria = NULL;
+        
+        if($this->id)
+        {
+            $this->load->model("admin/Criteria_model", "criteria_model");
+            
+            $criteria = $this->criteria_model->get($criteria_id, $this->id);
+        }
+        
+        return $criteria;
+    }
+    // OK
+    public function criterias()
+    {
+        $criterias = array();
+        
+        if($this->id)
+        {
+            $this->load->model("admin/Criteria_model", "criteria_model");
+            
+            $criterias = $this->criteria_model->get(0, $this->id);
+        }
+        
+        return $criterias;
+    }
+    // OK
+    public function contestant($contestant_id = 0)
+    {
+        $segment_contestant = NULL;
+        
+        if($this->id)
+        {
+            $this->load->model("admin/Segment_contestant_model", "segment_contestant_model");
+            
+            $segment_contestant = $this->segment_contestant_model->get($contestant_id, $this->id);
+        }
+        
+        return $segment_contestant;
+    }
+    // OK
+    public function contestants()
+    {
+        $segment_contestants = array();
+        
+        if($this->id)
+        {
+            $this->load->model("admin/Segment_contestant_model", "segment_contestant_model");
+            
+            $segment_contestants = $this->segment_contestant_model->get(0, $this->id);
+        }
+        
+        return $segment_contestants;
+    }
+    // OK
     public function get($id = 0, $competition_id = 0)
     {
         $segments = $where = array();
@@ -55,112 +103,53 @@ class Segment_model extends PT_Model {
         
         return ($id) ? array_shift($segments) : $segments;
     }
-    /**
-     * Get Segment Criteria(s)
-     *
-     * Description
-     *
-     * @author Gertrude R
-     * @since 1.0.0
-     * @version 1.0.0
-     */
-    public function criterias()
-    {
-        $criterias = array();
-        
-        if($this->id)
-        {
-            $this->load->model("admin/Criteria_model", "criteria_model");
-            
-            $criterias = $this->criteria_model->get(0, $this->id);
-        }
-        
-        return $criterias;
-    }
-    /**
-     * Get Segment Criteria
-     * @todo
-     */
-    public function criteria($criteria_id = 0)
-    {
-        $segment_criteria = NULL;
-        
-        if($this->id)
-        {
-            $this->load->model("admin/Criteria_model", "criteria_model");
-            
-            $segment_criteria = $this->criteria_model->get($criteria_id, $this->id);
-        }
-        
-        return $segment_criteria;
-    }
-    /**
-     * Get Segment Contestants
-     *
-     * Description
-     *
-     * @author Gertrude R
-     * @since 1.0.0
-     * @version 1.0.0
-     */
-    public function contestants()
-    {
-        $contestants = array();
-        
-        if($this->id)
-        {
-            $this->load->model("admin/Contestant_model", "contestant_model");
-            
-            $this->db->select("contestants.*");
-	    $this->db->join("segment_contestants", "segment_contestants.contestant_id = contestants.id", "left");
-	    $this->db->where(array("segment_contestants.segment_id" => $this->id));
-	    
-            $query = $this->db->get("contestants");
-            
-	    if($query->num_rows())
-	    {
-		foreach($query->result_array() AS $row)
-		    $contestants[] = $this->contestant_model->instantiate($row);
-	    }
-        }
-        
-        return $contestants;
-    }
     
-    /**
-     * Get Segment Judges
-     *
-     * Description
-     *
-     * @author Gertrude R
-     * @since 1.0.0
-     * @version 1.0.0
-     */
-    public function judges()
+    // OK
+    public function get_by_slug($slug, $competition_id)
     {
-        $judges = array();
+        $segment = NULL;
+        
+        if($slug == NULL)
+            return $segment;
+        
+        $this->db->where(array("slug" => $slug, "competition_id" => $competition_id));
+        
+        $query = $this->db->get(self::$table);
+        
+        if($query->num_rows())
+            $segment = $this->instantiate($query->row_array());
+            
+        return $segment;
+    }
+    // OK
+    public function judge($judge_id = 0)
+    {
+        $segment_judge = NULL;
         
         if($this->id)
         {
             $this->load->model("admin/Segment_judge_model", "segment_judge_model");
             
-            $segment_judges = $this->segment_judge_model->get(0, $this->id);
-            
-            foreach($segment_judges AS $segment_judge)
-                $judges[] = $segment_judge->judge();
+            $segment_judge = $this->segment_judge_model->get(0, $judge_id, $this->id);
         }
         
-        return $judges;
+        return $segment_judge;
     }
-    /**
-     * Create New Segment Contestant
-     *
-     * Description
-     *
-     * @author Gertrude R
-     * @since 1.0.0
-     * @version 1.0.0
-     */
+    // OK
+    public function judges()
+    {
+        $segment_judges = array();
+        
+        if($this->id)
+        {
+            $this->load->model("admin/Segment_judge_model", "segment_judge_model");
+            
+            $segment_judges = $this->segment_judge_model->get(0, 0, $this->id);
+        }
+        
+        return $segment_judges;
+    }
+    // OK
     public function new_contestant($data = array())
     {
         $segment_contestant = NULL;

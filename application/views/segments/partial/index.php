@@ -21,10 +21,11 @@
 	    
 	    <tbody>
 	<?php
-	    if(is_array($judge->segments()) AND count($judge->segments()))
+	    if(is_array($judge_segments) AND count($judge_segments))
 	    {
-		foreach($judge->segments() AS $segment)
-		{ ?>
+		foreach($judge_segments AS $judge_segment)
+		{
+		    $segment = $judge_segment->segment(); ?>
 		<tr>
                     <td><?php echo $segment->id; ?></td>
                     <td><?php echo $segment->name; ?></td>

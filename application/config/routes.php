@@ -106,7 +106,8 @@ $route['([a-z0-9-]+)/(logout)'] = 'competitions/logout/$1';
 
 $route['([a-z0-9-]+)/judges'] = 'segments/index/$1';
 $route['([a-z0-9-]+)/judges/([a-z0-9-]+)'] = 'segments/sheet/$2/$1';
-$route['([a-z0-9-]+)/judges/([a-z0-9-]+)/score/(:num)'] = 'segments/score/$3/$2/$1';
+$route['([a-z0-9-]+)/judges/([a-z0-9-]+)/score/(:num)'] = 'criterias/score/$3/$2/$1';
+$route['([a-z0-9-]+)/judges/([a-z0-9-]+)/scores'] = 'criterias/scores/$2/$1';
 $route['([a-z0-9-]+)/judges/([a-z0-9-]+)/contestants/(:num)'] = 'contestants/view/$3/$2/$1';
 
 /* End of file routes.php */

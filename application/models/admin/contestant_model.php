@@ -29,14 +29,19 @@ class Contestant_model extends PT_Model {
     {
         parent::__construct();
     }
-    
-    public function get($id = 0)
+    // OK
+    public function get($id = 0, $competition_id = 0)
     {
-        $contestants = array();
+        $contestants = $where = array();
         
         if($id)
-            $this->db->where(array("id" => $id));
-            
+            $where["id"] = $id;
+        
+        if($competition_id)
+            $where["competition_id"] = $competition_id;
+        
+        $this->db->where($where);
+        
         $query = $this->db->get(self::$table);
         
         if($query->num_rows())
@@ -48,6 +53,7 @@ class Contestant_model extends PT_Model {
         return ($id) ? array_shift($contestants) : $contestants;
     }
     
+    // OK
     public function create($data = array())
     {
         $contestant = $this->instantiate($data);

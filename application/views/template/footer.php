@@ -17,6 +17,18 @@
         <script type="text/javascript" src="<?php echo base_url("js/moment/2.9.0/moment.min.js"); ?>"></script>
         <script type="text/javascript" src="<?php echo base_url("js/bootstrap/datetimepicker/4.0.0/bootstrap-datetimepicker.min.js"); ?>"></script>
         
+        <script type="text/javascript" id="ajax-csrf">
+            $(document).ready(function() {
+                $.ajaxSetup({
+                    data: {
+                        csrf_pt_token: $.cookie('csrf_pt_cookie')
+                    }
+                })
+                
+                $('#ajax-csrf').remove()
+            })
+        </script>
+        
         <?php if(is_array($scripts) AND count($scripts))
         {
             foreach($scripts AS $script)

@@ -1,7 +1,11 @@
 <?php
 
 class Segments extends PT_Controller {
-    public $competition = NULL;
+    protected $competition = NULL;
+    
+    protected $judge = NULL;
+    
+    protected $segment = NULL;
     
     public function __construct()
     {
@@ -11,14 +15,24 @@ class Segments extends PT_Controller {
 	
 	$slug = $this->uri->segment(1);
 	
+	// Object: Competition Model
 	$this->competition = $this->competition_model->get_by_slug($slug);
+	
+	// Session: Judge
+	$this->judge = json_decode($this->session->userdata("judge"));
+	
+	// Object: Judge Model
+	$this->judge = $this->competition->judge($this->judge->id);
+	
+	// Is Competition Judge?
+	if($this->judge == NULL)
+	    show_404();
     }
     
     public function index()
     {
-	$judge = json_decode($this->session->userdata("judge"));
-	
-	$judge = $this->competition->judge($judge->id);
+	// Array: Judge Segment Model Object
+	$judge_segments = $this->judge->segments();
 	
 	$this->load->view("template/header", array(
 		"title" => "Sample | Index",
@@ -27,22 +41,41 @@ class Segments extends PT_Controller {
 		),
 		"nav" => $this->load->view("judges/nav", array(
 			"competition" => $this->competition,
-			"judge" => $judge
+			"judge" => $this->judge
 		    ), TRUE
 		)
 	    )
 	);
 	
-	$this->load->view("segments/partial/index", array("competition" => $this->competition, "judge" => $judge));
+	$this->load->view("segments/partial/index", array("competition" => $this->competition, "judge_segments" => $judge_segments));
 	
-	$this->load->view("template/footer");
+	$this->load->view("template/footer", array(
+		"scripts" => array(
+		    "tiara/judges"
+		)
+	    )
+	);
     }
     
     public function sheet($slug = NULL)
     {
-	$judge = json_decode($this->session->userdata("judge"));
+	// Object: Segment Model
+	$this->segment = $this->competition->segment_by_slug($slug);
 	
-	$judge = $this->competition->judge($judge->id);
+	// Is Segment a Competition Segment?
+	if($this->segment == NULL)
+	    show_404();
+	
+	// Object: Segment Judge Model
+	$segment_judge = $this->segment->judge($this->judge->id);
+	
+	// Is Judge a Segment Judge?
+	if($segment_judge == NULL)
+	    show_404();
+	
+	$this->load->model("admin/Segment_judge_score_model", "segment_judge_score_model");
+	
+	print_r($this->segment_judge_score_model->get($segment_judge->id));
 	
 	$this->load->view("template/header", array(
 		"title" => "Sample | Index",
@@ -51,16 +84,21 @@ class Segments extends PT_Controller {
 		),
 		"nav" => $this->load->view("judges/nav", array(
 			"competition" => $this->competition,
-			"judge" => $judge
+			"judge" => $this->judge
 		    ), TRUE
 		)
 	    )
 	);
+    
+	$this->load->view("segments/partial/sheet", array("competition" => $this->competition, "segment" => $this->segment, "segment_judge" => $segment_judge));
 	
-	$segment = $judge->segment_by_slug($slug);
-	
-	$this->load->view("segments/partial/sheet", array("competition" => $this->competition, "segment" => $segment));
-	
-	$this->load->view("template/footer");
+	$this->load->view("template/footer", array(
+		"scripts" => array(
+		    "jquery/input-mask/jquery.inputmask.min",
+		    "jquery/input-mask/jquery.inputmask.numeric.extensions.min",
+		    "tiara/judges"
+		)
+	    )
+	);
     }
 }

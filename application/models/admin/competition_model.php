@@ -20,15 +20,7 @@ class Competition_model extends PT_Model {
         parent::__construct();
     }
     
-    /**
-     * Get Competition(s)
-     *
-     * Description
-     *
-     * @author Gertrude R
-     * @since 1.0.0
-     * @version 1.0.0
-     */
+    // OK
     public function get($id = 0)
     {
         $competitions = array();
@@ -47,15 +39,7 @@ class Competition_model extends PT_Model {
         return ($id) ? array_shift($competitions) : $competitions;
     }
     
-    /**
-     * Get Competition By Slug
-     *
-     * Description
-     *
-     * @author Gertrude R
-     * @since 1.0.0
-     * @version 1.0.0
-     */
+    // OK
     public function get_by_slug($slug = NULL)
     {
         $competition = NULL;
@@ -70,15 +54,7 @@ class Competition_model extends PT_Model {
         return $competition;
     }
     
-    /**
-     * Competition Judges
-     *
-     * Description
-     *
-     * @author Gertrude R
-     * @since 1.0.0
-     * @version 1.0.0
-     */
+    // OK
     public function judges()
     {
         $judges = array();
@@ -87,65 +63,27 @@ class Competition_model extends PT_Model {
         {
             $this->load->model("admin/Judge_model", "judge_model");
             
-            $judges = $this->judge_model->by_competition($this->id);
+            $judges = $this->judge_model->get(0, $this->id);
         }
         
         return $judges;
     }
     
-    /**
-     * Competition Judge
-     *
-     * Description
-     *
-     * @author Gertrude R
-     * @since 1.0.0
-     * @version 1.0.0
-     */
+    // OK
     public function judge($judge_id = 0)
     {
         $judge = NULL;
         
         if($this->id)
         {
-            $this->load->model("admin/Judge_model", "judge");
+            $this->load->model("admin/Judge_model", "judge_model");
             
-            $judge = $this->judge->get($judge_id, $this->id);
+            $judge = $this->judge_model->get($judge_id, $this->id);
         }
         
         return $judge;
     }
-    /**
-     * Get Competition Segments
-     *
-     * Description
-     *
-     * @author Gertrude R
-     * @since 1.0.0
-     * @version 1.0.0
-     */
-    public function segments()
-    {
-        $segments = array();
-        
-        if($this->id)
-        {
-            $this->load->model("admin/Segment_model", "segment");
-            
-            $segments = $this->segment->get(0, $this->id);
-        }
-        
-        return $segments;
-    }
-    /**
-     * Get Single Competition Segment
-     *
-     * Description
-     *
-     * @author Gertrude R
-     * @since 1.0.0
-     * @version 1.0.0
-     */
+    // OK
     public function segment($segment_id = 0)
     {
         $segment = NULL;
@@ -159,15 +97,35 @@ class Competition_model extends PT_Model {
         
         return $segment;
     }
-    /**
-     * Create Competition
-     *
-     * Description
-     *
-     * @author Gertrude R
-     * @since 1.0.0
-     * @version 1.0.0
-     */
+    // OK
+    public function segment_by_slug($slug = NULL)
+    {
+        $segment = NULL;
+        
+        if($this->id)
+        {
+            $this->load->model("admin/Segment_model", "segment_model");
+            
+            $segment = $this->segment_model->get_by_slug($slug, $this->id);
+        }
+        
+        return $segment;
+    }
+    // OK
+    public function segments()
+    {
+        $segments = array();
+        
+        if($this->id)
+        {
+            $this->load->model("admin/Segment_model", "segment_model");
+            
+            $segments = $this->segment_model->get(0, $this->id);
+        }
+        
+        return $segments;
+    }
+    // OK
     public function create($data = array())
     {
         $competition = $this->instantiate($data);

@@ -21,23 +21,30 @@ class Segment_judge_model extends PT_Model {
     {
 	parent::__construct();
     }
-    /**
-     * Get Segment Judge(s)
-     *
-     * Description
-     *
-     * @author Gertrude R
-     * @since 1.0.0
-     * @version 1.0.0
-     */
-    public function get($id = 0, $segment_id = 0)
+    // OK
+    public function create($data = array())
+    {
+	$segment_judge = $this->instantiate($data);
+        
+        $this->db->insert(self::$table, $segment_judge);
+        
+        $segment_judge->id = $this->db->insert_id();
+        
+        return $segment_judge;
+    }
+    // OK
+    public function get($id = 0, $judge_id = 0, $segment_id = 0)
     {
         $segment_judges = $where = array();
         
-        if($id)
-            $where["id"] = $id;
+	if($id)
+	    $where["id"] = $id;
+	    
+        if($judge_id)
+            $where["judge_id"] = $judge_id;
         
-        $where["segment_id"] = $segment_id;
+	if($segment_id)    
+	    $where["segment_id"] = $segment_id;
             
         $this->db->where($where);
         
@@ -49,17 +56,9 @@ class Segment_judge_model extends PT_Model {
                 $segment_judges[] = $this->instantiate($row);
         }
         
-        return ($id) ? array_shift($segment_judges) : $segment_judges;
+        return ($id OR ($judge_id AND $segment_id)) ? array_shift($segment_judges) : $segment_judges;
     }
-    /**
-     * Get Judge
-     *
-     * Description
-     *
-     * @author Gertrude R
-     * @since 1.0.0
-     * @version 1.0.0
-     */
+    // OK
     public function judge()
     {
 	$judge = NULL;
@@ -73,23 +72,18 @@ class Segment_judge_model extends PT_Model {
 	
 	return $judge;
     }
-    /**
-     * Create Segment
-     *
-     * Description
-     *
-     * @author Gertrude R
-     * @since 1.0.0
-     * @version 1.0.0
-     */
-    public function create($data = array())
+    // OK
+    public function segment()
     {
-	$segment_judge = $this->instantiate($data);
-        
-        $this->db->insert(self::$table, $segment_judge);
-        
-        $segment_judge->id = $this->db->insert_id();
-        
-        return $segment_judge;
+	$segment = NULL;
+	
+	if($this->segment_id)
+	{
+	    $this->load->model("admin/Segment_model", "segment_model");
+	    
+	    $segment = $this->segment_model->get($this->segment_id);
+	}
+	
+	return $segment;
     }
 }
