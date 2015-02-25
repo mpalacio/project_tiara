@@ -73,10 +73,6 @@ class Segments extends PT_Controller {
 	if($segment_judge == NULL)
 	    show_404();
 	
-	$this->load->model("admin/Segment_judge_score_model", "segment_judge_score_model");
-	
-	print_r($this->segment_judge_score_model->get($segment_judge->id));
-	
 	$this->load->view("template/header", array(
 		"title" => "Sample | Index",
 		"styles" => array(

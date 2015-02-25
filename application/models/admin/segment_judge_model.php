@@ -86,4 +86,32 @@ class Segment_judge_model extends PT_Model {
 	
 	return $segment;
     }
+    public function score($segment_contestant_id = 0)
+    {
+	$segment_judge_score = NULL;
+	
+	if($this->id)
+	{
+	    $this->load->model("admin/Segment_judge_score_model", "segment_judge_score_model");
+	    
+	    $segment_judge_score = $this->segment_judge_score_model->get($this->id, $segment_contestant_id);
+	}
+	
+	return $segment_judge_score;
+    }
+    public function scores()
+    {
+	$segment_judge_scores = array();
+	
+	if($this->id)
+	{
+	    $this->load->model("admin/Segment_judge_score_model", "segment_judge_score_model");
+	    
+	    $segment_judge_scores = $this->segment_judge_score_model->get($this->id);
+	}
+	
+	return $segment_judge_scores;
+    }
+    
+    
 }

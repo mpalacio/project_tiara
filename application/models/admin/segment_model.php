@@ -74,7 +74,7 @@ class Segment_model extends PT_Model {
         {
             $this->load->model("admin/Segment_contestant_model", "segment_contestant_model");
             
-            $segment_contestants = $this->segment_contestant_model->get(0, $this->id);
+            $segment_contestants = $this->segment_contestant_model->get(0, 0, $this->id);
         }
         
         return $segment_contestants;
