@@ -21,6 +21,9 @@ class Segments extends PT_Controller {
 	// Session: Judge
 	$this->judge = json_decode($this->session->userdata("judge"));
 	
+	if($this->judge == NULL)
+	    redirect($this->competition->slug, "refresh");
+	
 	// Object: Judge Model
 	$this->judge = $this->competition->judge($this->judge->id);
 	
@@ -72,6 +75,8 @@ class Segments extends PT_Controller {
 	// Is Judge a Segment Judge?
 	if($segment_judge == NULL)
 	    show_404();
+	
+	$this->segment->top(3);
 	
 	$this->load->view("template/header", array(
 		"title" => "Sample | Index",

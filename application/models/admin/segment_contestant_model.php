@@ -128,5 +128,4 @@ class Segment_contestant_model extends PT_Model {
         
         return $segment_contestant_scores;
     }
-    
 }

@@ -169,4 +169,33 @@ class Segment_model extends PT_Model {
         
         return $segment_contestant;
     }
+
+    public function top($top = 0)
+    {
+        $ranking = array();
+        
+        $segment_contestants = $this->contestants();
+        
+        for($b = 0; $b < count($segment_contestants); $b++)
+        {
+            $base = $segment_contestants[$b];
+            
+            for($s = $b + 1; $s < count($segment_contestants); $s++)
+            {
+                $subject = $segment_contestants[$s];
+                
+                if($subject->average() > $base->average())
+                {
+                    $segment_contestants[$s] = $base;
+                    $segment_contestants[$b] = $base = $subject;
+                }
+            }
+            
+        }
+        
+        $ranking = array_splice($segment_contestants, 0, $top);
+        
+        foreach($ranking AS $segment_contestant)
+            echo $segment_contestant->contestant()->first_name . " - " . $segment_contestant->average() . "<br />";
+    }
 }

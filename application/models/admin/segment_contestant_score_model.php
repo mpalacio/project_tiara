@@ -9,7 +9,7 @@ class Segment_contestant_score_model extends PT_Model {
     {
 	parent::__construct();
     }
-    
+    // OK
     public function get($segment_contestant_id = 0, $segment_judge_id = 0)
     {
 	if($segment_judge_id)
@@ -41,6 +41,7 @@ class Segment_contestant_score_model extends PT_Model {
 	}
     }
     
+    // OK
     public function score()
     {
 	$score = 0.00;
