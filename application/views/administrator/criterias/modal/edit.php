@@ -6,7 +6,7 @@
         </div>
         
         <div class="modal-body">
-            <form action="<?php echo base_url("administrator/competitions/" . $segment->competition_id . "/segments/" . $segment->id . "/criterias/update/" . $segment->id); ?>" method="post">
+            <form action="<?php echo base_url("administrator/competitions/" . $segment->competition_id . "/segments/" . $segment->id . "/criterias/update/" . $criteria->id); ?>" method="post">
                 <div class="form-group">
                     <div class="row">
 			<div class="col-md-6">

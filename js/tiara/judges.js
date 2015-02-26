@@ -30,9 +30,43 @@ $(document).ready(function() {
 	}
     })
     
+    $('#judge-sheet').popover({
+	title: 'Submit Scores? <button type="button" class="close" aria-label="Close"><span aria-hidden="true">&times;</span></button>',
+	placement: 'auto left',
+	trigger: 'manual',
+	html: true,
+	content: '<p>Scores are final and are irrevocable.</p><button id="confirm" class="btn btn-info btn-block">Confirm</button>'
+    })
+    
     $('#judge-sheet').click(function(event) {
 	event.preventDefault()
 	
+	var complete = true
+	
+	var contestants = $('.contestant-criteria-score').map(function(index, element) {
+	    var contestant = new Contestant()
+	    contestant.get(element)
+	    
+	    if (contestant.score == 0)
+		complete = false
+	    
+	    return contestant
+	}).get()
+	
+	if (complete) {
+	    
+	    
+	} else {
+	    
+	}
+	$(this).popover('show')
+    })
+    
+    $('body').delegate('.close', 'click', function() {
+	$('#judge-sheet').popover('hide')
+    })
+    
+    $('body').delegate('#confirm', 'click', function() {
 	var complete = true
 	
 	var contestants = $('.contestant-criteria-score').map(function(index, element) {
@@ -53,13 +87,9 @@ $(document).ready(function() {
 		    contestants: JSON.stringify(contestants)
 		},
 		success: function(response) {
-		    
+		    $('#judge-sheet').popover('hide')
 		}
 	    })
-	}
-	else
-	{
-	    alert('kulang!');
 	}
     })
 });

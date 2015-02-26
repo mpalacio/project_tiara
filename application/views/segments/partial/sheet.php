@@ -2,6 +2,7 @@
     <h1 class="clearfix">
 	<?php echo anchor($competition->slug . "/judges", $competition->name); ?> <small><?php echo $segment->name; ?></small>
 	<?php echo anchor($competition->slug . "/judges/" . $segment->slug . "/scores", "Submit", "id='judge-sheet' class='btn btn-default pull-right'"); ?>
+	
     </h1>
 </div>
 <div class="row">
