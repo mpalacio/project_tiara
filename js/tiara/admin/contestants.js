@@ -6,7 +6,7 @@ $(document).ready(function() {
         keepOpen: true
     })
     
-    $('#create-contestant').click(function(event) {
+    $('#contestants').delegate('#create-contestant', 'click', function(event) {
         event.preventDefault()
         
         var href = $(this).attr("href")
@@ -76,6 +76,8 @@ $(document).ready(function() {
             response = parseJSON(response)
             
             if (response.status == 'success') {
+                $('#contestants').html(response.success.data.partial)
+                
                 $('.modal').modal('hide')
             }
         })
@@ -89,7 +91,7 @@ function Contestant() {
     
     this.last_name = null;
     
-    this.birthdate = null;
+    this.birthday = null;
     
     this.occupation = null;
     
@@ -105,7 +107,7 @@ function Contestant() {
         this.first_name = $.trim($('#first-name').val())
         this.middle_name = $.trim($('#middle-name').val())
         this.last_name = $.trim($('#last-name').val())
-        this.birthday = $.trim($('#bithday').val())
+        this.birthday = $.trim($('#birthday').val())
         this.occupation = $.trim($('#occupation').val())
         this.telephone = $.trim($('#telephone').val())
         this.mobile = $.trim($('#mobile').val())

@@ -1,7 +1,20 @@
+/**
+ * Judges Script
+ * 
+ * @namespace admin
+ * @version 1.0.0
+ */
 $(document).ready(function() {
     initialize()
     
-    $('#create-judge').click(function(event) {
+    /**
+     * Create Judge Event Handler
+     *
+     * @author Gertrude R
+     * @since 1.0.0 Judge Script
+     * @version 1.0.1
+     */
+    $('#judges').delegate('#create-judge', 'click', function(event) {
         event.preventDefault()
         
         var href = $(this).attr("href")
@@ -46,7 +59,13 @@ $(document).ready(function() {
             }
         })
     })
-    
+    /**
+     * Save Judge Event Handler
+     *
+     * @author Gertrude R
+     * @since 1.0.0 Judge Script
+     * @version 1.0.0
+     */
     $('.modal').delegate('#save-judge', 'click', function() {
         var judge = new Judge()
         judge.get()
@@ -55,8 +74,14 @@ $(document).ready(function() {
         
         $.post(href, {
             judge: JSON.stringify(judge)
-        }, function() {
+        }, function(response) {
+            response = parseJSON(response)
             
+            if (response.status == 'success') {
+                $('#judges').html(response.success.data.partial)
+                
+                $('.modal').modal('hide')
+            }
         })
     })
 });

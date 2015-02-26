@@ -58,6 +58,8 @@ class Contestant_model extends PT_Model {
     {
         $contestant = $this->instantiate($data);
         
+        $contestant->birthday = date("Y-m-d", strtotime($contestant->birthday));
+        
         $this->db->insert(self::$table, $contestant);
         
         $contestant->id = $this->db->insert_id();
