@@ -50,6 +50,8 @@ class Segments extends PT_Controller {
         
         $competition = $this->competition_model->get($competition_id);
         
+        $this->load->helper("string_helper");
+        
         $this->load->view("administrator/segments/partial/view", array("competition" => $competition, "segment" => $competition->segment($id)));
         
         $this->load->view("template/footer", array(
@@ -76,5 +78,22 @@ class Segments extends PT_Controller {
                 )
             )
         );
+    }
+    public function ranking($limit = 0, $id, $competition_id = 0)
+    {
+        $this->load->model("admin/Competition_model", "competition_model");
+	
+	$competition = $this->competition_model->get($competition_id);
+	
+	$segment = $competition->segment($id);
+	
+	$this->load->view("template/header", array(
+                "title" => "Sample | Index",
+            )
+        );
+	
+	$this->load->view("administrator/rankings/sheet", array("competition" => $competition, "segment" => $segment));
+	
+	$this->load->view("template/footer");
     }
 }

@@ -10,6 +10,7 @@
                 <li role="presentation" class="active"><a href="#contestants" aria-controls="contestants" role="tab" data-toggle="tab">Contestants</a></li>
                 <li role="presentation"><a href="#criterias" aria-controls="criterias" role="tab" data-toggle="tab">Criterias</a></li>
                 <li role="presentation"><a href="#judges" aria-controls="judges" role="tab" data-toggle="tab">Judges</a></li>
+                <li role="presentation"><a href="#rankings" aria-controls="rankings" role="tab" data-toggle="tab">Rankings</a></li>
             </ul>
             
             <!-- Tab panes -->
@@ -24,6 +25,10 @@
                 
                 <div role="tabpanel" class="tab-pane" id="judges">
                 <?php $this->load->view("administrator/judges/partial/index", array("segment" => $segment)); ?>
+                </div>
+                
+                <div role="tabpanel" class="tab-pane" id="rankings">
+                <?php $this->load->view("administrator/rankings/partial/index", array("segment" => $segment)); ?>
                 </div>
             </div>
         </div>

@@ -81,6 +81,30 @@ class Segment_contestant_model extends PT_Model {
         
         return ($id OR ($contestant_id AND $segment_id)) ? array_shift($segment_contestants) : $segment_contestants;
     }
+    // 
+    public function get_by_ranking($segment_id = 0, $limit = 0)
+    {
+        $segment_contestants = $this->get(0, 0, $segment_id);
+        
+        for($b = 0; $b < count($segment_contestants); $b++)
+        {
+            $base = $segment_contestants[$b];
+            
+            for($s = $b + 1; $s < count($segment_contestants); $s++)
+            {
+                $subject = $segment_contestants[$s];
+                
+                if($subject->average() > $base->average())
+                {
+                    $segment_contestants[$s] = $base;
+                    $segment_contestants[$b] = $base = $subject;
+                }
+            }
+            
+        }
+        
+        return ($limit) ? array_splice($segment_contestants, 0, $limit) : $segment_contestants;
+    }
     // OK
     public function segment()
     {

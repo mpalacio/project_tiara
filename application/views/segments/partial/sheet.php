@@ -7,7 +7,7 @@
 </div>
 <div class="row">
     <div class="col-md-12">
-	<table class="table table-stripped table-bordered">
+	<table class="table table-striped table-bordered">
 	    <thead>
 		<tr>
 		    <th>#</th>
@@ -27,20 +27,22 @@
 		    $contestant = $segment_contestant->contestant(); ?>
 		    <tr>
 			<td><?php echo $index + 1; ?></td>
-			<td><?php echo $contestant->first_name . " " . $contestant->last_name; ?></td>
+			<td class="col-md-3"><?php echo $contestant->first_name . " " . $contestant->last_name; ?></td>
 		<?php
 		    foreach($segment->criterias() AS $criteria)
 		    {
 			$criteria_score = $criteria->score($segment_judge->id, $segment_contestant->id); ?>
 			<td>
-			    <div class="input-group">
-				<input type="text" class="form-control contestant-criteria-score" placeholder="0.00"
-				    data-criteria="<?php echo $criteria->id; ?>"
-				    data-segment-contestant="<?php echo $segment_contestant->id; ?>"
-				    aria-describedby="percentage-addon"
-				    value="<?php echo $criteria_score->score; ?>" />
-				    
-				<span class="input-group-addon" id="percentage-addon">/ <?php echo number_format($criteria->percentage, 0); ?></span>
+			    <div class="form-group">
+				<div class="input-group">
+				    <input type="text" class="form-control contestant-criteria-score" placeholder="0.00"
+					data-criteria="<?php echo $criteria->id; ?>"
+					data-segment-contestant="<?php echo $segment_contestant->id; ?>"
+					aria-describedby="percentage-addon"
+					value="<?php echo $criteria_score->score; ?>" />
+					
+				    <span class="input-group-addon hidden-xs" id="percentage-addon">/ <?php echo number_format($criteria->percentage, 0); ?></span>
+				</div>
 			    </div>
 			</td>
 		<?php 

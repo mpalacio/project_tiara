@@ -80,6 +80,20 @@ class Segment_model extends PT_Model {
         return $segment_contestants;
     }
     // OK
+    public function contestants_by_ranking($limit = 0)
+    {
+        $segment_contestants = array();
+        
+        if($this->id)
+        {
+            $this->load->model("admin/Segment_contestant_model", "segment_contestant_model");
+            
+            $segment_contestants = $this->segment_contestant_model->get_by_ranking($this->id, $limit);
+        }
+        
+        return $segment_contestants;
+    }
+    // OK
     public function get($id = 0, $competition_id = 0)
     {
         $segments = $where = array();
@@ -168,34 +182,5 @@ class Segment_model extends PT_Model {
         }
         
         return $segment_contestant;
-    }
-
-    public function top($top = 0)
-    {
-        $ranking = array();
-        
-        $segment_contestants = $this->contestants();
-        
-        for($b = 0; $b < count($segment_contestants); $b++)
-        {
-            $base = $segment_contestants[$b];
-            
-            for($s = $b + 1; $s < count($segment_contestants); $s++)
-            {
-                $subject = $segment_contestants[$s];
-                
-                if($subject->average() > $base->average())
-                {
-                    $segment_contestants[$s] = $base;
-                    $segment_contestants[$b] = $base = $subject;
-                }
-            }
-            
-        }
-        
-        $ranking = array_splice($segment_contestants, 0, $top);
-        
-        foreach($ranking AS $segment_contestant)
-            echo $segment_contestant->contestant()->first_name . " - " . $segment_contestant->average() . "<br />";
     }
 }

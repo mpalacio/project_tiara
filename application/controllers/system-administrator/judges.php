@@ -123,6 +123,28 @@ class Judges extends PT_Controller {
 	echo $this->response->success($data);
     }
     /**
+     * Segment Judge
+     */
+    public function sheet($fill, $segment_judge_id, $segment_id, $competition_id)
+    {
+	$this->load->model("admin/Competition_model", "competition_model");
+	
+	$competition = $this->competition_model->get($competition_id);
+	
+	$segment = $competition->segment($segment_id);
+	
+	$segment_judge = $segment->judge($segment_judge_id);
+	
+	$this->load->view("template/header", array(
+                "title" => "Sample | Index",
+            )
+        );
+	
+	$this->load->view("administrator/judges/sheet", array("competition" => $competition, "segment" => $segment, "segment_judge" => $segment_judge, "fill" => $fill));
+	
+	$this->load->view("template/footer");
+    }
+    /**
      * Update Judge
      *
      * Description

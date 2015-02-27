@@ -31,11 +31,11 @@ $(document).ready(function() {
     })
     
     $('#judge-sheet').popover({
-	title: 'Submit Scores? <button type="button" class="close" aria-label="Close"><span aria-hidden="true">&times;</span></button>',
+	title: 'Submit Scores?',
 	placement: 'auto left',
 	trigger: 'manual',
 	html: true,
-	content: '<p>Scores are final and are irrevocable.</p><button id="confirm" class="btn btn-info btn-block">Confirm</button>'
+	content: '<p>Scores are final and are irrevocable.</p><button id="confirm" class="btn btn-primary btn-block">Confirm</button>'
     })
     
     $('#judge-sheet').click(function(event) {
@@ -61,11 +61,7 @@ $(document).ready(function() {
 	}
 	$(this).popover('show')
     })
-    
-    $('body').delegate('.close', 'click', function() {
-	$('#judge-sheet').popover('hide')
-    })
-    
+      
     $('body').delegate('#confirm', 'click', function() {
 	var complete = true
 	

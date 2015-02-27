@@ -62,6 +62,7 @@ $route['administrator/competitions'] = 'system-administrator/competitions';
  */
 $route['administrator/competitions/(:num)/segments'] = 'system-administrator/segments/index/$1';
 $route['administrator/competitions/(:num)/segments/(view)/(:num)'] = 'system-administrator/segments/$2/$3/$1';
+$route['administrator/competitions/(:num)/segments/(:num)/ranking/(:num)/(empty|score)'] = 'system-administrator/segments/ranking/$4/$3/$2/$1';
 /**
  * Competition Segments Routing Table
  * @code end
@@ -84,6 +85,7 @@ $route['administrator/competitions/(:num)/segments/(:num)/contestants/(create|ge
  */
 $route['administrator/competitions/(:num)/segments/(:num)/judges'] = 'system-administrator/judges/$2/$1';
 $route['administrator/competitions/(:num)/segments/(:num)/judges/(create|get|save)'] = 'system-administrator/judges/$3/$2/$1';
+$route['administrator/competitions/(:num)/segments/(:num)/judges/sheet/(:num)/(empty|score)'] = 'system-administrator/judges/sheet/$4/$3/$2/$1';
 /**
  * Competition Segments Judges Routing Table
  * @code end

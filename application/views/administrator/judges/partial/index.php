@@ -30,6 +30,13 @@
                     <td class="hidden-print">
                         <?php echo anchor("administrator/segment/edit/" . $segment->id, "Edit", "class='edit-competitions btn btn-default btn-sm'"); ?>
                         <?php echo anchor("administrator/segment/delete/" . $segment->id, "Delete", "class='btn btn-default btn-sm'"); ?>
+			<div class="btn-group">
+			    <button type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown" aria-expanded="false">Print <span class="caret"></span></button>
+			    <ul class="dropdown-menu" role="menu">
+				<li><?php echo anchor("administrator/competitions/" . $segment->competition_id . "/segments/" . $segment->id . "/judges/sheet/" . $segment_judge->id . "/empty", "Contestant List", "class='' target='_blank'"); ?></li>
+				<li><?php echo anchor("administrator/competitions/" . $segment->competition_id . "/segments/" . $segment->id . "/judges/sheet/" . $segment_judge->id . "/score", "Contestant List Scores", "class='' target='_blank'"); ?></li>
+			    </ul>
+			</div>
                     </td>
                 </tr>
         <?php
