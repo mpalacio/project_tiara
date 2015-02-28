@@ -1,5 +1,5 @@
 <p class="text-right">
-    <a href="<?php echo base_url("administrator/competitions/" . $segment->competition_id . "/segments/" . $segment->id . "/ranking"); ?>" class="btn btn-default" target="_blank">Print</a>
+    <a href="<?php echo base_url("administrator/competitions/" . $segment->competition_id . "/segments/" . $segment->id . "/rankings"); ?>" class="btn btn-default" target="_blank">Print</a>
 </p>
 
 <div class="row">

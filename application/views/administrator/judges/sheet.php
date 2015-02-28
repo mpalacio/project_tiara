@@ -11,14 +11,13 @@
 	?>
     </u>
 </h4>
-
 <div class="row">
     <div class="col-md-12">
 	<table class="table table-bordered table-striped">
 	    <thead>
 		<tr>
 		    <th>#</th>
-		    <th class="col-md-3">Contestants</th>
+		    <th class="col-md-3"><div class="s">Contestants</div></th>
 	    <?php
 		$segment_criteria_collection = $segment->criterias();
 		
@@ -26,7 +25,7 @@
 		{
 		    foreach($segment_criteria_collection AS $segment_criteria)
 		    { ?>
-		    <th><?php echo $segment_criteria->name; ?></th>
+		    <th><div class="s"><?php echo $segment_criteria->name; ?></div></th>
 		<?php
 		    }
 		}
@@ -44,7 +43,7 @@
 			$contestant = $segment_contestant->contestant(); ?>
 		    <tr>
 			<td></td>
-			<td><?php echo $contestant->first_name . " " . $contestant->last_name; ?></td>
+			<td><div class="s"><?php echo $contestant->first_name . " " . $contestant->last_name; ?></div></td>
 	    <?php
 		if(is_array($segment_criteria_collection) AND count($segment_criteria_collection))
 		{

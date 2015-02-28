@@ -62,7 +62,8 @@ $route['administrator/competitions'] = 'system-administrator/competitions';
  */
 $route['administrator/competitions/(:num)/segments'] = 'system-administrator/segments/index/$1';
 $route['administrator/competitions/(:num)/segments/(view)/(:num)'] = 'system-administrator/segments/$2/$3/$1';
-$route['administrator/competitions/(:num)/segments/(:num)/ranking/(:num)/(empty|score)'] = 'system-administrator/segments/ranking/$4/$3/$2/$1';
+$route['administrator/competitions/(:num)/segments/(:num)/rankings'] = 'system-administrator/segments/rankings/0/$2/$1';
+$route['administrator/competitions/(:num)/segments/(:num)/rankings/(:num)'] = 'system-administrator/segments/rankings/$3/$2/$1';
 /**
  * Competition Segments Routing Table
  * @code end

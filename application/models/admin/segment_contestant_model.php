@@ -23,7 +23,7 @@ class Segment_contestant_model extends PT_Model {
         $average = $sum = 0.00;
         
         foreach($segment_contestant_scores AS $segment_contestant_score)
-            $sum += $segment_contestant_score->score();
+            $sum += $segment_contestant_score->sum();
             
         $average = $sum / count($segment_contestant_scores);
         
@@ -146,7 +146,10 @@ class Segment_contestant_model extends PT_Model {
         {
             $this->load->model("admin/Segment_contestant_score_model", "segment_contestant_score_model");
             
-            // Array: Segment Contestant Score Object
+            /**
+             * Array: Segment Contestant Score Object
+             * get(:segment-contestant-id)
+             */
             $segment_contestant_scores = $this->segment_contestant_score_model->get($this->id);
         }
         

@@ -15,6 +15,14 @@ class Contestant_model extends PT_Model {
     
     public $birthday = NULL;
     
+    public $BHW = NULL;
+    
+    public $height = NULL;
+    
+    public $weight = NULL;
+    
+    public $image = NULL;
+    
     public $occupation = NULL;
     
     public $telephone = NULL;

@@ -42,9 +42,9 @@ class Segment_contestant_score_model extends PT_Model {
     }
     
     // OK
-    public function score()
+    public function sum()
     {
-	$score = 0.00;
+	$sum = 0.00;
 	
 	$this->load->model("admin/Segment_contestant_model", "segment_contestant_model");
 	
@@ -59,9 +59,9 @@ class Segment_contestant_score_model extends PT_Model {
 	    // Object: Criteria Score
 	    $criteria_score = $criteria->score($this->segment_judge_id, $this->segment_contestant_id);
 	
-	    $score += $criteria_score->score;
+	    $sum += $criteria_score->score;
 	}
 	
-	return $score;
+	return $sum;
     }
 }

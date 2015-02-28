@@ -79,7 +79,7 @@ class Segments extends PT_Controller {
             )
         );
     }
-    public function ranking($limit = 0, $id, $competition_id = 0)
+    public function rankings($limit = 0, $id, $competition_id = 0)
     {
         $this->load->model("admin/Competition_model", "competition_model");
 	

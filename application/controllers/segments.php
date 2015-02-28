@@ -76,8 +76,6 @@ class Segments extends PT_Controller {
 	if($segment_judge == NULL)
 	    show_404();
 	
-	//$this->segment->top(3);
-	
 	$this->load->view("template/header", array(
 		"title" => "Sample | Index",
 		"styles" => array(
