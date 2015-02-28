@@ -12,7 +12,7 @@
 	$contestant = $segment_contestant->contestant(); ?>
 	
     <div class="col-md-12">
-	<div class="panel panel-default">
+	<div class="panel panel-default panel-contestant">
 	    <div class="panel-body">
 		<div class="row">
 		    <div class="col-md-3">
@@ -22,31 +22,37 @@
 		    <div class="col-md-9">
 			<div class="row">
 			    <div class="col-md-12">
-				<h2 style="border-bottom: 1px solid #ccc; margin: 0 auto 10px; padding-bottom: 10px;"><span class="label label-default"><?php echo $segment_contestant->number; ?></span> <?php echo $contestant->first_name . " " . $contestant->last_name; ?></h2>
+				<h2 class="contestant-name"><span class="label label-default"><?php echo $segment_contestant->number; ?></span> <?php echo $contestant->first_name . " " . $contestant->last_name; ?></h2>
 				
 				<div class="row">
-				    <div class="col-md-3">
+				    <div class="col-md-3 col-xs-6">
 					<div class="form-group">
 					    <label class="control-label">Vital Statistics</label>
-					    <p class="form-control-static"><?php echo $contestant->BHW; ?></p>	
+					    <p class="form-control-static">
+						<?php
+						    $bhw = explode('-', $contestant->BHW);
+						    
+						    echo "<span class='label label-default'>B</span> " . $bhw[0] . " <span class='label label-default'>H</span> " . $bhw[1] . " <span class='label label-default'>W</span> " . $bhw[2];
+						?>
+					    </p>	
 					</div>
 				    </div>
 				    
-				    <div class="col-md-3">
+				    <div class="col-md-3 col-xs-6">
 					<div class="form-group">
 					    <label class="control-label">Age</label>
-					    <p class="form-control-static"><?php echo date_diff(date_create($contestant->birthday), date_create("today"))->y; ?> years old</p>	
+					    <p class="form-control-static"><?php echo date_diff(date_create($contestant->birthday), date_create("today"))->y; ?> Years Old</p>	
 					</div>
 				    </div>
 				    
-				    <div class="col-md-3">
+				    <div class="col-md-3 col-xs-6">
 					<div class="form-group">
 					    <label class="control-label">Height</label>
 					    <p class="form-control-static">5'5"</p>	
 					</div>
 				    </div>
 				    
-				    <div class="col-md-3">
+				    <div class="col-md-3 col-xs-6">
 					<div class="form-group">
 					    <label class="control-label">Weight</label>
 					    <p class="form-control-static">60.00 Kg</p>	
