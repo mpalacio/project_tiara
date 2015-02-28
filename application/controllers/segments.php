@@ -95,6 +95,7 @@ class Segments extends PT_Controller {
 		"scripts" => array(
 		    "jquery/input-mask/jquery.inputmask.min",
 		    "jquery/input-mask/jquery.inputmask.numeric.extensions.min",
+		    "jquery/jquery.scroll-to.min",
 		    "tiara/judges"
 		)
 	    )

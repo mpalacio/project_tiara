@@ -1,13 +1,5 @@
 $(document).ready(function() {
-    $('body').on('click', '#submit-judging', function() {
-	$("[data-segment-contestant-id]").each(function() {
-	    var val = $(this).val();
-	    if(val.length == 0) {
-		$(this).closest('td').addClass('has-error');
-	    }
-	});
-	return false;
-    });
+    $('.contestant-criteria-score').inputmask({'mask':'(9.9[9])|(99)|(99.9)|(99.99)', greedy: false})
     
     $('.contestant-criteria-score').on('focusout', function() {
 	var score = $(this).val()
@@ -19,19 +11,23 @@ $(document).ready(function() {
 	    contestant.get(this)
 	    
 	    var id = $(this).attr('data-criteria')
+	    var percentage = $(this).closest('.input-group').children('#percentage-addon').attr('data-percentage')
+		percentage = parseFloat(percentage)
+		score = parseFloat(score)
+		
 	    
-	    $.ajax({
-		url: href + '/score/' + id,
-		type:'post', 
-		data: {
-		    contestant: JSON.stringify(contestant)
-		}
-	    })
+	//    $.ajax({
+	//	url: href + '/score/' + id,
+	//	type:'post', 
+	//	data: {
+	//	    contestant: JSON.stringify(contestant)
+	//	}
+	//    })
 	}
     })
     
     $('#judge-sheet').popover({
-	title: 'Submit Scores?',
+	title: 'Submit Scores? <button type="button" class="close" aria-label="Close"><span aria-hidden="true">&times;</span></button>',
 	placement: 'auto left',
 	trigger: 'manual',
 	html: true,
@@ -43,25 +39,46 @@ $(document).ready(function() {
 	
 	var complete = true
 	
+	var panel = null
+	
+	$('.form-group').attr('class', 'form-group')
+	
 	var contestants = $('.contestant-criteria-score').map(function(index, element) {
 	    var contestant = new Contestant()
 	    contestant.get(element)
 	    
 	    if (contestant.score == 0)
+	    {
+		$(element).closest('.form-group').addClass('has-error')
+		
+		if (panel == null) {
+		    
+		    panel = $(element).closest('.panel-contestant')
+		    
+		    $.scrollTo(panel, 800, {
+			offset: function() {
+			    return {
+				top: panel.position().top - 50
+			    }
+			}
+		    })
+		}
+		
 		complete = false
+	    }
 	    
 	    return contestant
 	}).get()
 	
 	if (complete) {
-	    
+	    $(this).popover('show')
 	    
 	} else {
 	    
 	}
-	$(this).popover('show')
+	
     })
-      
+    
     $('body').delegate('#confirm', 'click', function() {
 	var complete = true
 	
@@ -87,6 +104,10 @@ $(document).ready(function() {
 		}
 	    })
 	}
+    })
+    
+    $('body').delegate('.popover .close', 'click', function(event) {
+	$('#judge-sheet').popover('hide')
     })
 });
 

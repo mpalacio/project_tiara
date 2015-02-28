@@ -2,3 +2,9 @@ body { padding-top: 70px; padding-bottom: 50px }
 .panel-contestant .contestant-name {
     border-bottom: 1px solid #ccc; margin: 10px auto; padding-bottom: 10px;
 }
+.panel-contestant .scoring-sheet {
+    border-bottom: 1px solid #ccc; margin: 0 auto 10px; padding-bottom: 10px;
+}
+.popover .close {
+    margin-top: -2px;
+}

@@ -72,6 +72,8 @@ class Criterias extends PT_Controller {
 	    
 	    $criteria_score = $this->criteria_score_model->create($criteria_score);
 	}
+	
+	echo $this->response->success();
     }
     
     public function scores($slug = NULL)
@@ -105,5 +107,7 @@ class Criterias extends PT_Controller {
 		$criteria_score->update();
 	    }
 	}
+	
+	echo $this->response->success();
     }
 }
