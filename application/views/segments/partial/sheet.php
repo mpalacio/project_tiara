@@ -32,7 +32,7 @@
 						<?php
 						    $bhw = explode('-', $contestant->BHW);
 						    
-						    echo "<span class='label label-default'>B</span> " . $bhw[0] . " <span class='label label-default'>H</span> " . $bhw[1] . " <span class='label label-default'>W</span> " . $bhw[2];
+						    echo "<span class='label label-warning'>B</span> " . $bhw[0] . " <span class='label label-warning'>H</span> " . $bhw[1] . " <span class='label label-warning'>W</span> " . $bhw[2];
 						?>
 					    </p>	
 					</div>
