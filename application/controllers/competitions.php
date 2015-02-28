@@ -22,14 +22,15 @@ class Competitions extends PT_Controller {
 	{
 	    $this->load->view("template/header", array(
 		    "styles" => array(
-			"tiara/cover"
+			"tiara/cover", 
+			"tiara/tiara"
 		    ),
 		    "nav" => $this->load->view("template/cover/nav")
 		)
 	    );
 	    
 	    $this->load->view("competitions/index", array("competition" => $this->competition));
-	    $this->load->view("template/footer");
+	    $this->load->view("template/footer", array("copyright" => TRUE));
 	}
 	else
 	{

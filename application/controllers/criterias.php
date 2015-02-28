@@ -108,6 +108,9 @@ class Criterias extends PT_Controller {
 	    }
 	}
 	
-	echo $this->response->success();
+	$segment_judge->status = 0;
+	$segment_judge->update();
+	
+	echo $this->response->success(array("redirect" => base_url($this->competition->slug . "/judges")));
     }
 }

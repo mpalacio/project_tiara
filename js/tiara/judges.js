@@ -15,14 +15,20 @@ $(document).ready(function() {
 		percentage = parseFloat(percentage)
 		score = parseFloat(score)
 		
-	    
-	//    $.ajax({
-	//	url: href + '/score/' + id,
-	//	type:'post', 
-	//	data: {
-	//	    contestant: JSON.stringify(contestant)
-	//	}
-	//    })
+	    if (score > percentage) {
+		$(this).closest('.form-group').addClass('has-error')
+		
+	    } else {
+		$(this).closest('.form-group').removeClass('has-error')
+		
+		$.ajax({
+		    url: href + '/score/' + id,
+		    type:'post', 
+		    data: {
+			contestant: JSON.stringify(contestant)
+		    }
+		})
+	    }
 	}
     })
     
@@ -45,14 +51,17 @@ $(document).ready(function() {
 	
 	var contestants = $('.contestant-criteria-score').map(function(index, element) {
 	    var contestant = new Contestant()
-	    contestant.get(element)
+		contestant.get(element)
+		contestant.score = parseFloat(contestant.score)
 	    
-	    if (contestant.score == 0)
+	    var percentage = $(this).closest('.input-group').children('#percentage-addon').attr('data-percentage')
+		percentage = parseFloat(percentage)
+		
+	    if (contestant.score == 0 || contestant.score > percentage)
 	    {
 		$(element).closest('.form-group').addClass('has-error')
 		
 		if (panel == null) {
-		    
 		    panel = $(element).closest('.panel-contestant')
 		    
 		    $.scrollTo(panel, 800, {
@@ -73,10 +82,7 @@ $(document).ready(function() {
 	if (complete) {
 	    $(this).popover('show')
 	    
-	} else {
-	    
 	}
-	
     })
     
     $('body').delegate('#confirm', 'click', function() {
@@ -84,9 +90,12 @@ $(document).ready(function() {
 	
 	var contestants = $('.contestant-criteria-score').map(function(index, element) {
 	    var contestant = new Contestant()
-	    contestant.get(element)
+		contestant.get(element)
 	    
-	    if (contestant.score == 0)
+	    var percentage = $(element).closest('.input-group').children('#percentage-addon').attr('data-percentage')
+		percentage = parseFloat(percentage)
+	    
+	    if (contestant.score == 0 || contestant.score > percentage)
 		complete = false
 	    
 	    return contestant
@@ -94,13 +103,19 @@ $(document).ready(function() {
 	
 	if (complete) {
 	    $.ajax({
-		url: $(this).attr('href'),
+		url: $('#judge-sheet').attr('href'),
 		type: 'post',
 		data: {
 		    contestants: JSON.stringify(contestants)
 		},
 		success: function(response) {
-		    $('#judge-sheet').popover('hide')
+		    response = parseJSON(response)
+		    
+		    if (response.status == 'success') {
+			$('#judge-sheet').popover('hide')
+			
+			window.location.href = response.success.data.redirect
+		    }
 		}
 	    })
 	}

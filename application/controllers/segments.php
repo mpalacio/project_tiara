@@ -40,6 +40,7 @@ class Segments extends PT_Controller {
 	$this->load->view("template/header", array(
 		"title" => "Sample | Index",
 		"styles" => array(
+			"bootstrap/3.3.2/judges/bootstrap",
 			"tiara/tiara"
 		),
 		"nav" => $this->load->view("judges/nav", array(
@@ -50,10 +51,12 @@ class Segments extends PT_Controller {
 	    )
 	);
 	
-	$this->load->view("segments/partial/index", array("competition" => $this->competition, "judge_segments" => $judge_segments));
+	$this->load->view("segments/partial/index", array("competition" => $this->competition, "judge_segments" => $judge_segments, "judge" => $this->judge));
 	
 	$this->load->view("template/footer", array(
 		"scripts" => array(
+		    "jquery/input-mask/jquery.inputmask.min",
+		    "jquery/input-mask/jquery.inputmask.numeric.extensions.min",
 		    "tiara/judges"
 		)
 	    )
@@ -79,6 +82,7 @@ class Segments extends PT_Controller {
 	$this->load->view("template/header", array(
 		"title" => "Sample | Index",
 		"styles" => array(
+			"bootstrap/3.3.2/judges/bootstrap",
 			"tiara/tiara"
 		),
 		"nav" => $this->load->view("judges/nav", array(
@@ -96,7 +100,8 @@ class Segments extends PT_Controller {
 		    "jquery/input-mask/jquery.inputmask.min",
 		    "jquery/input-mask/jquery.inputmask.numeric.extensions.min",
 		    "jquery/jquery.scroll-to.min",
-		    "tiara/judges"
+		    "tiara/judges",
+		    "tiara/main"
 		)
 	    )
 	);

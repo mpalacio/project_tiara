@@ -18,5 +18,3 @@
         <?php echo $nav; ?>
         
         <div class="container">
-            
-        

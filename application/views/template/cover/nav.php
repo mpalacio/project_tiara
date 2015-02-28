@@ -7,7 +7,9 @@
 	    <span class="icon-bar"></span>
 	    <span class="icon-bar"></span>
 	    </button>
-	    <a class="navbar-brand" href="#">Tiara</a>
+	    <a class="navbar-brand" href="#">
+		<img class="img-responsive" style="width: 38px;" src="<?php echo base_url("images/brand-logo.png"); ?>" /><small style="font-weight: bold;">Tiara</small>
+	    </a>
 	</div>
 	
 	<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">

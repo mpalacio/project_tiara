@@ -25,7 +25,8 @@
 	    {
 		foreach($judge_segments AS $judge_segment)
 		{
-		    $segment = $judge_segment->segment(); ?>
+		    $segment = $judge_segment->segment();
+		    $segment_judge = $segment->judge($judge->id); ?>
 		<tr>
                     <td><?php echo $segment->id; ?></td>
                     <td><?php echo $segment->name; ?></td>
@@ -34,7 +35,7 @@
                     <td><?php echo $segment->date; ?></td>
                     <td><?php echo $segment->status; ?></td>
                     <td class="hidden-print">
-                        <?php echo anchor($competition->slug . "/judges/" . $segment->slug, "Judge", "class='edit-competitions btn btn-default btn-sm'"); ?>
+                        <?php echo anchor($competition->slug . "/judges/" . $segment->slug, (($segment_judge->status) ? "Judge" : "Review"), "class='edit-competitions btn btn-default btn-sm'"); ?>
                     </td>
                 </tr>
 		<?php

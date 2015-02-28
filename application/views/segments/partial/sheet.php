@@ -1,7 +1,7 @@
 <div class="page-header">
     <h1 class="clearfix">
 	<?php echo anchor($competition->slug . "/judges", $competition->name); ?> <small><?php echo $segment->name; ?></small>
-	<?php echo anchor($competition->slug . "/judges/" . $segment->slug . "/scores", "Submit", "id='judge-sheet' class='btn btn-default pull-right'"); ?>
+	<?php if($segment_judge->status) echo anchor($competition->slug . "/judges/" . $segment->slug . "/scores", "Submit", "id='judge-sheet' class='btn btn-default pull-right'"); ?>
     </h1>
 </div>
 
@@ -79,7 +79,17 @@
 					    <label for="inputEmail3" class="control-label"><?php echo $criteria->name; ?></label>
 					    
 					    <div class="input-group">
+					<?php
+					    if($segment_judge->status)
+					    { ?>
 						<input type="text" class="form-control contestant-criteria-score" placeholder="0.00" data-criteria="<?php echo $criteria->id; ?>" data-segment-contestant="<?php echo $segment_contestant->id; ?>" aria-describedby="percentage-addon" value="<?php echo $criteria_score->score; ?>" />
+					<?php
+					    }
+					    else
+					    { ?>
+						<input type="text" class="form-control" value="<?php echo $criteria_score->score; ?>" readonly />
+					<?php
+					    } ?>
 						<span class="input-group-addon" id="percentage-addon" data-percentage="<?php echo $criteria->percentage; ?>">/ <?php echo number_format($criteria->percentage, 0); ?></span>
 					    </div>
 					</div>

@@ -8,6 +8,8 @@ class Segment_judge_model extends PT_Model {
     public $segment_id = 0;
     
     public $judge_id = 0;
+    
+    public $status = 1;
     /**
      * Class Constructor
      *
@@ -114,4 +116,19 @@ class Segment_judge_model extends PT_Model {
     }
     
     
+    public function update()
+    {
+	$segment_judge = NULL;
+	
+	if($this->id)
+	{
+	    $this->db->where(array("id" => $this->id));
+	    
+	    $segment_judge = $this;
+	    
+	    $this->db->update(self::$table, $segment_judge);
+	}
+	
+	return $segment_judge;
+    }
 }
