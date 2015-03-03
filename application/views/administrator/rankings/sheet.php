@@ -15,7 +15,7 @@
             </thead>
             <tbody>
         <?php
-	    $segment_contestants = $segment->contestants_by_ranking();
+	    $segment_contestants = $segment->contestants_by_ranking($limit);
             
 	    if(is_array($segment_contestants) AND count($segment_contestants))
             {

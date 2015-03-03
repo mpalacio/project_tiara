@@ -1,6 +1,6 @@
 $(document).ready(function() {
-    $('.contestant-criteria-score').inputmask({'mask':'(9.9[9])|(99)|(99.9)|(99.99)', greedy: false})
-    
+    $('.contestant-criteria-score').inputmask({'mask':'(99)|(9.9[9])|(99.9)|(99.99)', greedy: false})
+	
     $('.contestant-criteria-score').on('focusout', function() {
 	var score = $(this).val()
 	
@@ -112,12 +112,14 @@ $(document).ready(function() {
 		    response = parseJSON(response)
 		    
 		    if (response.status == 'success') {
-			$('#judge-sheet').popover('hide')
+				$('#judge-sheet').popover('hide')
+			}
 			
 			window.location.href = response.success.data.redirect
-		    }
 		}
 	    })
+		
+		
 	}
     })
     

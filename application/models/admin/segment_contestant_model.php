@@ -155,4 +155,14 @@ class Segment_contestant_model extends PT_Model {
         
         return $segment_contestant_scores;
     }
+	
+	public function total($segment_judge_id = 0)
+	{
+		
+		if($this->id)
+		{
+			$s = $this->score($segment_judge_id);
+			return $s->sum();
+		}
+	}
 }

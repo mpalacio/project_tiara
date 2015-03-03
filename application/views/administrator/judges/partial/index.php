@@ -26,7 +26,7 @@
                     <td><?php echo $judge->id; ?></td>
                     <td><?php echo $judge->first_name . " " . $judge->last_name; ?></td>
                     <td><?php echo $judge->username; ?></td>
-                    <td><?php echo $judge->status; ?></td>
+                    <td><?php echo $segment_judge->status; ?></td>
                     <td class="hidden-print">
                         <?php echo anchor("administrator/segment/edit/" . $segment->id, "Edit", "class='edit-competitions btn btn-default btn-sm'"); ?>
                         <?php echo anchor("administrator/segment/delete/" . $segment->id, "Delete", "class='btn btn-default btn-sm'"); ?>

@@ -7,7 +7,7 @@
     <u>
 	<?php
 	    $judge = $segment_judge->judge();
-	    echo $judge->last_name . " " . $judge->first_name;
+	    echo $judge->last_name . ", " . $judge->first_name;
 	?>
     </u>
 </h4>
@@ -29,7 +29,8 @@
 		<?php
 		    }
 		}
-	    ?>
+		?>
+			<th>Total</th>
 		</tr>
 	    </thead>
 	    <tbody>
@@ -42,7 +43,7 @@
 		    {
 			$contestant = $segment_contestant->contestant(); ?>
 		    <tr>
-			<td></td>
+			<td><?php echo $segment_contestant->number; ?></td>
 			<td><div class="s"><?php echo $contestant->first_name . " " . $contestant->last_name; ?></div></td>
 	    <?php
 		if(is_array($segment_criteria_collection) AND count($segment_criteria_collection))
@@ -50,11 +51,12 @@
 		    foreach($segment_criteria_collection AS $segment_criteria)
 		    {
 			$criteria_score = $segment_criteria->score($segment_judge->id, $segment_contestant->id); ?>
-		    <td><?php echo ($fill == "score") ? $criteria_score->score : "&nbsp;"; ?></td>
+		    <td class="text-right"><?php echo ($fill == "score") ? $criteria_score->score : "&nbsp;"; ?> / <?php echo number_format($segment_criteria->percentage, 0); ?></td>
 		<?php
 		    }
 		}
 	    ?>
+				<td><?php echo $segment_contestant->total($segment_judge->id); ?></td>
 		    </tr>
 		<?php
 		    }

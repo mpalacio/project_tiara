@@ -14,7 +14,7 @@
         
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-6">
             <ul class="nav navbar-nav">
-                <li class="active"><?php echo anchor("admin/competitions", "Competitions", "id='competition'"); ?></li>
+                <li class="active"><?php echo anchor("administrator/competitions", "Competitions", "id='competition'"); ?></li>
             </ul>
         </div>
     </div>

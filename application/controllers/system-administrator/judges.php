@@ -135,6 +135,10 @@ class Judges extends PT_Controller {
 	
 	$segment_judge = $segment->judge($segment_judge_id);
 	
+	$this->load->model("admin/Segment_contestant_model", "segment_contestant_model");
+	
+	$segment_contestants = $this->segment_contestant_model->get_by_ranking($segment->id);
+	
 	$this->load->view("template/header", array(
                 "title" => "Sample | Index",
             )

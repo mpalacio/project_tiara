@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 26, 2015 at 08:56 AM
+-- Generation Time: Feb 28, 2015 at 10:01 PM
 -- Server version: 5.6.21
 -- PHP Version: 5.6.3
 
@@ -74,11 +74,12 @@ CREATE TABLE IF NOT EXISTS `contestants` (
   `middle_name` varchar(50) NOT NULL,
   `last_name` varchar(50) NOT NULL,
   `birthday` date NOT NULL,
+  `BHW` varchar(8) NOT NULL COMMENT 'Bust-Waist-Hip',
+  `height` varchar(5) NOT NULL,
+  `weight` decimal(5,2) NOT NULL COMMENT 'Kilograms',
+  `image` varchar(100) NOT NULL,
   `occupation` varchar(50) NOT NULL,
-  `telephone` varchar(50) NOT NULL,
-  `mobile` varchar(50) NOT NULL,
   `email` varchar(50) NOT NULL,
-  `religion` varchar(50) NOT NULL,
   `citizenship` varchar(25) NOT NULL,
   `_date_created` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `_date_modified` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
@@ -88,37 +89,37 @@ CREATE TABLE IF NOT EXISTS `contestants` (
 -- Dumping data for table `contestants`
 --
 
-INSERT INTO `contestants` (`id`, `competition_id`, `first_name`, `middle_name`, `last_name`, `birthday`, `occupation`, `telephone`, `mobile`, `email`, `religion`, `citizenship`, `_date_created`, `_date_modified`) VALUES
-(1, 1, 'Jessa May', 'Mendoza', 'Bonguyan', '1990-05-23', 'Student', '285-1957', '09167164168', '', '', 'Filipino', '2015-02-25 22:36:53', '2015-02-25 22:36:53'),
-(2, 1, 'Pamela Grace', 'M', 'Janson', '1993-12-01', 'Science Laboratory Officer in Charge', '241-88-08', '094972172248', '', '', 'Filipino', '2015-02-25 22:42:32', '2015-02-25 22:42:32'),
-(3, 1, 'Ma. Elainizelle Clarice', 'Montojo', 'Tiu', '1992-12-29', 'Tax Auditor', '082-291-3781', '09228248602', 'claricetiu29@yahoo.com', '', 'Filipino', '2015-02-25 22:45:13', '2015-02-25 22:45:13'),
-(4, 1, 'Shenna', 'Genova', 'Mendoza', '1995-02-13', 'Photographer', '', '09078823309', 'shenna_genova@yahoo.com', '', 'Filipino', '2015-02-25 22:48:32', '2015-02-25 22:48:32'),
-(5, 1, 'Charmaine Bless', 'Arcena', 'Shotwell', '1994-11-21', 'Students', '', '09179731517', 'charmaineshotwell21@gmail.com', '', 'Filipino', '2015-02-25 22:51:38', '2015-02-25 22:51:38'),
-(6, 1, 'Elme', 'M.', 'Mansilagan', '1997-03-27', 'Student', '', '09468446480', 'elmemansilagan@yahoo.com', '', 'Filipino', '2015-02-25 22:55:13', '2015-02-25 22:55:13'),
-(7, 1, 'Eva June Marie', 'Fiel', 'Sison', '1990-06-16', '', '', '09198623022', 'junemariesison@yahoo.com', '', 'Filipino', '2015-02-25 22:57:50', '2015-02-25 22:57:50'),
-(8, 1, 'Lucille', 'Ibay', 'Gokotano', '1993-09-21', 'Customer Service Specialist', '082-221-3661', '09334565407', 'lucille21tiff@yahoo.com', '', 'Filipino', '2015-02-25 23:00:24', '2015-02-25 23:00:24'),
-(9, 1, 'Chastine Jen', 'Talagtag', 'Montaño', '1995-09-30', 'Student', '', '09358402005', 'chastinejenmontao@yahoo.com', '', 'Filipino', '2015-02-25 23:02:15', '2015-02-25 23:02:15'),
-(10, 1, 'Mary Nicole', '', 'Bacaltos', '1995-05-26', 'Student', '297-4870', '09237386250', 'bacaltosnicole@gmail.com', '', 'Filipino', '2015-02-25 23:03:58', '2015-02-25 23:03:58'),
-(11, 1, 'Jeraldin', 'Abadinas', 'Pedroza', '1995-08-26', 'Student', '', '09426670697', 'jeraldinpedroza@gmail.com', '', 'Filipino', '2015-02-25 23:05:14', '2015-02-25 23:05:14'),
-(12, 1, 'Daremie', 'Silla', 'Espinosa', '1995-07-22', 'Student', '', '09484062129', 'e.daremie@yahoo.com', '', 'Filipino', '2015-02-25 23:06:32', '2015-02-25 23:06:32'),
-(13, 1, 'Regine', 'Lareta', 'Anillo', '1996-04-08', 'Student', '305-94-38', '09099288598', 'regine_anillo@yahoo.com.ph', '', 'Filipino', '2015-02-25 23:07:43', '2015-02-25 23:07:43'),
-(14, 1, 'Nisreen', 'Salleh', 'Mohammad Khursid', '1994-02-25', 'Student', '', '09997259056', 'avrilrocks_25@yahoo.com', '', 'Filipino', '2015-02-25 23:09:49', '2015-02-25 23:09:49'),
-(15, 1, 'Wiljeanne', 'Camallere', 'Rodriguez', '1996-04-30', 'Student', '', '09307111689', 'wiljeannerodrihuez@gmail.com', '', 'Filipino', '2015-02-25 23:11:21', '2015-02-25 23:11:21'),
-(16, 1, 'Pamela', '', 'Framil', '1995-03-03', 'Student', '', '09472944050', 'framilpam@gmail.com', '', 'Filipino', '2015-02-25 23:12:28', '2015-02-25 23:12:28'),
-(17, 1, 'Kris Abegail', 'Candolita', 'Guanzon', '1993-11-13', 'Assistant Manager- Field Sales Dep''t', '082-305-79-74', '09334033726', 'begaiguanzon@gmail.com', '', 'Filipino', '2015-02-25 23:14:06', '2015-02-25 23:14:06'),
-(18, 1, 'Marie Ernestine', '', 'Torro', '1993-08-09', 'Marketing Specialist', '226-3100/8014', '09177215181', 'torromeb@gmail.com', '', 'Filipino', '2015-02-25 23:16:01', '2015-02-25 23:16:01'),
-(19, 1, 'Floreimer', 'G', 'Soriano', '1992-11-25', 'Public School Teacher', '', '09985469823', 'floriemeesh@yahoo.com', '', 'Filipino', '2015-02-25 23:18:19', '2015-02-25 23:18:19'),
-(20, 1, 'Christine Joy', 'Andaya', 'Alvarez', '1993-06-10', 'Volunteer Nurse', '', '09427058580', 'christinealvarez0610@yahoo.com.ph', '', 'Filipino', '2015-02-25 23:20:45', '2015-02-25 23:20:45'),
-(21, 1, 'Thea Margarette', 'R', 'Elipio', '1993-12-27', 'Account Associate, VXI', '291-15-60', '09307460071', 'theamargaretteroldanelipeio@gmail.com', '', 'Filipino', '2015-02-25 23:23:23', '2015-02-25 23:23:23'),
-(22, 1, 'Jerzyl', 'Cabasag', 'Añana', '1994-01-16', 'Teacher', '', '09399345224', 'jerzyl.anana@gmail.com', '', 'Filipino', '2015-02-25 23:29:53', '2015-02-25 23:29:53'),
-(23, 1, 'Trishia Joyce', 'Costagera', 'Sosmeña', '1994-08-07', 'Student', '', '09335925334', 'trishia_91@yahoo.com', '', 'Filipino', '2015-02-25 23:33:31', '2015-02-25 23:33:31'),
-(24, 1, 'Lara Jane', 'Adanza', 'Saquin', '1995-11-21', 'Student', '', '09095404195', 'larajaneadanzasaquin@yahoo.com', '', 'Filipino', '2015-02-25 23:35:52', '2015-02-25 23:35:52'),
-(25, 1, 'Marja Elana', 'Tan', 'Guino-o', '1994-08-02', 'Student', '298-0549', '09236360446', 'marjaguinoo@gmail.com', '', 'Filipino', '2015-02-25 23:37:32', '2015-02-25 23:37:32'),
-(26, 1, 'Ñina Grace', 'Ycong', 'Sartagoda', '1996-01-08', 'Student', '', '09336831805', 'Ninzsartagoda08@yahoo.com.ph', '', 'Filipino', '2015-02-25 23:39:08', '2015-02-25 23:39:08'),
-(27, 1, 'Louise Ann', '', 'Canalija', '1993-03-14', 'Sales and Marketing Executive', '', '0918692672', 'louisec.oneblue@gmail.com', '', 'Filipino', '2015-02-25 23:40:59', '2015-02-25 23:40:59'),
-(28, 1, 'Jenefe', 'Ngoho', 'Simbajon', '1988-09-17', 'Accounting Staff', '', '09278523909', 'jenefesimbajon@gmail.com', '', 'Filipino', '2015-02-25 23:42:36', '2015-02-25 23:42:36'),
-(29, 1, 'Darlene Paula', 'C', 'Dichoso', '1996-11-22', 'Student', '', '09321176664', 'arlene_paw@yahoo.com', '', 'Filipino', '2015-02-25 23:44:08', '2015-02-25 23:44:08'),
-(30, 1, 'Minette', 'Aguio', 'Macaraeg', '1995-02-13', 'Student', '', '09276187856', '', '', 'Filipino', '2015-02-25 23:45:13', '2015-02-25 23:45:13');
+INSERT INTO `contestants` (`id`, `competition_id`, `first_name`, `middle_name`, `last_name`, `birthday`, `BHW`, `height`, `weight`, `image`, `occupation`, `email`, `citizenship`, `_date_created`, `_date_modified`) VALUES
+(1, 1, 'Jessa May', 'Mendoza', 'Bonguyan', '1990-05-23', '33-25-33', '5''4"', '48.00', 'uploads/jessa-may-bonguyan.jpg', 'Student', '', 'Filipino', '2015-02-25 22:36:53', '2015-02-25 22:36:53'),
+(2, 1, 'Pamela Grace', 'M', 'Janson', '1993-12-01', '33-26-37', '5''7"', '57.00', 'uploads/pamela-grace-janson.jpg', 'Science Laboratory Officer in Charge', '', 'Filipino', '2015-02-25 22:42:32', '2015-02-25 22:42:32'),
+(3, 1, 'Ma. Elainizelle Clarice', 'Montojo', 'Tiu', '1992-12-29', '32-24-35', '5''4"', '51.00', 'uploads/ma-elainizelle-clarice-tiu.jpg', 'Tax Auditor', 'claricetiu29@yahoo.com', 'Filipino', '2015-02-25 22:45:13', '2015-02-25 22:45:13'),
+(4, 1, 'Shenna', 'Genova', 'Mendoza', '1995-02-13', '32-24-33', '5''9"', '51.00', 'uploads/shenna-mendoza.jpg', 'Photographer', 'shenna_genova@yahoo.com', 'Filipino', '2015-02-25 22:48:32', '2015-02-25 22:48:32'),
+(5, 1, 'Charmaine Bless', 'Arcena', 'Shotwell', '1994-11-21', '32-25-33', '5''3"', '45.00', 'uploads/charmaine-bless-shotwell.jpg', 'Students', 'charmaineshotwell21@gmail.com', 'Filipino', '2015-02-25 22:51:38', '2015-02-25 22:51:38'),
+(6, 1, 'Elme', 'M.', 'Mansilagan', '1997-03-27', '35-27-35', '5''6"', '55.00', 'uploads/elme-mansilagan.jpg', 'Student', 'elmemansilagan@yahoo.com', 'Filipino', '2015-02-25 22:55:13', '2015-02-25 22:55:13'),
+(7, 1, 'Eva June Marie', 'Fiel', 'Sison', '1990-06-16', '34-25-35', '5''7"', '51.00', 'uploads/eva-june-marie-sison.jpg', '', 'junemariesison@yahoo.com', 'Filipino', '2015-02-25 22:57:50', '2015-02-25 22:57:50'),
+(8, 1, 'Lucille', 'Ibay', 'Gokotano', '1993-09-21', '34-23-33', '5''6"', '46.00', 'uploads/lucille-gokotano.jpg', 'Customer Service Specialist', 'lucille21tiff@yahoo.com', 'Filipino', '2015-02-25 23:00:24', '2015-02-25 23:00:24'),
+(9, 1, 'Chastine Jen', 'Talagtag', 'Montaño', '1995-09-30', '32-27-34', '5''8"', '55.00', 'uploads/chastine-jen-montaño.jpg', 'Student', 'chastinejenmontao@yahoo.com', 'Filipino', '2015-02-25 23:02:15', '2015-02-25 23:02:15'),
+(10, 1, 'Mary Nicole', '', 'Bacaltos', '1995-05-26', '36-29-36', '5''5"', '58.00', 'uploads/mary-nicole-bacaltos.jpg', 'Student', 'bacaltosnicole@gmail.com', 'Filipino', '2015-02-25 23:03:58', '2015-02-25 23:03:58'),
+(11, 1, 'Jeraldin', 'Abadinas', 'Pedroza', '1995-08-26', '33-26-35', '5''3"', '47.00', 'uploads/jeraldin-pedroza.jpg', 'Student', 'jeraldinpedroza@gmail.com', 'Filipino', '2015-02-25 23:05:14', '2015-02-25 23:05:14'),
+(12, 1, 'Daremie', 'Silla', 'Espinosa', '1995-07-22', '32-27-35', '5''3"', '47.00', 'uploads/daremie-espinosa.jpg', 'Student', 'e.daremie@yahoo.com', 'Filipino', '2015-02-25 23:06:32', '2015-02-25 23:06:32'),
+(13, 1, 'Regine', 'Lareta', 'Anillo', '1996-04-08', '32-23-33', '5''5"', '50.00', 'uploads/regine-anillo.jpg', 'Student', 'regine_anillo@yahoo.com.ph', 'Filipino', '2015-02-25 23:07:43', '2015-02-25 23:07:43'),
+(14, 1, 'Nisreen', 'Salleh', 'Mohammad Khursid', '1994-02-25', '34-25-34', '5''7"', '54.00', 'uploads/nisreen-mohammad-khursid.jpg', 'Student', 'avrilrocks_25@yahoo.com', 'Filipino', '2015-02-25 23:09:49', '2015-02-25 23:09:49'),
+(15, 1, 'Wiljeanne', 'Camallere', 'Rodriguez', '1996-04-30', '32-24-33', '5''4"', '44.00', 'uploads/wiljeanne-rodriguez.jpg', 'Student', 'wiljeannerodrihuez@gmail.com', 'Filipino', '2015-02-25 23:11:21', '2015-02-25 23:11:21'),
+(16, 1, 'Pamela', '', 'Framil', '1995-03-03', '33-24-34', '5''6"', '48.00', 'uploads/pamela-framil.jpg', 'Student', 'framilpam@gmail.com', 'Filipino', '2015-02-25 23:12:28', '2015-02-25 23:12:28'),
+(17, 1, 'Kris Abegail', 'Candolita', 'Guanzon', '1993-11-13', '34-27-36', '5''7"', '56.00', 'uploads/kris-abegail-guanzon.jpg', 'Assistant Manager- Field Sales Dep''t', 'begaiguanzon@gmail.com', 'Filipino', '2015-02-25 23:14:06', '2015-02-25 23:14:06'),
+(18, 1, 'Marie Ernestine', '', 'Torro', '1993-08-09', '32-25-34', '5''5"', '55.00', 'uploads/marie-ernestine-torro.jpg', 'Marketing Specialist', 'torromeb@gmail.com', 'Filipino', '2015-02-25 23:16:01', '2015-02-25 23:16:01'),
+(19, 1, 'Floreimer', 'G', 'Soriano', '1992-11-25', '32-25-33', '5''6"', '50.00', 'uploads/floreimer-soriano.jpg', 'Public School Teacher', 'floriemeesh@yahoo.com', 'Filipino', '2015-02-25 23:18:19', '2015-02-25 23:18:19'),
+(20, 1, 'Christine Joy', 'Andaya', 'Alvarez', '1993-06-10', '35-25-36', '5''6"', '51.00', 'uploads/christine-joy-alvarez.jpg', 'Volunteer Nurse', 'christinealvarez0610@yahoo.com.ph', 'Filipino', '2015-02-25 23:20:45', '2015-02-25 23:20:45'),
+(21, 1, 'Thea Margarette', 'R', 'Elipio', '1993-12-27', '33-24-34', '5''4"', '45.00', 'uploads/thea-margarette-elipio.jpg', 'Account Associate, VXI', 'theamargaretteroldanelipeio@gmail.com', 'Filipino', '2015-02-25 23:23:23', '2015-02-25 23:23:23'),
+(22, 1, 'Jerzyl', 'Cabasag', 'Añana', '1994-01-16', '32-27-33', '5''4"', '49.00', 'uploads/jerzyl-anaña.jpg', 'Teacher', 'jerzyl.anana@gmail.com', 'Filipino', '2015-02-25 23:29:53', '2015-02-25 23:29:53'),
+(23, 1, 'Trishia Joyce', 'Costagera', 'Sosmeña', '1994-08-07', '34-27-34', '5''7"', '52.00', 'uploads/trishia-joyce-sosmeña.jpg', 'Student', 'trishia_91@yahoo.com', 'Filipino', '2015-02-25 23:33:31', '2015-02-25 23:33:31'),
+(24, 1, 'Lara Jane', 'Adanza', 'Saquin', '1995-11-21', '33-24-33', '5''4"', '48.00', 'uploads/lara-jane-saquin.jpg', 'Student', 'larajaneadanzasaquin@yahoo.com', 'Filipino', '2015-02-25 23:35:52', '2015-02-25 23:35:52'),
+(25, 1, 'Marja Elana', 'Tan', 'Guino-o', '1994-08-02', '33-25-34', '5''4"', '52.00', 'uploads/marja-elana-guino-o.jpg', 'Student', 'marjaguinoo@gmail.com', 'Filipino', '2015-02-25 23:37:32', '2015-02-25 23:37:32'),
+(26, 1, 'Ñina Grace', 'Ycong', 'Sartagoda', '1996-01-08', '32-24-33', '5''4"', '45.00', 'uploads/ñina-grace-sartagoda.jpg', 'Student', 'Ninzsartagoda08@yahoo.com.ph', 'Filipino', '2015-02-25 23:39:08', '2015-02-25 23:39:08'),
+(27, 1, 'Louise Ann', '', 'Canalija', '1993-03-14', '33-24-33', '5''4"', '48.00', 'uploads/louise-ann canalija.jpg', 'Sales and Marketing Executive', 'louisec.oneblue@gmail.com', 'Filipino', '2015-02-25 23:40:59', '2015-02-25 23:40:59'),
+(28, 1, 'Jenefe', 'Ngoho', 'Simbajon', '1988-09-17', '34-27-35', '5''5"', '49.00', 'uploads/jenefe-simbajon.jpg', 'Accounting Staff', 'jenefesimbajon@gmail.com', 'Filipino', '2015-02-25 23:42:36', '2015-02-25 23:42:36'),
+(29, 1, 'Darlene Paula', 'C', 'Dichoso', '1996-11-22', '33-25-35', '5''8"', '50.00', 'uploads/darlene-paula dichoso.jpg', 'Student', 'arlene_paw@yahoo.com', 'Filipino', '2015-02-25 23:44:08', '2015-02-25 23:44:08'),
+(30, 1, 'Minette', 'Aguio', 'Macaraeg', '1995-02-13', '32-26-34', '5''4"', '50.00', 'uploads/minette-macaraeg.jpg', 'Student', '', 'Filipino', '2015-02-25 23:45:13', '2015-02-25 23:45:13');
 
 -- --------------------------------------------------------
 
@@ -155,11 +156,11 @@ CREATE TABLE IF NOT EXISTS `criterias` (
 --
 
 INSERT INTO `criterias` (`id`, `segment_id`, `name`, `description`, `percentage`, `_date_created`, `_date_modified`) VALUES
-(1, 1, 'INT', 'Intelligence', '25.00', '2015-02-12 00:11:52', '2015-02-12 00:11:52'),
-(2, 1, 'PER', 'Personality', '25.00', '2015-02-12 00:11:52', '2015-02-12 00:11:52'),
-(3, 1, 'CC', 'Casual Competition', '20.00', '2015-02-12 00:12:28', '2015-02-12 00:12:28'),
-(4, 1, 'LGC', 'Long Gown Competition', '20.00', '2015-02-12 00:12:28', '2015-02-12 00:12:28'),
-(5, 1, 'DEP', 'Deportment', '10.00', '2015-02-12 00:13:36', '2015-02-12 00:13:36'),
+(1, 1, 'Intelligence', 'Intelligence', '25.00', '2015-02-12 00:11:52', '2015-02-12 00:11:52'),
+(2, 1, 'Personality', 'Personality', '25.00', '2015-02-12 00:11:52', '2015-02-12 00:11:52'),
+(3, 1, 'Casual', 'Casual Competition', '20.00', '2015-02-12 00:12:28', '2015-02-12 00:12:28'),
+(4, 1, 'Long Gown', 'Long Gown Competition', '20.00', '2015-02-12 00:12:28', '2015-02-12 00:12:28'),
+(5, 1, 'Deportment', 'Deportment', '10.00', '2015-02-12 00:13:36', '2015-02-12 00:13:36'),
 (6, 2, 'TAL', 'Special skills, abilities and uniqueness of talent', '30.00', '2015-02-12 00:13:36', '2015-02-12 00:13:36'),
 (7, 2, 'PAE', 'Performance and execution', '30.00', '2015-02-12 00:14:03', '2015-02-12 00:14:03'),
 (8, 2, 'SMS', 'Showmanship', '15.00', '2015-02-12 00:14:03', '2015-02-12 00:14:03'),
@@ -185,7 +186,18 @@ CREATE TABLE IF NOT EXISTS `criteria_scores` (
   `score` decimal(5,2) NOT NULL,
   `_date_created` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `_date_modified` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `criteria_scores`
+--
+
+INSERT INTO `criteria_scores` (`id`, `criteria_id`, `segment_judge_id`, `segment_contestant_id`, `score`, `_date_created`, `_date_modified`) VALUES
+(1, 1, 2, 1, '25.00', '2015-02-28 12:44:14', '2015-02-28 12:44:14'),
+(2, 2, 2, 1, '25.00', '2015-02-28 12:47:28', '2015-02-28 12:47:28'),
+(3, 3, 2, 1, '20.00', '2015-02-28 12:47:30', '2015-02-28 12:47:30'),
+(4, 4, 2, 1, '20.00', '2015-02-28 12:47:32', '2015-02-28 12:47:32'),
+(5, 5, 2, 1, '10.00', '2015-02-28 12:47:35', '2015-02-28 12:47:35');
 
 -- --------------------------------------------------------
 
@@ -241,7 +253,7 @@ CREATE TABLE IF NOT EXISTS `segments` (
 --
 
 INSERT INTO `segments` (`id`, `competition_id`, `name`, `description`, `slug`, `date`, `venue`, `status`, `_date_created`, `_date_modified`) VALUES
-(1, 1, 'Selection of Top 15', 'Selection of Top 15', 'selection-of-top-15', '2015-02-28 00:00:00', 'Gaisano Grand', 1, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(1, 1, 'Selection of Top 15', 'Selection of Top 15', 'selection-of-top-15', '2015-02-28 00:00:00', 'Felcris Centrale', 1, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
 (2, 1, 'Talent Competition', 'Talent Competition', 'talent-competition', '2015-03-06 00:00:00', 'Gaisano Mall', 1, '2015-02-12 00:06:35', '2015-02-12 00:06:35'),
 (3, 1, 'Top 5', 'Top 5', 'top-5', '2015-03-11 00:00:00', 'SM Lanang', 1, '2015-02-12 00:09:06', '2015-02-12 00:09:06'),
 (4, 1, 'Selection of Winners', 'Selection of Winners', 'selection-of-winners', '2015-03-11 00:00:00', 'SM Lanang', 1, '2015-02-12 00:10:32', '2015-02-12 00:10:32');
@@ -287,36 +299,36 @@ CREATE TABLE IF NOT EXISTS `segment_contestants` (
 --
 
 INSERT INTO `segment_contestants` (`id`, `segment_id`, `contestant_id`, `number`, `_date_created`, `_date_modified`) VALUES
-(1, 1, 1, 0, '2015-02-25 22:36:53', '2015-02-25 22:36:53'),
-(2, 1, 2, 0, '2015-02-25 22:42:32', '2015-02-25 22:42:32'),
-(3, 1, 3, 0, '2015-02-25 22:45:13', '2015-02-25 22:45:13'),
-(4, 1, 4, 0, '2015-02-25 22:48:32', '2015-02-25 22:48:32'),
-(5, 1, 5, 0, '2015-02-25 22:51:38', '2015-02-25 22:51:38'),
-(6, 1, 6, 0, '2015-02-25 22:55:13', '2015-02-25 22:55:13'),
-(7, 1, 7, 0, '2015-02-25 22:57:50', '2015-02-25 22:57:50'),
-(8, 1, 8, 0, '2015-02-25 23:00:24', '2015-02-25 23:00:24'),
-(9, 1, 9, 0, '2015-02-25 23:02:15', '2015-02-25 23:02:15'),
-(10, 1, 10, 0, '2015-02-25 23:03:58', '2015-02-25 23:03:58'),
-(11, 1, 11, 0, '2015-02-25 23:05:14', '2015-02-25 23:05:14'),
-(12, 1, 12, 0, '2015-02-25 23:06:32', '2015-02-25 23:06:32'),
-(13, 1, 13, 0, '2015-02-25 23:07:43', '2015-02-25 23:07:43'),
-(14, 1, 14, 0, '2015-02-25 23:09:49', '2015-02-25 23:09:49'),
-(15, 1, 15, 0, '2015-02-25 23:11:21', '2015-02-25 23:11:21'),
-(16, 1, 16, 0, '2015-02-25 23:12:28', '2015-02-25 23:12:28'),
-(17, 1, 17, 0, '2015-02-25 23:14:06', '2015-02-25 23:14:06'),
-(18, 1, 18, 0, '2015-02-25 23:16:01', '2015-02-25 23:16:01'),
-(19, 1, 19, 0, '2015-02-25 23:18:19', '2015-02-25 23:18:19'),
-(20, 1, 20, 0, '2015-02-25 23:20:45', '2015-02-25 23:20:45'),
-(21, 1, 21, 0, '2015-02-25 23:23:23', '2015-02-25 23:23:23'),
-(22, 1, 22, 0, '2015-02-25 23:29:53', '2015-02-25 23:29:53'),
-(23, 1, 23, 0, '2015-02-25 23:33:31', '2015-02-25 23:33:31'),
-(24, 1, 24, 0, '2015-02-25 23:35:52', '2015-02-25 23:35:52'),
-(25, 1, 25, 0, '2015-02-25 23:37:32', '2015-02-25 23:37:32'),
-(26, 1, 26, 0, '2015-02-25 23:39:08', '2015-02-25 23:39:08'),
-(27, 1, 27, 0, '2015-02-25 23:40:59', '2015-02-25 23:40:59'),
-(28, 1, 28, 0, '2015-02-25 23:42:36', '2015-02-25 23:42:36'),
-(29, 1, 29, 0, '2015-02-25 23:44:08', '2015-02-25 23:44:08'),
-(30, 1, 30, 0, '2015-02-25 23:45:13', '2015-02-25 23:45:13');
+(1, 1, 1, 1, '2015-02-25 22:36:53', '2015-02-25 22:36:53'),
+(2, 1, 2, 2, '2015-02-25 22:42:32', '2015-02-25 22:42:32'),
+(3, 1, 3, 3, '2015-02-25 22:45:13', '2015-02-25 22:45:13'),
+(4, 1, 4, 4, '2015-02-25 22:48:32', '2015-02-25 22:48:32'),
+(5, 1, 5, 5, '2015-02-25 22:51:38', '2015-02-25 22:51:38'),
+(6, 1, 6, 6, '2015-02-25 22:55:13', '2015-02-25 22:55:13'),
+(7, 1, 7, 7, '2015-02-25 22:57:50', '2015-02-25 22:57:50'),
+(8, 1, 8, 8, '2015-02-25 23:00:24', '2015-02-25 23:00:24'),
+(9, 1, 9, 9, '2015-02-25 23:02:15', '2015-02-25 23:02:15'),
+(10, 1, 10, 10, '2015-02-25 23:03:58', '2015-02-25 23:03:58'),
+(11, 1, 11, 11, '2015-02-25 23:05:14', '2015-02-25 23:05:14'),
+(12, 1, 12, 12, '2015-02-25 23:06:32', '2015-02-25 23:06:32'),
+(13, 1, 13, 13, '2015-02-25 23:07:43', '2015-02-25 23:07:43'),
+(14, 1, 14, 14, '2015-02-25 23:09:49', '2015-02-25 23:09:49'),
+(15, 1, 15, 15, '2015-02-25 23:11:21', '2015-02-25 23:11:21'),
+(16, 1, 16, 16, '2015-02-25 23:12:28', '2015-02-25 23:12:28'),
+(17, 1, 17, 17, '2015-02-25 23:14:06', '2015-02-25 23:14:06'),
+(18, 1, 18, 18, '2015-02-25 23:16:01', '2015-02-25 23:16:01'),
+(19, 1, 19, 19, '2015-02-25 23:18:19', '2015-02-25 23:18:19'),
+(20, 1, 20, 20, '2015-02-25 23:20:45', '2015-02-25 23:20:45'),
+(21, 1, 21, 21, '2015-02-25 23:23:23', '2015-02-25 23:23:23'),
+(22, 1, 22, 22, '2015-02-25 23:29:53', '2015-02-25 23:29:53'),
+(23, 1, 23, 23, '2015-02-25 23:33:31', '2015-02-25 23:33:31'),
+(24, 1, 24, 24, '2015-02-25 23:35:52', '2015-02-25 23:35:52'),
+(25, 1, 25, 25, '2015-02-25 23:37:32', '2015-02-25 23:37:32'),
+(26, 1, 26, 26, '2015-02-25 23:39:08', '2015-02-25 23:39:08'),
+(27, 1, 27, 27, '2015-02-25 23:40:59', '2015-02-25 23:40:59'),
+(28, 1, 28, 28, '2015-02-25 23:42:36', '2015-02-25 23:42:36'),
+(29, 1, 29, 29, '2015-02-25 23:44:08', '2015-02-25 23:44:08'),
+(30, 1, 30, 30, '2015-02-25 23:45:13', '2015-02-25 23:45:13');
 
 -- --------------------------------------------------------
 
@@ -328,21 +340,18 @@ CREATE TABLE IF NOT EXISTS `segment_judges` (
 `id` int(20) NOT NULL,
   `segment_id` int(20) NOT NULL,
   `judge_id` int(20) NOT NULL,
+  `status` tinyint(1) NOT NULL DEFAULT '1',
   `_date_created` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `_date_modified` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `segment_judges`
 --
 
-INSERT INTO `segment_judges` (`id`, `segment_id`, `judge_id`, `_date_created`, `_date_modified`) VALUES
-(1, 1, 1, '2015-02-24 22:13:09', '2015-02-24 22:13:09'),
-(2, 1, 2, '2015-02-24 22:13:31', '2015-02-24 22:13:31'),
-(3, 1, 3, '2015-02-25 19:27:16', '2015-02-25 19:27:16'),
-(4, 1, 4, '2015-02-25 19:28:00', '2015-02-25 19:28:00'),
-(5, 1, 5, '2015-02-25 19:44:49', '2015-02-25 19:44:49'),
-(6, 1, 6, '2015-02-25 21:14:02', '2015-02-25 21:14:02');
+INSERT INTO `segment_judges` (`id`, `segment_id`, `judge_id`, `status`, `_date_created`, `_date_modified`) VALUES
+(1, 1, 1, 1, '2015-02-24 22:13:09', '2015-02-24 22:13:09'),
+(2, 1, 2, 1, '2015-02-24 22:13:31', '2015-02-24 22:13:31');
 
 --
 -- Indexes for dumped tables
@@ -447,7 +456,7 @@ MODIFY `id` int(20) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=17;
 -- AUTO_INCREMENT for table `criteria_scores`
 --
 ALTER TABLE `criteria_scores`
-MODIFY `id` int(20) NOT NULL AUTO_INCREMENT;
+MODIFY `id` int(20) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=6;
 --
 -- AUTO_INCREMENT for table `judges`
 --
@@ -472,7 +481,7 @@ MODIFY `id` int(20) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=31;
 -- AUTO_INCREMENT for table `segment_judges`
 --
 ALTER TABLE `segment_judges`
-MODIFY `id` int(20) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=7;
+MODIFY `id` int(20) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
