@@ -68,6 +68,8 @@ class Segment_contestant_model extends PT_Model {
         
         if($segment_id)
             $where["segment_id"] = $segment_id;
+        
+        $this->db->order_by("number", "asc");
             
         $this->db->where($where);
         
