@@ -19,11 +19,11 @@
 		    <th>#</th>
 		    <th class="col-md-3"><div class="s">Contestants</div></th>
 	    <?php
-		$segment_criteria_collection = $segment->criterias();
+		$segment_criterias = $segment->criterias();
 		
-		if(is_array($segment_criteria_collection) AND count($segment_criteria_collection))
+		if(is_array($segment_criterias) AND count($segment_criterias))
 		{
-		    foreach($segment_criteria_collection AS $segment_criteria)
+		    foreach($segment_criterias AS $segment_criteria)
 		    { ?>
 		    <th><div class="s"><?php echo $segment_criteria->name; ?></div></th>
 		<?php
@@ -31,24 +31,25 @@
 		}
 		?>
 			<th>Total</th>
+			<th>Rank</th>
 		</tr>
 	    </thead>
 	    <tbody>
 		<?php
-		$segment_contestant_collection = $segment->contestants();
+		$segment_contestants = $segment->contestants();
 		
-		if(is_array($segment_contestant_collection) AND count($segment_contestant_collection))
+		if(is_array($segment_contestants) AND count($segment_contestants))
 		{
-		    foreach($segment_contestant_collection AS $segment_contestant)
+		    foreach($segment_contestants AS $segment_contestant)
 		    {
 			$contestant = $segment_contestant->contestant(); ?>
 		    <tr>
 			<td><?php echo $segment_contestant->number; ?></td>
 			<td><div class="s"><?php echo $contestant->first_name . " " . $contestant->last_name; ?></div></td>
 	    <?php
-		if(is_array($segment_criteria_collection) AND count($segment_criteria_collection))
+		if(is_array($segment_criterias) AND count($segment_criterias))
 		{
-		    foreach($segment_criteria_collection AS $segment_criteria)
+		    foreach($segment_criterias AS $segment_criteria)
 		    {
 			$criteria_score = $segment_criteria->score($segment_judge->id, $segment_contestant->id); ?>
 		    <td class="text-right"><?php echo ($fill == "score") ? $criteria_score->score : "&nbsp;"; ?> / <?php echo number_format($segment_criteria->percentage, 0); ?></td>
@@ -56,9 +57,11 @@
 		    }
 		}
 	    ?>
-				<td><?php echo $segment_contestant->total($segment_judge->id); ?></td>
+			<td><?php echo $segment_contestant->score($segment_judge->id); ?></td>
+			<td><?php echo $segment_contestant->rank($segment_judge->id); ?></td>
 		    </tr>
 		<?php
+			
 		    }
 		} ?>
 	    </tbody>

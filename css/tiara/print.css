@@ -1,0 +1,12 @@
+@media print and (color) {
+    * {
+        -webkit-print-color-adjust: exact; 
+        print-color-adjust: exact;
+    }
+    .page-header {
+        margin-top: 0 !important;
+    }
+}
+.judge-name-signature {
+    margin-top: 45px; border-bottom: 2px solid #ccc; padding-bottom: 5px;
+}

@@ -81,6 +81,8 @@ class Segments extends PT_Controller {
     }
     public function rankings($limit = 0, $id, $competition_id = 0)
     {
+        $this->benchmark->mark("rankings_begin");
+        
         $this->load->model("admin/Competition_model", "competition_model");
 	
 	$competition = $this->competition_model->get($competition_id);
@@ -88,12 +90,19 @@ class Segments extends PT_Controller {
 	$segment = $competition->segment($id);
 	
 	$this->load->view("template/header", array(
-                "title" => "Sample | Index",
+                "title" => "Tiara | " . $competition->name . " - " . $segment->name,
+                "styles" => array(
+                    "tiara/print"
+                )
             )
         );
 	
 	$this->load->view("administrator/rankings/sheet", array("competition" => $competition, "segment" => $segment, "limit" => $limit));
 	
 	$this->load->view("template/footer");
+        
+        $this->benchmark->mark("rankings_end");
+        
+        echo $this->benchmark->elapsed_time("rankings_begin", "rankings_end");
     }
 }

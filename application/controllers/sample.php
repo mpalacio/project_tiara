@@ -1,6 +1,6 @@
 <?php if ( ! defined("BASEPATH")) exit("No direct script access allowed");
 
-class Sample extends CI_Controller {
+class Sample extends PT_Controller {
     
     public function __construct()
     {
@@ -20,7 +20,7 @@ class Sample extends CI_Controller {
                 "nav" => $this->load->view("template/nav", array(), TRUE)
             )
         );
-        $this->load->view("admin/contestants/index");
+        //$this->load->view("admin/contestants/index");
         
         $this->load->view("template/footer", array(
                 "scripts" => array(
@@ -44,5 +44,20 @@ class Sample extends CI_Controller {
                 )
             )
         );
+    }
+    
+    public function table()
+    {
+       
+        $this->load->view("template/header", array(
+                "title" => "Sample | Index",
+                "styles" => array(
+                    "tiara/tiara"
+                )
+            )
+        );
+        $this->load->view("table");
+        
+        $this->load->view("template/footer");
     }
 }

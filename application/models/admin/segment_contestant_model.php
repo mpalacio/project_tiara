@@ -125,18 +125,33 @@ class Segment_contestant_model extends PT_Model {
     // OK
     public function score($segment_judge_id = 0)
     {
-        // Segment Contestant Score By Segment Judge
-        $segment_contestant_score = NULL;
+        $score = 0.00;
         
-        if($this-id)
+        if($this->id)
         {
-            $this->load->model("admin/Segment_contestant_score_model", "segment_contestant_score_model");
+            $sql = "SELECT 
+                `segment_contestant_id`, 
+                `segment_judge_id`, 
+                SUM(`score`) AS `score`
+            FROM 
+                `criteria_scores` 
+            WHERE 
+                `segment_judge_id` = " . $segment_judge_id . " AND
+                `segment_contestant_id` = " . $this->id . "
+            GROUP BY
+                `segment_contestant_id`";
+                
+            $query = $this->db->query($sql);
             
-            // Object: Segment Contestant Score
-            $segment_contestant_score = $this->segment_contestant_score_model->get($this->id, $segment_judge_id);
+            if($query->num_rows())
+            {
+                $row = $query->row_array();
+                
+                $score = $row["score"];
+            }
         }
         
-        return $segment_contestant_score;
+        return $score;
     }
     
     // OK
@@ -157,14 +172,145 @@ class Segment_contestant_model extends PT_Model {
         
         return $segment_contestant_scores;
     }
-	
-	public function total($segment_judge_id = 0)
-	{
-		
-		if($this->id)
-		{
-			$s = $this->score($segment_judge_id);
-			return $s->sum();
-		}
-	}
+    // Depreacated
+    public function total($segment_judge_id = 0)
+    {
+            // 
+            if($this->id)
+            {
+                    $s = $this->score($segment_judge_id);
+                    return $s->sum();
+            }
+    }
+    
+    public function total_rank()
+    {
+        $total = 0.00;
+        
+        if($this->id)
+        {
+            $segment = $this->segment();
+            
+            foreach($segment->judges() AS $segment_judge)
+            {
+                $total = $total + $this->rank($segment_judge->id);
+            }
+        }
+        
+        return $total;
+    }
+    
+    function final_rank()
+    {
+        $final = 0.00;
+        
+        if($this->id)
+        {
+            $segment = $this->segment();
+            
+            $segment_contestants = $segment->contestants();
+            
+            $ranks = array();
+            
+            foreach($segment_contestants AS $segment_contestant)
+            {
+                $ranks[$segment_contestant->id] = $segment_contestant->total_rank();
+            }
+            
+            asort($ranks);
+            
+            $ranking = array();
+            $rank = 1;
+            
+            $sum = $occurence = 0;
+            
+            foreach($ranks AS $id => $total)
+            {
+                $ranking[$rank] = array("id" => $id, "total" => $total);
+                $rank++;
+            }
+            
+            foreach($ranking AS $rank => $group)
+            {
+                if($group["total"] == $ranks[$this->id])
+                {
+                    $occurence++;
+                    $sum = $sum + $rank;
+                }
+            }
+            
+            $final = $sum / $occurence;
+        }
+        
+        return $final;
+    }
+    
+    public function rank($segment_judge_id = 0)
+    {
+        $average = 0.00;
+        
+        if($this->id)
+        {
+            $sql = "SELECT
+                RK.*
+            FROM 
+                (
+                    SELECT 
+			TS.*, 
+			@rank := @rank + 1 AS rank
+                    FROM 
+			(
+			    SELECT 
+				`segment_contestant_id`, 
+				`segment_judge_id`, 
+				SUM(`score`) AS `score` 
+			    FROM 
+				`criteria_scores` 
+			    WHERE 
+				`segment_judge_id` = " . $segment_judge_id . " 
+			    GROUP BY 
+				`segment_contestant_id` 
+			    ORDER BY 
+				`score` DESC
+			) TS, 
+			(
+			    SELECT 
+                                @rank := 0
+			) S
+                ) RK 
+            ORDER BY 
+                RK.`segment_contestant_id` ASC";
+                
+            $query = $this->db->query($sql);
+            
+            if($query->num_rows())
+            {
+                $ranking = array();
+                
+                foreach($query->result_array() AS $row)
+                {
+                    $ranking[$row["rank"]] = $row["score"];
+                    
+                    if($row["segment_contestant_id"] == $this->id)
+                        $score = $row["score"];
+                }
+               
+                $sum = $occurence = 0;
+            
+                foreach($ranking AS $rank => $s)
+                {
+                    if($score == $s)
+                    {
+                        $sum = $sum + $rank;
+                        $occurence++;
+                    }
+                }
+                
+                if($sum AND $occurence)
+                    $average = $sum / $occurence;
+            }
+        }
+        
+        return $average;
+    }
 }

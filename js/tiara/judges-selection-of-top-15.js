@@ -1,57 +1,44 @@
 $(document).ready(function() {
-    $('.contestant-criteria-score').inputmask({'mask':'(9)|(99)|(9.9[9])|(99.9)|(99.99)', greedy: false, rightAlign: true})
+    $('.contestant-criteria-score').inputmask({'mask':'(99)|(9.9[9])|(99.9)|(99.99)', greedy: false})
     
-    $('.contestant-criteria-score').keyup(function(event) {
+    $('.contestant-criteria-score').keypress(function(event) {
 	if (event.which == 13) {
-	    var score = $(this).val()
-		score = parseFloat(score)
+	    $(this).closest('.form-group').next().find('.contestant-criteria-score').focus()
 	    
-	    if (score) {
-		var percentage = $(this).siblings('#percentage-addon').attr('data-percentage')
+	    var scores = $(this).closest('.form-horizontal').find('.contestant-criteria-score').each(function(){
+		return $(this).val()
+	    }).get()
+	}
+    })
+    
+    $('.constestant-criteria-score').on('focusout', function() {
+	var score = $(this).val()
+	
+	if (score) {
+	    var href = window.location.href
+	    
+	    var contestant = new Contestant()
+	    contestant.get(this)
+	    
+	    var id = $(this).attr('data-criteria')
+	    var percentage = $(this).closest('.input-group').children('#percentage-addon').attr('data-percentage')
 		percentage = parseFloat(percentage)
+		score = parseFloat(score)
 		
-		if (score < 0 || score > percentage) {
-		    $(this).closest('.form-group').attr('class', 'form-group has-error')
-		    
-		} else {
-		    $(this).closest('.form-group').attr('class', 'form-group')
-		    
-		    var scores = 0.00;
-	    
-		    $(this).closest('.form-horizontal').find('.contestant-criteria-score').each(function(){
-			var score = parseFloat($(this).val())
-			
-			if (score)
-			    scores = scores + score
-		    })
-	    
-		    $(this).closest('.form-horizontal').find('.contestant-total-score').text(scores.toFixed(2))
-		    
-		    $(this).closest('.form-group').attr('class', 'form-group has-success')
-		    
-		    var contestant = new Contestant()
-			contestant.get(this)
-			
-		    var href = window.location.href
-		    var id = $(this).attr('data-criteria')
-		    // Send
-		    $.ajax({
-			url: href + '/score/' + id,
-			type:'post', 
-			data: {
-			    contestant: JSON.stringify(contestant)
-			}
-		    })
-		    
-		    $(this).closest('.form-group').next().find('.contestant-criteria-score').focus()
-		}
+	    if (score > percentage) {
+		$(this).closest('.form-group').addClass('has-error')
 		
 	    } else {
-		$(this).closest('.form-group').attr('class', 'form-group has-error')
+		$(this).closest('.form-group').removeClass('has-error')
+		
+		$.ajax({
+		    url: href + '/score/' + id,
+		    type:'post', 
+		    data: {
+			contestant: JSON.stringify(contestant)
+		    }
+		})
 	    }
-	    
-	} else {
-	    $(this).closest('.form-group').attr('class', 'form-group')
 	}
     })
     

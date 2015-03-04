@@ -23,8 +23,7 @@
 	<?php
 	    } ?>
 	    </ul>
-	
-	
+
 	    <div class="tab-content">
     <?php
 	foreach($segment_contestants AS $segment_contestant)
@@ -90,11 +89,14 @@
 					
 					<form class="form-horizontal">
 				    <?php
+					$score = 0;
+					
 					foreach($segment->criterias() AS $criteria)
 					{
-					    $criteria_score = $criteria->score($segment_judge->id, $segment_contestant->id); ?>
+					    $criteria_score = $criteria->score($segment_judge->id, $segment_contestant->id);
+					    $score = $score + $criteria_score->score; ?>
 					    
-					    <div class="form-group">
+					    <div class="<?php echo ($criteria_score->score) ? "form-group has-success" : "form-group"; ?>">
 						<label class="col-md-5 control-label"><?php echo $criteria->name; ?></label>
 						<div class="col-md-7">
 						    <div class="input-group">
@@ -108,7 +110,7 @@
 					    <div class="form-group">
 						<label class="col-md-5 control-label">Total</label>
 						<div class="col-md-7 text-right">
-						    <h3 class="form-control-static contestant-total-score">100.00</h3>
+						    <h3 class="form-control-static contestant-total-score"><?php echo number_format($score, 2); ?></h3>
 						</div>
 					    </div>
 					</form>
