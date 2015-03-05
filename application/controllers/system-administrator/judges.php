@@ -144,7 +144,7 @@ class Judges extends PT_Controller {
             )
         );
 	
-	$this->load->view("administrator/judges/sheet", array("competition" => $competition, "segment" => $segment, "segment_judge" => $segment_judge, "fill" => $fill));
+	$this->load->view("administrator/judges/sheet-talent-competition", array("competition" => $competition, "segment" => $segment, "segment_judge" => $segment_judge, "fill" => $fill));
 	
 	$this->load->view("template/footer");
     }

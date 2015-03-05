@@ -13,6 +13,8 @@ class Criteria_model extends PT_Model {
     
     public $percentage = 0.00;
     
+    public $visibility = 1;
+    
     public function __construct()
     {
 	parent::__construct();
