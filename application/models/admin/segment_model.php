@@ -60,7 +60,7 @@ class Segment_model extends PT_Model {
         {
             $this->load->model("admin/Segment_contestant_model", "segment_contestant_model");
             
-            $segment_contestant = $this->segment_contestant_model->get($contestant_id, $this->id);
+            $segment_contestant = $this->segment_contestant_model->get(0, $contestant_id, $this->id);
         }
         
         return $segment_contestant;
@@ -184,17 +184,17 @@ class Segment_model extends PT_Model {
         return $segment_contestant;
     }
     // OK
-    public function template()
+    public function page()
     {
-        $segment_template = NULL;
+        $segment_page = NULL;
         
         if($this->id)
         {
-            $this->load->model("admin/Segment_template_model", "segment_template_model");
+            $this->load->model("admin/Segment_page_model", "segment_page_model");
             
-            $segment_template = $this->segment_template_model->get_by_segment($this->id);
+            $segment_page = $this->segment_page_model->get_by_segment($this->id);
         }
         
-        return $segment_template;
+        return $segment_page;
     }
 }

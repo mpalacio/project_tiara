@@ -25,6 +25,30 @@ body {
 .table .form-group {
     margin-bottom: 0;
 }
+.table .form-group {
+    position: relative;
+}
+.table .form-group .glyphicon {
+    display: none;
+    position: absolute;
+    top: 0;
+    padding: 10px;
+}
+.table .form-group.has-success .glyphicon {
+    display: inherit;
+    color: #3c763d;
+}
+.table .form-group.has-success .glyphicon:before {
+    content: "\e013";
+}
+.table .form-group.has-error .glyphicon {
+    display: inherit;
+    color: #a94442;
+    content: 
+}
+.table .form-group.has-error .glyphicon:before {
+    content: "\e014";
+}
 .popover .close {
     margin-top: -2px;
 }

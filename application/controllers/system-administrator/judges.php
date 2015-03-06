@@ -144,9 +144,9 @@ class Judges extends PT_Controller {
             )
         );
 	
-	$segment_template = $segment->template();
+	$segment_page = $segment->page();
 	
-	$this->load->view($segment_template->judge, array("competition" => $competition, "segment" => $segment, "segment_judge" => $segment_judge, "fill" => $fill));
+	$this->load->view($segment_page->judge, array("competition" => $competition, "segment" => $segment, "segment_judge" => $segment_judge, "fill" => $fill));
 	
 	$this->load->view("template/footer");
     }

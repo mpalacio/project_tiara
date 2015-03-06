@@ -7,11 +7,11 @@
 ?>
 <div class="row">
     <div class="col-md-12">
-	<table class="table table-hover table-condensed table-bordered">
+	<table class="table table-hover table-bordered">
 	    <thead>
 		<tr>
 		    <th rowspan="3">#</th>
-		    <th rowspan="3">Contestants</th>
+		    <th rowspan="3" class="col-xs-3 col-sm-3 col-md-3">Contestants</th>
 	    <?php
 		foreach($segment_judges AS $index => $segment_judge)
 		{ ?>

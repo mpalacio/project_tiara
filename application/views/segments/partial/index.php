@@ -14,7 +14,6 @@
 		    <th>Venue</th>
 		    <th>Description</th>
 		    <th>Date</th>
-		    <th>Status</th>
 		    <th>&nbsp;</th>
 		</tr>
 	    </thead>
@@ -32,8 +31,7 @@
                     <td><?php echo $segment->name; ?></td>
                     <td><?php echo $segment->venue; ?></td>
                     <td><?php echo $segment->description; ?></td>
-                    <td><?php echo $segment->date; ?></td>
-                    <td><?php echo $segment->status; ?></td>
+                    <td><?php echo date("F j, Y h:iA", strtotime($segment->date)); ?></td>
                     <td class="hidden-print">
                         <?php echo anchor($competition->slug . "/judges/" . $segment->slug, (($segment_judge->status) ? "Judge" : "Review"), "class='edit-competitions btn btn-default btn-sm'"); ?>
                     </td>

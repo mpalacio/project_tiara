@@ -1,7 +1,7 @@
 <?php
 
-class Segment_template_model extends PT_Model {
-    public static $table = "segment_templates";
+class Segment_page_model extends PT_Model {
+    public static $table = "segment_pages";
     
     public $id = 0;
     

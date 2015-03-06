@@ -45,7 +45,7 @@
 			$contestant = $segment_contestant->contestant(); ?>
 		    <tr>
 			<td><?php echo $segment_contestant->number; ?></td>
-			<td><div class="s"><?php echo htmlentities($contestant->first_name . " " . $contestant->last_name); ?></div></td>
+			<td><div class="s"><?php echo $contestant->first_name . " " . $contestant->last_name; ?></div></td>
 	    <?php
 		if(is_array($segment_criterias) AND count($segment_criterias))
 		{
@@ -57,8 +57,8 @@
 		    }
 		}
 	    ?>
-			<td><?php echo $segment_contestant->score($segment_judge->id); ?></td>
-			<td><?php echo $segment_contestant->rank($segment_judge->id); ?></td>
+			<td class="text-right"><?php echo ($fill == "score") ? $segment_contestant->score($segment_judge->id) : "&nbsp;"; ?></td>
+			<td class="text-right"><?php echo ($fill == "score") ? $segment_contestant->rank($segment_judge->id) : "&nbsp;"; ?></td>
 		    </tr>
 		<?php
 			

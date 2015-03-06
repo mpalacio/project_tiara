@@ -43,7 +43,15 @@ $(document).ready(function() {
 			}
 		    })
 		    
-		    $('.table').next('.contestant-criteria-score').focus()
+		    // Move to next input
+		    var td = $(this).closest('td').next('td')
+		    var input = td.find('.contestant-criteria-score')
+		    
+		    if (input.length == 0) {
+			$(this).closest('tr').next().find('.contestant-criteria-score').first().focus()
+		    } else {
+			input.focus()
+		    }
 		}
 		
 	    } else {

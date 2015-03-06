@@ -97,7 +97,9 @@ class Segments extends PT_Controller {
             )
         );
 	
-	$this->load->view("administrator/rankings/sheet-talent-competition", array("competition" => $competition, "segment" => $segment, "limit" => $limit));
+        $segment_page = $segment->page();
+        
+	$this->load->view($segment_page->segment, array("competition" => $competition, "segment" => $segment, "limit" => $limit));
 	
 	$this->load->view("template/footer");
     }

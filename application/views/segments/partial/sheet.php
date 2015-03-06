@@ -40,11 +40,21 @@
 			$criteria_score = $criteria->score($segment_judge->id, $segment_contestant->id);
 			$score = $score + $criteria_score->score; ?>
 		    <td>
+		    <?php
+			if($segment_judge->status)
+			{ ?>
 			<div class="<?php echo ($criteria_score->score) ? "form-group has-success" : "form-group"; ?>">
+			    <span class="glyphicon" aria-hidden="true"></span>
 			    <input type="text" class="form-control text-right contestant-criteria-score" placeholder="0" data-criteria="<?php echo $criteria->id; ?>" data-percentage="<?php echo $criteria->percentage; ?>" data-segment-contestant="<?php echo $segment_contestant->id; ?>" aria-describedby="percentage-addon" value="<?php echo $criteria_score->score; ?>" />
 			</div>
 		    </td>
-	    <?php
+		<?php
+			}
+			else
+			{ ?>
+			<p class="form-control-static text-right"><?php echo number_format($criteria_score->score, 0); ?></p>
+		<?php
+			}
 		    }
 		} ?>
 		    <td><p class="form-control-static text-right contestant-total-score"><?php echo number_format($score, 0); ?></p></td>
