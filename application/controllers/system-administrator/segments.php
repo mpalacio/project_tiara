@@ -13,16 +13,16 @@ class Segments extends PT_Controller {
 
     public function index($competition_id)
     {
-        $this->load->view("template/header", array(
-                "title" => "Sample | Index",
+        $competition = $this->competition_model->get($competition_id);
+	
+	$this->load->view("template/header", array(
+                "title" => "Tiara | " . $competition->name,
                 "styles" => array(
                     "tiara/tiara"
                 ),
                 "nav" => $this->load->view("template/nav", array(), TRUE)
             )
         );
-        
-        $competition = $this->competition_model->get($competition_id);
         
         $this->load->view("administrator/segments/partial/index", array("competition" => $competition));
         
@@ -36,8 +36,12 @@ class Segments extends PT_Controller {
     
     public function view($id, $competition_id)
     {
-        $this->load->view("template/header", array(
-                "title" => "Sample | Index",
+        $competition = $this->competition_model->get($competition_id);
+	
+	$segment = $competition->segment($id);
+	
+	$this->load->view("template/header", array(
+                "title" => "Tiara | " . $competition->name . " - " . $segment->name,
                 "styles" => array(
                     "tiara/tiara",
                     "jquery/file-upload/jquery.fileupload",
@@ -48,11 +52,9 @@ class Segments extends PT_Controller {
             )
         );
         
-        $competition = $this->competition_model->get($competition_id);
-        
         $this->load->helper("string_helper");
         
-        $this->load->view("administrator/segments/partial/view", array("competition" => $competition, "segment" => $competition->segment($id)));
+        $this->load->view("administrator/segments/partial/view", array("competition" => $competition, "segment" => $segment));
         
         $this->load->view("template/footer", array(
                 "scripts" => array(
@@ -81,8 +83,6 @@ class Segments extends PT_Controller {
     }
     public function rankings($limit = 0, $id, $competition_id = 0)
     {
-        $this->benchmark->mark("rankings_begin");
-        
         $this->load->model("admin/Competition_model", "competition_model");
 	
 	$competition = $this->competition_model->get($competition_id);
@@ -97,12 +97,8 @@ class Segments extends PT_Controller {
             )
         );
 	
-	$this->load->view("administrator/rankings/sheet", array("competition" => $competition, "segment" => $segment, "limit" => $limit));
+	$this->load->view("administrator/rankings/sheet-talent-competition", array("competition" => $competition, "segment" => $segment, "limit" => $limit));
 	
 	$this->load->view("template/footer");
-        
-        $this->benchmark->mark("rankings_end");
-        
-        echo $this->benchmark->elapsed_time("rankings_begin", "rankings_end");
     }
 }

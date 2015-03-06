@@ -122,10 +122,29 @@ class Segment_contestant_model extends PT_Model {
 	return $segment;
     }
 
+    
+    // OK
+    public function scores()
+    {
+        $segment_contestant_scores = array();
+        
+        if($this->id)
+        {
+            $this->load->model("admin/Segment_contestant_score_model", "segment_contestant_score_model");
+            
+            /**
+             * Array: Segment Contestant Score Object
+             * get(:segment-contestant-id)
+             */
+            $segment_contestant_scores = $this->segment_contestant_score_model->get($this->id);
+        }
+        
+        return $segment_contestant_scores;
+    }
     // OK
     public function score($segment_judge_id = 0)
     {
-        $score = 0.00;
+	$score = 0.00;
         
         if($this->id)
         {
@@ -153,36 +172,21 @@ class Segment_contestant_model extends PT_Model {
         
         return $score;
     }
-    
     // OK
-    public function scores()
+    public function criteria_score($criteria_id = 0, $segment_judge_id = 0)
     {
-        $segment_contestant_scores = array();
-        
-        if($this->id)
-        {
-            $this->load->model("admin/Segment_contestant_score_model", "segment_contestant_score_model");
-            
-            /**
-             * Array: Segment Contestant Score Object
-             * get(:segment-contestant-id)
-             */
-            $segment_contestant_scores = $this->segment_contestant_score_model->get($this->id);
-        }
-        
-        return $segment_contestant_scores;
+	$score = 0.00;
+	
+	if($this->id)
+	{
+	    $this->load->model("admin/Criteria_score_model", "criteria_score_model");
+	    $criteria_score = $this->criteria_score_model->get(0, $criteria_id, $segment_judge_id, $this->id);
+	    
+	    $score = $criteria_score->score;
+	}
+	
+	return $score;
     }
-    // Depreacated
-    public function total($segment_judge_id = 0)
-    {
-            // 
-            if($this->id)
-            {
-                    $s = $this->score($segment_judge_id);
-                    return $s->sum();
-            }
-    }
-    
     public function total_rank()
     {
         $total = 0.00;

@@ -183,4 +183,18 @@ class Segment_model extends PT_Model {
         
         return $segment_contestant;
     }
+    // OK
+    public function template()
+    {
+        $segment_template = NULL;
+        
+        if($this->id)
+        {
+            $this->load->model("admin/Segment_template_model", "segment_template_model");
+            
+            $segment_template = $this->segment_template_model->get_by_segment($this->id);
+        }
+        
+        return $segment_template;
+    }
 }

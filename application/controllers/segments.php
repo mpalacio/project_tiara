@@ -38,7 +38,7 @@ class Segments extends PT_Controller {
 	$judge_segments = $this->judge->segments();
 	
 	$this->load->view("template/header", array(
-		"title" => "Sample | Index",
+		"title" => "Tiara | " . $this->competition->name,
 		"styles" => array(
 			"bootstrap/3.3.2/judges/bootstrap",
 			"tiara/tiara"
@@ -80,7 +80,7 @@ class Segments extends PT_Controller {
 	    show_404();
 	
 	$this->load->view("template/header", array(
-		"title" => "Sample | Index",
+		"title" => "Tiara | " . $this->competition->name . " - " . $this->segment->name,
 		"styles" => array(
 			"bootstrap/3.3.2/judges/bootstrap",
 			"tiara/tiara"
