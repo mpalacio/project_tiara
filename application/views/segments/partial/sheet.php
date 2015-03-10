@@ -45,7 +45,7 @@
 			{ ?>
 			<div class="<?php echo ($criteria_score->score) ? "form-group has-success" : "form-group"; ?>">
 			    <span class="glyphicon" aria-hidden="true"></span>
-			    <input type="text" class="form-control text-right contestant-criteria-score" placeholder="0" data-criteria="<?php echo $criteria->id; ?>" data-percentage="<?php echo $criteria->percentage; ?>" data-segment-contestant="<?php echo $segment_contestant->id; ?>" aria-describedby="percentage-addon" value="<?php echo $criteria_score->score; ?>" />
+			    <input type="text" class="form-control text-right contestant-criteria-score" placeholder="0" data-criteria="<?php echo $criteria->id; ?>" data-percentage="<?php echo $criteria->percentage; ?>" data-segment-contestant="<?php echo $segment_contestant->id; ?>" aria-describedby="percentage-addon" value="<?php echo number_format($criteria_score->score,0); ?>" />
 			</div>
 		    </td>
 		<?php

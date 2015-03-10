@@ -51,10 +51,10 @@
 			
 			$deportment = $segment_contestant->criteria_score(10, $segment_judge->id); ?>
 		    <td class="text-right"><?php echo $score - $deportment; ?></td>
-		    <td class="text-right"><?php echo number_format($deportment, 0); ?></td>
+		    <td class="text-right"><?php echo number_format($deportment, 2); ?></td>
 		<?php
 		    } ?>
-		    <td class="text-right"><?php echo $total_score; ?></td>
+		    <td class="text-right"><?php echo number_format($total_score, 2); ?></td>
 		    <td class="text-right"><?php echo number_format($total_score / count($segment_judges), 2); ?></td>
 		    <td class="text-right"><?php echo number_format(($total_score / count($segment_judges)) * 0.15, 2); ?></td>
 		</tr>

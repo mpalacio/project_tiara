@@ -24,7 +24,7 @@
 		{
 		    foreach($segment_criterias AS $segment_criteria)
 		    {
-			if($segment_criteria->visibility == 1 OR $segment_criteria->visibility == 2)
+			if($segment_criteria->visibility == 1 OR $segment_criteria->visibility == 3)
 			{ ?>
 		    <th><?php echo $segment_criteria->name . " (" . number_format($segment_criteria->percentage, 0) . "%)"; ?></th>
 		<?php
@@ -53,17 +53,17 @@
 		    
 		    foreach($segment_criterias AS $segment_criteria)
 		    {
-			if($segment_criteria->visibility == 1 OR $segment_criteria->visibility == 2)
+			if($segment_criteria->visibility == 1 OR $segment_criteria->visibility == 3)
 			{
 			    $criteria_score = $segment_criteria->score($segment_judge->id, $segment_contestant->id);
 			    $score = $score + $criteria_score->score; ?>
-			<td class="text-right"><?php echo ($fill == "score") ? number_format($criteria_score->score, 0) : "&nbsp;"; ?></td>
+			<td class="text-right"><?php echo ($fill == "score") ? number_format($criteria_score->score, 2) : "&nbsp;"; ?></td>
 		<?php
 			}
 		    }
 		}
 	    ?>
-			<td class="text-right"><?php echo $score; ?></td>
+			<td class="text-right"><?php echo ($fill == "score") ? $score : "&nbsp;"; ?></td>
 		    </tr>
 		<?php
 			
