@@ -1,5 +1,9 @@
 <?php if ( ! defined("BASEPATH")) exit("No direct script access allowed");
-
+/**
+ * Segment Model
+ *
+ * @version 1.1
+ */
 class Segment_model extends PT_Model {
     public static $table = "segments";
 
@@ -196,5 +200,21 @@ class Segment_model extends PT_Model {
         }
         
         return $segment_page;
+    }
+    /**
+     * @since 1.1
+     */
+    public function composites()
+    {
+        $composites = array();
+        
+        if($this->id)
+        {
+            $this->load->model("admin/Composite_model", "composite_model");
+            
+            $composites = $this->composite_model->get(0, $this->id);
+        }
+        
+        return $composites;
     }
 }

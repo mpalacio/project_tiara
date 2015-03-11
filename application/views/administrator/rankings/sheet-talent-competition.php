@@ -55,8 +55,8 @@
 		<?php
 		    } ?>
 		    <td class="text-right"><?php echo number_format($total_score, 2); ?></td>
-		    <td class="text-right"><?php echo number_format($total_score / count($segment_judges), 2); ?></td>
-		    <td class="text-right"><?php echo number_format(($total_score / count($segment_judges)) * 0.15, 2); ?></td>
+		    <td class="text-right"><?php echo number_format($segment_contestant->average_score(), 2); ?></td>
+		    <td class="text-right"><?php echo number_format($segment_contestant->average_score() * 0.15, 2); ?></td>
 		</tr>
 	    <?php
 		} ?>

@@ -26,7 +26,7 @@
                     <td><?php echo ordinal_suffix($key + 1); ?></td>
                     <td><?php echo $segment_contestant->number; ?></td>
                     <td><?php echo $contestant->first_name . " " . $contestant->last_name; ?></td>
-                    <td><?php echo $segment_contestant->average(); ?></td>
+                    <td><?php echo $segment_contestant->average_score(); ?></td>
                 </tr>
         <?php
                 }
