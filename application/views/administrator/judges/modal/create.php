@@ -8,6 +8,14 @@
         <div class="modal-body">
             <form action="<?php echo base_url("administrator/competitions/" . $segment->competition_id . "/segments/" . $segment->id . "/judges/save"); ?>" method="post">
                 <div class="form-group">
+                    <label for="name">Number</label>
+                    <div class="row">
+			<div class="col-md-6">
+			    <input type="text" class="form-control" id="number" placeholder="Number" />
+			</div>
+		    </div>
+                </div>
+		<div class="form-group">
                     <label for="name">Name</label>
                     <div class="row">
 			<div class="col-md-6">

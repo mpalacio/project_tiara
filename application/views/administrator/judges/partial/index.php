@@ -1,14 +1,32 @@
-<p class="text-right">
-<a href="<?php echo base_url("administrator/competitions/" . $segment->competition_id . "/segments/" . $segment->id . "/judges/create"); ?>" class="btn btn-default" id="create-judge">Create</a>
-<a href="<?php echo base_url("administrator/competitions/" . $segment->competition_id . "/segments/" . $segment->id . "/judges/get"); ?>" class="btn btn-default" id="get-judge">Get from Segment</a>
-</p>
+<div class="text-right" style="margin: 0 0 10px;">
+    <div class="btn-group">
+	<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+	    Import from Segment <span class="caret"></span>
+	</button>
+	
+	<ul class="dropdown-menu" role="menu">
+	<?php
+	    foreach($competition->segments() AS $s)
+	    {
+		if($s->id <> $segment->id)
+		{ ?>
+	    <li>
+		<?php echo anchor("administrator/competitions/" . $competition->id . "/segments/" . $segment->id . "/judges/import/" . $s->id, $s->name, "class='import-judge'"); ?>
+	    </li>
+	<?php
+		}
+	    } ?>
+	</ul>
+    </div>
+    <a href="<?php echo base_url("administrator/competitions/" . $competition->id . "/segments/" . $segment->id . "/judges/create"); ?>" class="btn btn-default" id="create-judge">Create</a>
+</div>
 
 <div class="row">
     <div class="col-md-12">
         <table class="table table-striped table-bordered">
             <thead>
                 <tr>
-                    <th>ID</th>
+                    <th>#</th>
                     <th>Name</th>
                     <th>Username</th>
                     <th>Status</th>
@@ -23,7 +41,7 @@
                 {
 		    $judge = $segment_judge->judge(); ?>
                 <tr>
-                    <td><?php echo $judge->id; ?></td>
+                    <td><?php echo $segment_judge->number; ?></td>
                     <td><?php echo $judge->first_name . " " . $judge->last_name; ?></td>
                     <td><?php echo $judge->username; ?></td>
                     <td><?php echo $segment_judge->status; ?></td>

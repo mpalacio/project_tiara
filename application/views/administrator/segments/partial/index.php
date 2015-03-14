@@ -28,7 +28,13 @@
                     <td><?php echo $segment->venue; ?></td>
                     <td><?php echo $segment->description; ?></td>
                     <td><?php echo $segment->date; ?></td>
-                    <td><?php echo $segment->status; ?></td>
+                    <td class="col-md-1">
+                        <div class="input-group">
+                            <span class="input-group-addon" id="sizing-addon2"><span class="glyphicon glyphicon-eye-<?php echo ($segment->status) ? "open" : "close"; ?>"></span></span>
+                        <?php
+                            echo anchor("administrator/competitions/" . $competition->id . "/segments/" . (($segment->status) ? "close" : "open") . "/" . $segment->id, (($segment->status) ? "Close" : "Open"), "class='btn btn-default btn-sm segment-change-status'"); ?>
+                        </div>
+                    </td>
                     <td class="hidden-print">
                         <?php echo anchor("administrator/segment/edit/" . $segment->id, "Edit", "class='edit-competitions btn btn-default btn-sm'"); ?>
                         <?php echo anchor("administrator/segment/delete/" . $segment->id, "Delete", "class='btn btn-default btn-sm'"); ?>

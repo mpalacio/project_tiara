@@ -1,7 +1,6 @@
 <?php if ( ! defined("BASEPATH")) exit("No direct script access allowed");
 
 class Segments extends PT_Controller {
-    
     public function __construct()
     {
         parent::__construct();
@@ -28,12 +27,59 @@ class Segments extends PT_Controller {
         
         $this->load->view("template/footer", array(
                 "scripts" => array(
-                    "tiara/admin/competitions"
+                    "tiara/main",
+                    "tiara/admin/competitions",
+                    "tiara/admin/segments"
                 )
             )
         );
     }
     
+    public function close($id, $competition_id)
+    {
+        $competition = $this->competition_model->get($competition_id);
+	
+	$segment = $competition->segment($id);
+        
+        $segment->status = 0;
+        
+        $segment->update();
+        
+        foreach($segment->judges() AS $segment_judge)
+        {
+            $segment_judge->status = 0;
+            $segment_judge->update();
+        }
+        
+        $data = array(
+	    "partial" => $this->load->view("administrator/segments/partial/index", array("competition" => $competition), TRUE)
+	);
+        
+        echo $this->response->success($data);
+    }
+    
+    public function open($id, $competition_id)
+    {
+        $competition = $this->competition_model->get($competition_id);
+	
+	$segment = $competition->segment($id);
+        
+        $segment->status = 1;
+        
+        $segment->update();
+        
+        foreach($segment->judges() AS $segment_judge)
+        {
+            $segment_judge->status = 1;
+            $segment_judge->update();
+        }
+        
+        $data = array(
+	    "partial" => $this->load->view("administrator/segments/partial/index", array("competition" => $competition), TRUE)
+	);
+        
+        echo $this->response->success($data);
+    }
     public function view($id, $competition_id)
     {
         $competition = $this->competition_model->get($competition_id);
@@ -83,6 +129,8 @@ class Segments extends PT_Controller {
     }
     public function rankings($limit = 0, $id, $competition_id = 0)
     {
+        $this->benchmark->mark( __FUNCTION__ . "-begin");
+        
         $this->load->model("admin/Competition_model", "competition_model");
 	
 	$competition = $this->competition_model->get($competition_id);
@@ -102,5 +150,9 @@ class Segments extends PT_Controller {
 	$this->load->view($segment_page->segment, array("competition" => $competition, "segment" => $segment, "limit" => $limit));
 	
 	$this->load->view("template/footer");
+        
+        $this->benchmark->mark(__FUNCTION__ . "-end");
+        
+        // echo $this->benchmark->elapsed_time(__FUNCTION__ . "-begin", __FUNCTION__ . "-end");
     }
 }

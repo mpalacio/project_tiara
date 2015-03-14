@@ -52,3 +52,26 @@ body {
 .popover .close {
     margin-top: -2px;
 }
+.bs-callout {
+    padding: 16px;
+    margin-bottom: 15px;
+    border: 1px solid #eee;
+    border-right-width: 5px;
+    border-radius: 3px;
+}
+.segment-change-status {
+    width: 100%;
+    border-top-left-radius: 0px;
+    border-bottom-left-radius: 0px;
+}
+.bs-callout ul {
+    margin-bottom: 0;
+}
+.bs-callout-danger {
+    border-right-color: #ce4844;
+}
+.bs-callout h4 {
+    font-weight: bold;
+    margin: 0 0 5px;
+    color: #ce4844;
+}

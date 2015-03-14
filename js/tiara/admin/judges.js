@@ -37,7 +37,7 @@ $(document).ready(function() {
         })
     })
     
-    $('#get-judge').click(function(event) {
+    $('#judges').delegate('.import-judge', 'click', function(event) {
         event.preventDefault()
         
         var href = $(this).attr("href")
@@ -49,7 +49,7 @@ $(document).ready(function() {
                     response = $.parseJSON(response)
                     
                     if (response.status == "success") {
-                        $('.modal').html(response.data.modal).modal('show')
+                        $('.modal').html(response.success.data.modal).modal('show')
                         
                         //window.history.replaceState({}, null, href)
                     }
@@ -68,12 +68,54 @@ $(document).ready(function() {
      */
     $('.modal').delegate('#save-judge', 'click', function() {
         var judge = new Judge()
-        judge.get()
+            judge.get()
+        
+        var segment_judge = new Segment_judge()
+            segment_judge.number = $.trim($('#number').val())
         
         var href = $('.modal form').attr('action')
         
         $.post(href, {
-            judge: JSON.stringify(judge)
+            judge: JSON.stringify(judge),
+            segment_judge: JSON.stringify(segment_judge)
+        }, function(response) {
+            response = parseJSON(response)
+            
+            if (response.status == 'success') {
+                $('#judges').html(response.success.data.partial)
+                
+                $('.modal').modal('hide')
+            }
+        })
+    })
+    /**
+     * 
+     */
+    $('.modal').delegate('#select-segment-judges', 'change', function() {
+        var s = $(this)
+        
+        $('.' + s.attr('data-target')).each(function() {
+            $(this).prop('checked', s.is(':checked'))
+        })
+    })
+    /**
+     */
+    $('.modal').delegate('#import-segment-judge', 'click', function() {
+        var href = $('.modal form').attr('action')
+        
+        var segment_judges = [];
+        
+        $('.segment-judge:checked').each(function() {
+            var segment_judge = new Segment_judge()
+            
+            segment_judge.judge_id = $(this).attr('data-judge')
+            segment_judge.number = $(this).closest('tr').find('.segment-judge-number').val()
+            segment_judges.push(segment_judge)
+        })
+        
+        
+        $.post(href, {
+            segment_judges: JSON.stringify(segment_judges),
         }, function(response) {
             response = parseJSON(response)
             
@@ -101,4 +143,12 @@ function Judge() {
         this.username = $.trim($('#username').val())
         this.password = $.trim($('#password').val())
     }
+}
+
+function Segment_judge() {
+    this.segment_id = 0;
+    
+    this.judge_id = 0;
+    
+    this.number = 0;
 }

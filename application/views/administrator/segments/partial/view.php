@@ -24,7 +24,7 @@
                 </div>
                 
                 <div role="tabpanel" class="tab-pane" id="judges">
-                <?php $this->load->view("administrator/judges/partial/index", array("segment" => $segment)); ?>
+                <?php $this->load->view("administrator/judges/partial/index", array("competition" => $competition, "segment" => $segment)); ?>
                 </div>
                 
                 <div role="tabpanel" class="tab-pane" id="rankings">

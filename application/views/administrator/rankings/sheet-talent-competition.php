@@ -49,14 +49,14 @@
 			
 			$total_score = $total_score + $score;
 			
-			$deportment = $segment_contestant->criteria_score(10, $segment_judge->id); ?>
+			$deportment = $segment_contestant->score_by_criteria(10, $segment_judge->id); ?>
 		    <td class="text-right"><?php echo $score - $deportment; ?></td>
 		    <td class="text-right"><?php echo number_format($deportment, 2); ?></td>
 		<?php
 		    } ?>
-		    <td class="text-right"><?php echo number_format($total_score, 2); ?></td>
-		    <td class="text-right"><?php echo number_format($segment_contestant->average_score(), 2); ?></td>
-		    <td class="text-right"><?php echo number_format($segment_contestant->average_score() * 0.15, 2); ?></td>
+		    <td class="text-right"><?php echo number_format($segment_contestant->sum_score_by_segment_judge_segment_ac(), 2); ?></td>
+		    <td class="text-right"><?php echo number_format($segment_contestant->score_by_average(), 2); ?></td>
+		    <td class="text-right"><?php echo number_format($segment_contestant->score_by_average() * 0.15, 2); ?></td>
 		</tr>
 	    <?php
 		} ?>

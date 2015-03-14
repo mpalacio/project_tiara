@@ -2,7 +2,7 @@
 /**
  * Segment Contestant Model
  *
- * @version 2.0
+ * @version 2.1
  */
 class Segment_contestant_model extends PT_Model {
     public static $table = "segment_contestants";
@@ -23,9 +23,11 @@ class Segment_contestant_model extends PT_Model {
     /**
      * Get Segment Constestant Average Score
      *
+     * Description
+     * 
      * @since 2.0
      */
-    public function average_score()
+    public function score_by_average()
     {
         $score = 0.00;
         
@@ -58,7 +60,7 @@ class Segment_contestant_model extends PT_Model {
                 $score = $row["score"];
             }
             
-            $score = $score + $this->_get_composite_score();
+            $score = $score + $this->sum_score_by_segment_ac();
         }
         
         return $score;
@@ -76,46 +78,12 @@ class Segment_contestant_model extends PT_Model {
     }
     
     /**
-     * @since 2.0
-     */
-    public function criteria_score($criteria_id = 0, $segment_judge_id = 0)
-    {
-        $score = 0.00;
-	
-	if($this->id)
-	{
-	    $this->load->model("admin/Criteria_score_model", "criteria_score_model");
-	    $criteria_score = $this->criteria_score_model->get(0, $criteria_id, $segment_judge_id, $this->id);
-	    
-	    $score = $criteria_score->score;
-	}
-	
-	return $score;
-    }
-    /**
-     * @since 2.0
-     */
-    public function composite_score($composite_id = 0)
-    {
-        $score = 0.00;
-        
-        if($this->id)
-        {
-            $this->load->model("admim/Composite_model", "composite_model");
-            
-            $composite = $this->composite_model->get($composite_id);
-            
-            $segment = $composite->source();
-            
-            $segment_contestant = $segment->contestant($this->contestant_id);
-            
-            $score = $segment_contestant->average_score() * ($composite->percentage / 100);
-        }
-        
-        return $score;
-    }
-    /**
-     * Get Segment Contestant Segment Score (Segment Judge + Composite Score)
+     *
+     * Segment Contestant Score in
+     * Segment Judge and Segments as Criteria
+     *
+     * @alias Total
+     * @since 2.1
      */
     public function score($segment_judge_id = 0)
     {
@@ -123,17 +91,44 @@ class Segment_contestant_model extends PT_Model {
         
         if($this->id)
         {
-            $score = $this->segment_judge_score($segment_judge_id);
+            $score = $this->score_by_segment_judge($segment_judge_id);
             
-            $score = $score + $this->_get_composite_score();
+            $score = $score + $this->sum_score_by_segment_ac();
         }
         
         return $score;
     }
     /**
-     * @since 2.0
+     * Title
+     *
+     * Description
+     *
+     * @since 2.1
      */
-    public function segment_judge_score($segment_judge_id = 0)
+    public function score_by_criteria($id = 0, $segment_judge_id = 0)
+    {
+        $score = 0.00;
+        
+        if($this->id)
+        {
+            $this->load->model("admin/Criteria_score_model", "criteria_score_model");
+	    $criteria_score = $this->criteria_score_model->get(0, $id, $segment_judge_id, $this->id);
+            
+            $score = $criteria_score->score;
+        }
+        
+        return $score;
+    }
+    /**
+     * Title
+     *
+     * Segment Contestant Score
+     * in a Segment Judge
+     * 
+     * 
+     * @since 2.1
+     */
+    public function score_by_segment_judge($segment_judge_id = 0)
     {
         $score = 0.00;
         
@@ -163,6 +158,112 @@ class Segment_contestant_model extends PT_Model {
         
         return $score;
     }
+    /**
+     * Title
+     *
+     * The Segment Contestant Score
+     * in a Segment as Criteria
+     * 
+     * @since 2.1
+     */
+    public function score_by_segment_ac($segment_ac_id = 0)
+    {
+        $score = 0.00;
+        
+        if($this->id)
+        {
+            $this->load->model("admim/Segment_ac_model", "segment_ac_model");
+            
+            $segment_ac = $this->segment_ac_model->get($segment_ac_id);
+            
+            $segment = $segment_ac->source();
+            
+            $segment_contestant = $segment->contestant($this->contestant_id);
+            
+            $score = $segment_contestant->score_by_average() * ($segment_ac->percentage / 100);
+        }
+        
+        return $score;
+    }
+    /**
+     * Title
+     *
+     * The Sum of Segment Contestant Scores
+     * in Segments as Criteria
+     * 
+     * @since 2.1
+     */
+    public function sum_score_by_segment_ac()
+    {
+        $score = 0.00;
+        
+        if($this->id)
+        {
+            $segment = $this->segment();
+            
+            foreach($segment->segments_ac() AS $segment_ac)
+            {
+                // Segment
+                $segment = $segment_ac->source();
+                
+                // Get Segment Contestant
+                $segment_contestant = $segment->contestant($this->contestant_id);
+                
+                $score = $score + $segment_contestant->score_by_average() * ($segment_ac->percentage / 100) ;
+            }
+        }
+        
+        return $score;
+    }
+    /**
+     * Title
+     *
+     * Description
+     *
+     * @alias Total Score
+     * @since 2.1
+     */
+    public function sum_score_by_segment_judge_segment_ac()
+    {
+        $score = 0.00;
+        
+        if($this->id)
+        {
+            $segment = $this->segment();
+        
+            $sql = "SELECT
+                segment_contestant_id,
+                SUM(`score`) AS `score`,
+                `count`
+            FROM
+                `criteria_scores`,
+                (
+                    SELECT
+                        COUNT(`id`) AS `count` 
+                    FROM
+                        `segment_judges`
+                    WHERE
+                        `segment_id` = " . $this->segment_id . "
+                ) judges
+            WHERE
+                `segment_contestant_id` = " . $this->id . "
+            GROUP BY
+                `segment_contestant_id`";
+                
+            $query = $this->db->query($sql);
+            
+            if($query->num_rows())
+            {
+                $row = $query->row_array();
+                $score = $row["score"];
+            }
+            
+            $score = $score + (count($segment->judges()) * $this->sum_score_by_segment_ac());
+        }
+        
+        return $score;
+    }
+    
     // OK
     public function contestant()
     {
@@ -275,7 +376,7 @@ class Segment_contestant_model extends PT_Model {
         
         return ($limit) ? array_splice($segment_contestants, 0, $limit) : $segment_contestants;
     }
-    // OK
+    // OK deprecated
     public function rank($segment_judge_id = 0)
     {
         $average = 0.00;
@@ -344,6 +445,52 @@ class Segment_contestant_model extends PT_Model {
         
         return $average;
     }
+    /**
+     * Title
+     *
+     * Description
+     * 
+     * @alias Rank
+     * @since 2.1
+     */
+    public function rank_by_judge($segment_judge_id = 0)
+    {
+        $rank_by_judge = 0.00;
+        
+        if($this->id)
+        {
+            $segment = $this->segment();
+            
+            $segment_contestants = array();
+            
+            foreach($segment->contestants() AS $segment_contestant)
+                $segment_contestants[$segment_contestant->id] = $segment_contestant->score($segment_judge_id);
+            
+            arsort($segment_contestants);
+            
+            $ranking = array();
+            $rank = 1;
+            
+            foreach($segment_contestants AS $id => $score)
+            {
+                $ranking[$rank] = array("id" => $id, "score" => $score);
+                $rank++;
+            }
+            
+            foreach($ranking AS $rank => $segment_contestant)
+            {
+                if($segment_contestant["score"] == $segment_contestants[$this->id])
+                {
+                    $occurence++;
+                    $sum = $sum + $rank;
+                }
+            }
+            
+            $rank_by_judge = $sum / $occurence;
+        }
+        
+        return $rank_by_judge;
+    }
     // OK
     public function segment()
     {
@@ -360,7 +507,7 @@ class Segment_contestant_model extends PT_Model {
     }
 
     
-    // OK
+    // OK depre
     public function total_rank()
     {
         $total = 0.00;
@@ -379,36 +526,118 @@ class Segment_contestant_model extends PT_Model {
     }
     
     /**
-     * since 2.0
+     * @alias Total Rank
+     * @since 2.1
      */
-    private function _get_composite_score()
+    public function sum_rank_by_judge()
     {
-        $score = 0.00;
+        $sum = 0.00;
         
         if($this->id)
         {
-            /**
-             * Get Segment Contestant Score - Compound Criteria
-             * @code begin
-             */
             $segment = $this->segment();
             
-            foreach($segment->composites() AS $composite)
+            foreach($segment->judges() AS $segment_judge)
             {
-                // Segment
-                $segment = $composite->source();
-                
-                // Get Segment Contestant
-                $segment_contestant = $segment->contestant($this->contestant_id);
-                
-                $score = $score + $segment_contestant->average_score() * ($composite->percentage / 100) ;
+                $sum = $sum + $this->rank_by_judge($segment_judge->id);
             }
-            /**
-             * Get Segment Contestant Score - Composite Criteria
-             * @code end
-             */
         }
         
-        return $score;
+        return $sum;
     }
+    /**
+     * Title
+     *
+     * Description
+     *
+     * @alias Final Rank
+     * @since 2.1
+     */
+    public function rank_by_sum_rank_by_judge()
+    {
+        $rank_by_sum = 0.00;
+        
+        if($this->id)
+        {
+            $segment = $this->segment();
+            
+            $segment_contestants = array();
+            
+            foreach($segment->contestants() AS $segment_contestant)
+                $segment_contestants[$segment_contestant->id] = $segment_contestant->sum_rank_by_judge();
+                
+            asort($segment_contestants);
+            
+            $ranking = array();
+            $rank = 1;
+            
+            $sum = $occurence = 0;
+            
+            foreach($segment_contestants AS $id => $sum_rank)
+            {
+                $ranking[$rank] = array("id" => $id, "sum" => $sum_rank);
+                $rank++;
+            }
+            
+            foreach($ranking AS $rank => $segment_contestant)
+            {
+                if($segment_contestant["sum"] == $segment_contestants[$this->id])
+                {
+                    $occurence++;
+                    $sum = $sum + $rank;
+                }
+            }
+           
+            $rank_by_sum = $sum / $occurence;
+        }
+        
+        return $rank_by_sum;
+    }
+    /**
+     * Title
+     *
+     * Description
+     *
+     * @since 2.1
+     */
+    public function rank_by_average()
+    {
+        $rank_by_average = 0.00;
+        
+        if($this->id)
+        {
+            $segment = $this->segment();
+            
+            $segment_contestants = array();
+            
+            foreach($segment->contestants() AS $segment_contestant)
+                $segment_contestants[$segment_contestant->id] = $segment_contestant->score_by_average();
+            
+            arsort($segment_contestants);
+            
+            $ranking = array();
+            $rank = 1;
+            
+            $sum = $occurence = 0;
+            
+            foreach($segment_contestants AS $id => $average)
+            {
+                $ranking[$rank] = array("id" => $id, "average" => $average);
+                $rank++;
+            }
+            
+            foreach($ranking AS $rank => $segment_contestant)
+            {
+                if($segment_contestant["average"] == $segment_contestants[$this->id])
+                {
+                    $occurence++;
+                    $sum = $sum + $rank;
+                }
+            }
+            
+            $rank_by_average = $sum / $occurence;
+        }
+        
+        return $rank_by_average;
+    }    
 }

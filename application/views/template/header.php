@@ -17,4 +17,4 @@
     <body>
         <?php echo $nav; ?>
         
-        <div class="container">
+        <div class="container main">

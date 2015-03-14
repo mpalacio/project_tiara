@@ -1,7 +1,7 @@
 $(document).ready(function() {
-    $('.contestant-criteria-score').inputmask({'mask':'(9)|(99)', greedy: false, rightAlign: true})
+    $('.contestant-criteria-score.input').inputmask({'mask':'(9)|(99)', greedy: false, rightAlign: true})
     
-    $('.contestant-criteria-score').keyup(function(event) {
+    $('.contestant-criteria-score.input').keyup(function(event) {
 	if (event.which == 13) {
 	    var score = $(this).val()
 		score = parseFloat(score)
@@ -45,10 +45,10 @@ $(document).ready(function() {
 		    
 		    // Move to next input
 		    var td = $(this).closest('td').next('td')
-		    var input = td.find('.contestant-criteria-score')
+		    var input = td.find('.contestant-criteria-score.input')
 		    
 		    if (input.length == 0) {
-			$(this).closest('tr').next().find('.contestant-criteria-score').first().focus()
+			$(this).closest('tr').next().find('.contestant-criteria-score.input').first().focus()
 		    } else {
 			input.focus()
 		    }

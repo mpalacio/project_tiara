@@ -1,13 +1,17 @@
 <?php if ( ! defined("BASEPATH")) exit("No direct script access allowed");
 
-class Composite_model extends PT_Model {
-    public static $table = "`composites`";
+class Segment_ac_model extends PT_Model {
+    public static $table = "`segments_as_criteria`";
     
     public $id = 0;
     
     public $segment_id = 0;
     
+    public $alias = NULL;
+    
     public $source_segment_id = 0;
+    
+    public $visibility = 1;
     
     public $percentage = 0.00;
     

@@ -9,6 +9,8 @@ class Segment_judge_model extends PT_Model {
     
     public $judge_id = 0;
     
+    public $number = 0;
+    
     public $status = 1;
     /**
      * Class Constructor
@@ -47,7 +49,9 @@ class Segment_judge_model extends PT_Model {
         
 	if($segment_id)    
 	    $where["segment_id"] = $segment_id;
-            
+        
+	$this->db->order_by("number", "asc");
+	
         $this->db->where($where);
         
         $query = $this->db->get(self::$table);

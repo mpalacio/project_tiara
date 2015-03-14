@@ -42,7 +42,7 @@
             else
             { ?>
                 <tr>
-                    <td colspan="7"></td>
+                    <td colspan="7">&nbsp;</td>
                 </tr>
         <?php
             } ?>
@@ -50,7 +50,7 @@
 	    
 	    <tfoot>
                 <tr>
-                    <td colspan="7">Total: 1</td>
+                    <td colspan="7">Total: <?php echo count($judge_segments); ?></td>
                 </tr>
             </tfoot>
 	</table>

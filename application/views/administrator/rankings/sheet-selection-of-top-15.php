@@ -43,7 +43,7 @@
 		    foreach($segment_judges AS $index => $segment_judge)
 		    { ?>
 		    <td class="text-right"><?php echo $segment_contestant->score($segment_judge->id); ?></td>
-		    <td class="text-right"><?php echo $segment_contestant->rank($segment_judge->id); ?></td>
+		    <td class="text-right"><?php echo $segment_contestant->rank_by_judge($segment_judge->id); ?></td>
 		<?php
 		    } ?>
 		    <td class="text-right"><?php echo $segment_contestant->total_rank(); ?></td>

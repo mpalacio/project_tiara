@@ -46,7 +46,7 @@ class Judges extends PT_Controller {
 	}
     }
     
-    public function get($segment_id, $competition_id)
+    public function import($source_segment_id, $segment_id, $competition_id)
     {
 	$this->load->model("admin/Competition_model", "competition_model");
 	
@@ -55,7 +55,7 @@ class Judges extends PT_Controller {
 	{
 	    $competition = $this->competition_model->get($competition_id);
 	    
-	    $data = array("modal" => $this->load->view("administrator/judges/modal/get", array("segment" => $competition->segment($segment_id)), TRUE));
+	    $data = array("modal" => $this->load->view("administrator/judges/modal/import", array("source_segment" => $competition->segment($source_segment_id), "segment" => $competition->segment($segment_id)), TRUE));
             
             echo $this->response->success($data);
 	}
@@ -64,6 +64,32 @@ class Judges extends PT_Controller {
 	{
 	    
 	}
+    }
+    public function join($segment_id, $competition_id)
+    {
+	$segment_judges = json_decode($this->input->post("segment_judges"), TRUE);
+	
+	$this->load->model("admin/Segment_model", "segment_model");
+	
+	$segment = $this->segment_model->get($segment_id, $competition_id);
+	
+	if($segment AND count($segment_judges))
+	{
+	    $this->load->model("admin/Segment_judge_model", "segment_judge_model");
+	    
+	    foreach($segment_judges AS $segment_judge)
+	    {
+		$segment_judge["segment_id"] = $segment->id;
+		
+		$this->segment_judge_model->create($segment_judge);
+	    }
+	}
+	
+	$data = array(
+	    "partial" => $this->load->view("administrator/judges/partial/index", array("competition" => $segment->competition(), "segment" => $segment), TRUE)
+	);
+	
+	echo $this->response->success($data);
     }
     /**
      * Save Judge
@@ -78,7 +104,7 @@ class Judges extends PT_Controller {
     {
 	$judge = json_decode($this->input->post("judge"), TRUE);
     
-	$segment_judge = NULL;
+	$segment_judge = json_decode($this->input->post("segment_judge"), TRUE);
     
 	$this->load->model("admin/Segment_model", "segment_model");
 	
@@ -108,7 +134,10 @@ class Judges extends PT_Controller {
 	    {
 		$this->load->model("admin/Segment_judge_model", "segment_judge_model");
 		
-		$segment_judge = $this->segment_judge_model->create(array("segment_id" => $segment->id, "judge_id" => $judge->id));
+		$segment_judge["segment_id"] = $segment->id;
+		$segment_judge["judge_id"] = $judge->id;
+		
+		$segment_judge = $this->segment_judge_model->create($segment_judge);
 	    }
 	    /**
 	     * Create New Segment Judge
@@ -117,7 +146,7 @@ class Judges extends PT_Controller {
 	}
 	
 	$data = array(
-	    "partial" => $this->load->view("administrator/judges/partial/index", array("segment" => $segment_judge->segment()), TRUE)
+	    "partial" => $this->load->view("administrator/judges/partial/index", array("segment" => $segment), TRUE)
 	);
 	
 	echo $this->response->success($data);

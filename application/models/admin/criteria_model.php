@@ -13,6 +13,8 @@ class Criteria_model extends PT_Model {
     
     public $percentage = 0.00;
     
+    public $readonly = 0;
+    
     public $visibility = 1;
     
     public function __construct()
@@ -29,7 +31,7 @@ class Criteria_model extends PT_Model {
 	    
 	if($segment_id)
 	    $where["segment_id"] = $segment_id;
-	    
+	 
 	$this->db->where($where);
 	
 	$query = $this->db->get(self::$table);

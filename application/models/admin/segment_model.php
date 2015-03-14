@@ -55,6 +55,19 @@ class Segment_model extends PT_Model {
         
         return $criterias;
     }
+    public function competition()
+    {
+        $competition = NULL;
+        
+        if($this->id)
+        {
+            $this->load->model("admin/Competition_model", "competition_model");
+            
+            $competition = $this->competition_model->get($this->competition_id);
+        }
+        
+        return $competition;
+    }
     // OK
     public function contestant($contestant_id = 0)
     {
@@ -204,17 +217,31 @@ class Segment_model extends PT_Model {
     /**
      * @since 1.1
      */
-    public function composites()
+    public function segments_ac()
     {
-        $composites = array();
+        $segments_ac = array();
         
         if($this->id)
         {
-            $this->load->model("admin/Composite_model", "composite_model");
+            $this->load->model("admin/Segment_ac_model", "segment_ac_model");
             
-            $composites = $this->composite_model->get(0, $this->id);
+            $segments_ac = $this->segment_ac_model->get(0, $this->id);
         }
         
-        return $composites;
+        return $segments_ac;
+    }
+    
+    public function update()
+    {
+        if($this->id)
+	{
+	    $this->db->where(array("id" => $this->id));
+	    
+	    $segment = $this;
+	    
+	    $this->db->update(self::$table, $segment);
+	}
+        
+        return $segment;
     }
 }

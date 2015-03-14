@@ -3,6 +3,8 @@
 	html, body {
 	    width: 8.5in;
 	    height: 13in;
+	    -webkit-print-color-adjust: exact;
+	    print-color-adjust: exact;
 	}
 	.container {
 	    width: 13in !important;
@@ -14,6 +16,8 @@
 	}
 	th, td {
 	    font-size: 12px;
+	    border-color: green;
+	    box-shadow: inset 0 0 0 1000px gold;
 	}
 	.page {
 	    page-break-after: always;
@@ -32,7 +36,7 @@
     
     $count = count($segment_judges);
     
-    $columns = 6; // Number of Judges Per Page
+    $columns = 8; // Number of Judges Per Page
     
     if($count > $columns - 2)
     {
@@ -67,9 +71,9 @@
 		<tr>
 	    <?php
 		if($page == 0) // Print Contestant Number and Name
-		{ ?>
+		    { ?>
 		    <th rowspan="2" class="col-xs-1 col-sm-1 col-md-1 col-lg-1">#</th>
-		    <th rowspan="2" class="col-xs-2 col-sm-2">Name of Contestants</th>
+		    <th rowspan="2" class="col-xs-5 col-sm-5">Name of Contestants</th>
 	    <?php
 		}
 		
@@ -86,43 +90,38 @@
 		{
 		    $limit = $count;
 		}
-		
+		    
 		for($j = 0; $j < $limit; $j++)
 		{ ?>
 		    <th colspan="4">Judge <?php echo $j + $offset + 1; ?></th>
 	    <?php
 		}
-		
+	    
 		if($page == $pages - 1)
 		{ ?>
 		    <th rowspan="2">Total Score</th>
-		    <th rowspan="2">AVG</th>
+		    <th rowspan="2">Total Rank</th>
 		    <th rowspan="2">Final Rank</th>
 	    <?php
 		} ?>
 		</tr>
-		
 		<tr>
+	    <?php
+		for($j = 0; $j < $limit; $j++)
+		{ ?>
 		<?php
-		    for($j = 0; $j < $limit; $j++)
+		    foreach($segments_ac AS $segment_ac)
 		    { ?>
-			<td>Int <br />(25)</td>
-			<td>On Stage <br />(60)</td>
-		    <?php
-			foreach($segments_ac AS $segment_ac)
-			{ ?>
-			<td>
-			    <?php echo ucwords($segment_ac->alias) . " (" . number_format($segment_ac->percentage, 0) . ")"; ?>
-			</td>
-		    <?php
-			} ?>
-			<td>Total <br />(100)</td>
+		    <td>
+			<?php echo ucwords($segment_ac->alias) . " (" . number_format($segment_ac->percentage, 0) . "%)"; ?>
+		    </td>
+		    <td>QA (50%)</td>
+		    <td>Total</td>
+		    <td>Rank</td>
 		<?php
-		    } ?>
+		    }
+		} ?>
 		</tr>
-		<?php
-		    
-		?>
 	    </thead>
 	    <tbody>
 	    <?php
@@ -139,18 +138,10 @@
 		    <td><?php echo htmlentities($contestant->last_name . ", " . $contestant->first_name); ?></td>
 		<?php
 		    }
-		    
+		     
 		    for($j = 0; $j < $limit; $j++)
 		    {
-			$segment_judge = $segment_judges[$j + $offset];
-			$intelligence = $segment_contestant->score_by_criteria(11, $segment_judge->id); ?>
-			<td class="text-right">
-			    <?php echo number_format($intelligence, 2); ?>
-			</td>
-			
-			<td class="text-right">
-			    <?php echo number_format($segment_contestant->score_by_segment_judge($segment_judge->id) - $intelligence, 2); ?>
-			</td>
+			$segment_judge = $segment_judges[$j + $offset]; ?>
 		    <?php
 			foreach($segments_ac AS $segment_ac)
 			{ ?>
@@ -160,7 +151,13 @@
 		    <?php
 			} ?>
 			<td class="text-right">
+			    <?php echo number_format($segment_contestant->score_by_segment_judge($segment_judge->id), 2); ?>
+			</td>
+			<td class="text-right">
 			    <?php echo number_format($segment_contestant->score($segment_judge->id), 2); ?>
+			</td>
+			<td class="text-right">
+			    <?php echo $segment_contestant->rank_by_judge($segment_judge->id); ?>
 			</td>
 		<?php
 		    }
@@ -171,15 +168,16 @@
 			    <?php echo number_format($segment_contestant->sum_score_by_segment_judge_segment_ac(), 2); ?>
 			</td>
 			<td class="text-right">
-			    <?php echo number_format($segment_contestant->score_by_average(), 2); ?>
+			    <?php echo $segment_contestant->sum_rank_by_judge(); ?>
 			</td>
-			<td class="text-right" data-contestant="<?php echo $contestant->id; ?>">
-			    <?php echo $segment_contestant->rank_by_average(); ?>
+			<td class="text-right" style="border-color: green; border-left-color: #aa6708;">
+			    <?php echo $segment_contestant->rank_by_sum_rank_by_judge(); ?>
 			</td>
 		<?php
-		    }
-		} ?>
+		    } ?>
 		</tr>
+	    <?php
+		} ?>
 	    </tbody>
 	</table>
     </div>
@@ -201,5 +199,4 @@
 </div>
 <?php
 	$offset = $offset + $limit;
-    }
-?>
+    } ?>
